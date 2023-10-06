@@ -18,7 +18,7 @@ import java.util.Set;
 public class UserPermission {
     @Id
     @Column(name = "permission_id", nullable = false, unique = true)
-    @GeneratedValue(generator = "auto_increment")
+//    @GeneratedValue(generator = "auto_increment")
     private int permissionId;
 
     @Column(name = "role", nullable = false, unique = true)
