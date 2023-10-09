@@ -10,8 +10,6 @@ import java.util.List;
 @Service
 public class SysllabusServiceImpl implements SyllabusService {
     @Autowired
-    SyllabusService syllabusService;
-    @Autowired
     SyllabusRepository syllabusRepository;
     @Override
     public List<Syllabus> getAll() {

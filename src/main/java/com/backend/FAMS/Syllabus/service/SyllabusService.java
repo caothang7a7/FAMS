@@ -6,6 +6,5 @@ import java.util.List;
 
 public interface SyllabusService {
     List<Syllabus> getAll();
-
     void createSyllabus();
 }
