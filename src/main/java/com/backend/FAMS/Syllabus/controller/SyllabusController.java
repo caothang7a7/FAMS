@@ -1,5 +1,6 @@
 package com.backend.FAMS.Syllabus.controller;
 
+import com.backend.FAMS.Syllabus.dto.SyllabusDTO;
 import com.backend.FAMS.Syllabus.entity.Syllabus;
 import com.backend.FAMS.Syllabus.service.servicesImpl.SyllabusServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,9 @@ public class SyllabusController {
        return new ResponseEntity<List<Syllabus>>(sysllabusService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Optional<Syllabus>> getSyllabusById(@PathVariable("id") String id){
-        return new ResponseEntity<Optional<Syllabus>>(sysllabusService.getSysllabusById(id), HttpStatus.OK);
+    @GetMapping("/{topicCode}")
+    public ResponseEntity<SyllabusDTO> getSyllabusById(@PathVariable("topicCode") String topicCode){
+        return new ResponseEntity<SyllabusDTO>(sysllabusService.getSysllabusById(topicCode), HttpStatus.OK);
     }
 
 }
