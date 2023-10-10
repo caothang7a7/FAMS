@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class SyllabusServiceImpl implements SyllabusService {
     @Autowired
@@ -26,5 +28,10 @@ public class SyllabusServiceImpl implements SyllabusService {
     public SyllabusDTO createSyllabusOtherScreen(SyllabusDTO syllabusDTO,String topicCode) {
         Syllabus syllabus = syllabusRepository.findById(topicCode).orElseThrow();
         return null;
+    }
+
+    @Override
+    public Optional<Syllabus> getSysllabusById(String id){
+        return syllabusRepository.findById(id);
     }
 }
