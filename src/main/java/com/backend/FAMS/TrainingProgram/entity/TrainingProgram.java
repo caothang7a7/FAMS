@@ -29,6 +29,9 @@ public class TrainingProgram {
     @Column(name = "start_time", nullable = false)
     private Date startTime;
 
+    @Column(name = "duration", nullable = true)
+    private int duration;
+
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     private TrainingProgramStatus status;
