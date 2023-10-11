@@ -27,4 +27,10 @@ public class SyllabusDTO {
     private String modifiedBy;
     private Date modifiedDate;
 
+    private int trainingProgramDuration;
+    private String learningObjectiveType;
+    private String userLevel;
+    private String outputStandard;
+    private String courseObjective;
+
 }
