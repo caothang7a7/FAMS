@@ -1,12 +1,15 @@
 package com.backend.FAMS.Syllabus.controller;
 
 
+import com.backend.FAMS.Syllabus.dto.SyllabusDTO;
 import com.backend.FAMS.Syllabus.entity.Syllabus;
 import com.backend.FAMS.Syllabus.service.SyllabusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,9 +21,9 @@ import java.util.Optional;
 public class SyllabusController {
     @Autowired
     SyllabusService syllabusService;
-    @GetMapping
-    public ResponseEntity<List<Syllabus>>  getAllSyllabus(){
-       return new ResponseEntity<List<Syllabus>>(syllabusService.getListSyllabus(), HttpStatus.OK);
+    @GetMapping("list-syllabus/{topicCode}")
+    public ResponseEntity<List<SyllabusDTO>>  getAllSyllabus(@PathVariable("topicCode") String topicCode){
+       return new ResponseEntity<>(syllabusService.getListSyllabus(topicCode), HttpStatus.OK);
     }
 
 

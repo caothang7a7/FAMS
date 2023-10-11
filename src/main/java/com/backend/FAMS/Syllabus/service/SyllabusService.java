@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SyllabusService {
-    List<Syllabus> getListSyllabus();
+    List<SyllabusDTO> getListSyllabus(String topicCode);
     void createSyllabus();
 
     SyllabusDTO createSyllabusOtherScreen(SyllabusDTO syllabusDTO, String topicCode);
