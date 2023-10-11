@@ -1,10 +1,6 @@
 package com.backend.FAMS.Syllabus.controller;
 
-<<<<<<< HEAD
-
-=======
 import com.backend.FAMS.Syllabus.dto.SyllabusDTO;
->>>>>>> 9dcde7c32cc915f5b0e4fc31d7a7d1df0be1fe94
 import com.backend.FAMS.Syllabus.entity.Syllabus;
 import com.backend.FAMS.Syllabus.service.SyllabusService;
 import org.springframework.beans.factory.annotation.Autowired;
