@@ -6,10 +6,7 @@ import com.backend.FAMS.Syllabus.service.servicesImpl.SyllabusServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +24,12 @@ public class SyllabusController {
 
     @GetMapping("/{topicCode}")
     public ResponseEntity<SyllabusDTO> getSyllabusById(@PathVariable("topicCode") String topicCode){
-        return new ResponseEntity<SyllabusDTO>(sysllabusService.getSysllabusById(topicCode), HttpStatus.OK);
+        return new ResponseEntity<SyllabusDTO>(sysllabusService.getSyllabusById(topicCode), HttpStatus.OK);
+    }
+
+    @PostMapping("/createSyllabusOtherScreen")
+    public ResponseEntity<SyllabusDTO> createSyllabusOtherScreen(@RequestBody SyllabusDTO syllabusDTO){
+        return new ResponseEntity<SyllabusDTO>(sysllabusService.createSyllabusOtherScreen(syllabusDTO), HttpStatus.CREATED);
     }
 
 }

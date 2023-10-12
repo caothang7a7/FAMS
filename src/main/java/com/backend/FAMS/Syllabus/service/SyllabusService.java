@@ -12,5 +12,7 @@ public interface SyllabusService {
 
     SyllabusDTO createSyllabusOtherScreen(SyllabusDTO syllabusDTO, String topicCode);
 
-    SyllabusDTO getSysllabusById(String topicCode);
+    SyllabusDTO getSyllabusById(String topicCode);
+
+    SyllabusDTO createSyllabusOtherScreen(SyllabusDTO syllabusDTO);
 }

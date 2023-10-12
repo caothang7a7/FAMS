@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -32,5 +33,5 @@ public class SyllabusDTO {
     private String userLevel;
     private String outputStandard;
     private String courseObjective;
-
+    private Integer[][] duration;
 }

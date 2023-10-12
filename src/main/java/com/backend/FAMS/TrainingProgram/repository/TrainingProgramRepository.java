@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TrainingProgramRepository extends JpaRepository<TrainingProgram, String> {
-//    public TrainingProgram findBy(String objectiveCode);
+
 }

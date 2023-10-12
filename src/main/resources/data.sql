@@ -67,14 +67,14 @@ VALUES  (1, 'Trương Xuân Hoa', 'xh.demo@gmail.com', '0125634701', '2002-12-15
         (49, 'Todd Alquist', 'todd.alquist@example.com', '025439834', '1990-09-09', 'MALE', 3, False, 'admin', '2023-09-30', NULL, NULL,'123456'),
         (50,'Jane Margolis', 'jane.margolis@example.com', '0254368345', '1995-10-10', 'FEMALE', 2, False, 'admin', '2023-09-30', NULL, NULL,'123456');
 
-INSERT INTO tbl_training_program(training_program_code, name, user_id, start_time , status, created_by, created_date, modified_by, modified_date,learning_objective_code)
-VALUES ('JLB','Java Basic', 2 , '2023-9-29','ACTIVE','Quách Gia','2023-9-29', NULL,NULL,'A01'),
-       ('PLB','Python Language Basic', 8 , '2023-9-29','ACTIVE','David Jones','2023-9-29', NULL,NULL,'A01'),
-       ('CLB','C# Language Basic', 10 , '2023-9-29', 'ACTIVE','Michael Williams','2023-9-29', NULL,NULL,'A02'),
-       ('JSB','JavaScrip Basic', 8 , '2023-9-29','ACTIVE','Michael Williams','2023-9-29', NULL,NULL,'A02'),
-       ('CLP','C# language Programing', 18 , '2023-9-29','ACTIVE','Morpheus','2023-9-29', NULL,NULL,'S01'),
-       ('FDN','Fullstack .NET Develop', 15 , '2023-9-29', 'ACTIVE','Michael Williams','2023-9-29', NULL,NULL,'K01'),
-       ('FJW','Fullstack JavaWeb Develop', 8 , '2023-9-29','ACTIVE','Cypher','2023-9-29', NULL,NULL,'H03');
+INSERT INTO tbl_training_program(duration, training_program_code, name, user_id, start_time , status, created_by, created_date, modified_by, modified_date,learning_objective_code)
+VALUES (1,'JLB','Java Basic', 2 , '2023-9-29','ACTIVE','Quách Gia','2023-9-29', NULL,NULL,'A01'),
+       (2,'PLB','Python Language Basic', 8 , '2023-9-29','ACTIVE','David Jones','2023-9-29', NULL,NULL,'A01'),
+       (3,'CLB','C# Language Basic', 10 , '2023-9-29', 'ACTIVE','Michael Williams','2023-9-29', NULL,NULL,'A02'),
+       (4,'JSB','JavaScrip Basic', 8 , '2023-9-29','ACTIVE','Michael Williams','2023-9-29', NULL,NULL,'A02'),
+       (5,'CLP','C# language Programing', 18 , '2023-9-29','ACTIVE','Morpheus','2023-9-29', NULL,NULL,'S01'),
+       (6,'FDN','Fullstack .NET Develop', 15 , '2023-9-29', 'ACTIVE','Michael Williams','2023-9-29', NULL,NULL,'K01'),
+       (7,'FJW','Fullstack JavaWeb Develop', 8 , '2023-9-29','ACTIVE','Cypher','2023-9-29', NULL,NULL,'H03');
 
 INSERT INTO tbl_syllabus(topic_code, topic_name, technical_group, version, training_audience, topic_outline, training_material, training_principal, priority, public_status, created_by, created_date, modified_by, modified_date,user_id)
 VALUES ('A01', 'Java Language Basic','Trainer PC need to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0',10, 'outline', 'learning material', 'principles','priority','ACTIVE','Quách Gia','2023-9-29', NULL,NULL,2),
@@ -215,14 +215,14 @@ VALUES (3,1,'Trainer'),
        (23,11,'Class Admin'),
        (25,12,'Class Admin');
 
-INSERT INTO tbl_training_program_syllabus(topic_code, training_program_code)
-VALUES ('A01','JLB'),
-       ('A02','CLB'),
-       ('S01','PLB'),
-       ('S02','JSB'),
-       ('K01','CLP'),
-       ('H01','FDN'),
-       ('A01','FJW');
+INSERT INTO tbl_training_program_syllabus(topic_code, training_program_code,sequence)
+VALUES ('A01','JLB',1),
+       ('A02','CLB',2),
+       ('S01','PLB',3),
+       ('S02','JSB',4),
+       ('K01','CLP',5),
+       ('H01','FDN',6),
+       ('A01','FJW',7);
 
 INSERT INTO tbl_syllabus_objective(topic_code, objective_code)
 VALUES ('A01','A01'),
