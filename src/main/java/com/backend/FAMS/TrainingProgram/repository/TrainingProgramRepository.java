@@ -7,5 +7,8 @@ import java.util.List;
 
 @Repository
 public interface TrainingProgramRepository extends JpaRepository<TrainingProgram, String> {
+
     List<TrainingProgram> findByTrainingProgramCode(String code);
+
+
 }

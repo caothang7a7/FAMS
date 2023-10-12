@@ -1,14 +1,13 @@
 package com.backend.FAMS.Syllabus.dto;
 
 import com.backend.FAMS.Syllabus.syllabus_enum.SyllabusStatus;
-import com.backend.FAMS.TrainingContent.entity.TrainingContent;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.Date;
-import java.util.Optional;
 
 @Data
 @NoArgsConstructor
@@ -38,4 +37,6 @@ public class SyllabusDTO {
 // Add more attribute
     private String[][] outputStandardArr;
     private int duration;
+
+    private Integer[][] durationArr;
 }

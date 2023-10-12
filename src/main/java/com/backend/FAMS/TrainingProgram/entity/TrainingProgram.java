@@ -29,7 +29,7 @@ public class TrainingProgram {
     @Column(name = "start_time", nullable = false)
     private Date startTime;
 
-    @Column(name = "duration", nullable = true)
+    @Column(name = "duration", nullable = false)
     private int duration;
 
     @Column(name = "status", nullable = false)
