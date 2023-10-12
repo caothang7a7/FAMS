@@ -21,10 +21,8 @@ import java.util.Optional;
 public class SyllabusController {
     @Autowired
     SyllabusService syllabusService;
-    @GetMapping("list-syllabus/{topicCode}")
-    public ResponseEntity<List<SyllabusDTO>>  getAllSyllabus(@PathVariable("topicCode") String topicCode){
-       return new ResponseEntity<>(syllabusService.getListSyllabus(topicCode), HttpStatus.OK);
+    @GetMapping("/list-syllabus")
+    public ResponseEntity<List<SyllabusDTO>>  getAllSyllabus(){
+       return new ResponseEntity<>(syllabusService.getListSyllabus(), HttpStatus.OK);
     }
-
-
 }

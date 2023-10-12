@@ -29,6 +29,6 @@ public class SyllabusDTO {
     private String modifiedBy;
     private Date modifiedDate;
 // Add more attribute
-    private String outputStandard;
-    private String duration;
+    private String[][] outputStandard;
+    private int duration;
 }
