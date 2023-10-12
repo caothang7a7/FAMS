@@ -6,10 +6,12 @@ import com.backend.FAMS.Syllabus.entity.Syllabus;
 import java.util.List;
 
 public interface SyllabusService {
-    List<Syllabus> getListSyllabus();
+    List<SyllabusDTO> getListSyllabus();
+
     void createSyllabus();
 
     SyllabusDTO createSyllabusOtherScreen(SyllabusDTO syllabusDTO, String topicCode);
 
     SyllabusDTO getSysllabusById(String topicCode);
+   
 }

@@ -215,14 +215,14 @@ VALUES (3,1,'Trainer'),
        (23,11,'Class Admin'),
        (25,12,'Class Admin');
 
-INSERT INTO tbl_training_program_syllabus(topic_code, training_program_code)
-VALUES ('A01','JLB'),
-       ('A02','CLB'),
-       ('S01','PLB'),
-       ('S02','JSB'),
-       ('K01','CLP'),
-       ('H01','FDN'),
-       ('A01','FJW');
+INSERT INTO tbl_training_program_syllabus(sequence, topic_code, training_program_code)
+VALUES (1, 'A01','JLB'),
+       (1, 'A02','CLB'),
+       (1, 'S01','PLB'),
+       (1, 'S02','JSB'),
+       (1, 'K01','CLP'),
+       (1, 'H01','FDN'),
+       (1, 'A01','FJW');
 
 INSERT INTO tbl_syllabus_objective(topic_code, objective_code)
 VALUES ('A01','A01'),
