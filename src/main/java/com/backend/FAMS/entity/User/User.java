@@ -1,6 +1,7 @@
 package com.backend.FAMS.entity.User;
 
 import com.backend.FAMS.entity.Class.ClassUser;
+import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.entity.TrainingProgram.TrainingProgram;
 import com.backend.FAMS.entity.User.user_enum.Gender;
 import com.fasterxml.jackson.annotation.JsonIgnore;

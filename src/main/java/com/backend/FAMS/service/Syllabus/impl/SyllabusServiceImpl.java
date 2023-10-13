@@ -1,18 +1,18 @@
 package com.backend.FAMS.service.Syllabus.impl;
 
-import com.backend.FAMS.LearningObjective.entity.LearningObjective;
-import com.backend.FAMS.LearningObjective.repository.LearningObjectiveRepository;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTO;
+import com.backend.FAMS.entity.LearningObjective.LearningObjective;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
+import com.backend.FAMS.entity.TrainingContent.TrainingContent;
+import com.backend.FAMS.entity.TrainingProgram.TrainingProgramSyllabus;
+import com.backend.FAMS.entity.TrainingUnit.TrainingUnit;
+import com.backend.FAMS.entity.User.User;
+import com.backend.FAMS.repository.LearningObjective.LearningObjectiveRepository;
 import com.backend.FAMS.repository.Syllabus.SyllabusRepository;
+import com.backend.FAMS.repository.User.UserRepository;
 import com.backend.FAMS.service.Syllabus.SyllabusService;
-import com.backend.FAMS.TrainingContent.entity.TrainingContent;
-import com.backend.FAMS.TrainingProgram.entity.TrainingProgramSyllabus;
 import com.backend.FAMS.repository.TrainingProgram.TrainingProgramSyllabusRepository;
-import com.backend.FAMS.TrainingUnit.entity.TrainingUnit;
 import com.backend.FAMS.repository.TrainingUnit.TrainingUnitRepository;
-import com.backend.FAMS.User.entity.User;
-import com.backend.FAMS.User.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -100,7 +100,7 @@ public class SyllabusServiceImpl implements SyllabusService {
         }
 
 //        TrainingProgram trainingProgram1 = trainingProgramRepository.findFirstBySyllabus_TopicCode(syllabus.getTopicCode()).getTrainingProgram();
-        User user = userRepository.findById(String.valueOf(syllabus.getUser().getUserId())).orElseThrow();
+        User user = userRepository.findById(Long.valueOf(String.valueOf(syllabus.getUser().getUserId()))).orElseThrow();
 
         syllabusDTO.setTopicName(syllabus.getTopicName());
         syllabusDTO.setSyllabusStatus(syllabus.getSyllabusStatus());
@@ -154,18 +154,24 @@ public class SyllabusServiceImpl implements SyllabusService {
 
         return responseDay;
     }
+
     @Override
-    public Set<SyllabusDTO> showOutlineScreen(String topicName){
-        SyllabusDTO syllabusDTO = new SyllabusDTO();
-        Syllabus syllabus = syllabusRepository.findSyllabusByTopicName(topicName);
-        Set<TrainingUnit> trainingUnitList = trainingUnitRepository.findById(syllabus.getTopicCode());
-        for (TrainingUnit trainingUnit : trainingUnitList){
-
-        }
-
-
+    public Set<SyllabusDTO> showOutlineScreen(String topicName) {
         return null;
     }
+
+    //    @Override
+//    public Set<SyllabusDTO> showOutlineScreen(String topicName){
+//        SyllabusDTO syllabusDTO = new SyllabusDTO();
+//        Syllabus syllabus = syllabusRepository.findSyllabusByTopicName(topicName);
+//        Set<TrainingUnit> trainingUnitList = trainingUnitRepository.findAllById(syllabus.getTopicName());
+//        for (TrainingUnit trainingUnit : trainingUnitList){
+//
+//        }
+//
+//
+//        return null;
+//    }
     @Override
     public SyllabusDTO createSyllabusOutlineScreen(SyllabusDTO syllabusDTO){
         return null;

@@ -1,9 +1,8 @@
 package com.backend.FAMS.entity.Syllabus;
-
-import com.backend.FAMS.Syllabus.syllabus_enum.SyllabusStatus;
-import com.backend.FAMS.TrainingProgram.entity.TrainingProgramSyllabus;
-import com.backend.FAMS.TrainingUnit.entity.TrainingUnit;
-import com.backend.FAMS.User.entity.User;
+import com.backend.FAMS.entity.Syllabus.syllabus_enum.SyllabusStatus;
+import com.backend.FAMS.entity.TrainingProgram.TrainingProgramSyllabus;
+import com.backend.FAMS.entity.TrainingUnit.TrainingUnit;
+import com.backend.FAMS.entity.User.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;

@@ -1,7 +1,7 @@
 package com.backend.FAMS.dto.Syllabus.response;
 
-import com.backend.FAMS.Syllabus.syllabus_enum.SyllabusStatus;
 
+import com.backend.FAMS.entity.Syllabus.syllabus_enum.SyllabusStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

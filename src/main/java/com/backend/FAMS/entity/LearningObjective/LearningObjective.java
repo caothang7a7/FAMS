@@ -1,5 +1,6 @@
 package com.backend.FAMS.entity.LearningObjective;
 
+import com.backend.FAMS.entity.Syllabus.SyllabusObjective;
 import com.backend.FAMS.entity.TrainingContent.TrainingContent;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
