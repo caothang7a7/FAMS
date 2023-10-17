@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-@Component
+//@Component
 public interface UserMapper {
 
     // Map Entity to Response

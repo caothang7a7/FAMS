@@ -26,6 +26,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -43,6 +44,7 @@ public class UserServiceImpl implements IUserService {
 
     UserRepository userRepository;
     UserPermissionRepository userPermissionRepository;
+
     UserMapper userMapper;
     ValidatorUtil validatorUtil;
     UserUtil util;
