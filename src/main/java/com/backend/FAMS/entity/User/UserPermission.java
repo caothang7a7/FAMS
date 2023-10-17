@@ -2,10 +2,14 @@ package com.backend.FAMS.entity.User;
 
 import com.backend.FAMS.entity.User.user_enum.UserPermissionStatus;
 import com.backend.FAMS.entity.User.user_enum.UserRole;
+import com.backend.FAMS.repository.User.UserPermissionRepository;
+import com.backend.FAMS.service.User.impl.UserPermissionServiceImpl;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -50,6 +54,52 @@ public class UserPermission {
     @OneToMany(mappedBy = "userPermission")
     @JsonIgnore
     private Set<User> users;
+
+
+    // method
+    public Set<String> getPermissions() {
+        Set<String> permissions = new HashSet<>();
+        setPremission(syllabus, permissions,"SYLLABUS");
+        setPremission(trainingProgram, permissions,"TRAINING PROGRAM");
+        setPremission(closs, permissions, "CLASS");
+        setPremission(learningMaterial, permissions, "LEARNING MATERIAL" );
+        setPremission(userManagement, permissions, "USER MANAGEMENT");
+
+        for (String obj : permissions) {
+            System.out.println(obj);
+        }
+
+        return permissions;
+    }
+
+    private void setPremission(UserPermissionStatus premission, Set<String> permissions,String permissionName) {
+        if (premission == UserPermissionStatus.FULL_ACCESS) {
+
+
+            permissions.add("VIEW_" + permissionName);
+            permissions.add("MODIFYS_" + permissionName);
+            permissions.add("CREATE_" + permissionName);
+            // ... thêm các quyền khác tương ứng với trạng thái FULL_ACCESS
+        } else {
+            permissions.add(premission + "_"+permissionName);
+        }
+
+
+//        else if (premission == UserPermissionStatus.VIEW) {
+//            permissions.add("VIEW_"+ premission + "_"+permissionName);
+//            // ... thêm các quyền khác tương ứng với trạng thái VIEW
+//        } else if (premission == UserPermissionStatus.CREATE) {
+//            permissions.add("CREATE_" + premission.toString().toUpperCase());
+//
+//        } else if (premission == UserPermissionStatus.MODIFY) {
+//            permissions.add("MODIFY_" + premission.toString().toUpperCase());
+//            permissions.add("CREATE_" + premission.toString().toUpperCase());
+//        }
+    }
+
+    // -------------
+
+
 }
 
 

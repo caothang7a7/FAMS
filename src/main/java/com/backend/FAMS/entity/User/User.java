@@ -1,6 +1,7 @@
 package com.backend.FAMS.entity.User;
 
 import com.backend.FAMS.entity.Class.ClassUser;
+import com.backend.FAMS.entity.Security.RefreshToken;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.entity.TrainingProgram.TrainingProgram;
 import com.backend.FAMS.entity.User.user_enum.Gender;
@@ -9,8 +10,13 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -20,26 +26,24 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class User implements UserDetails {
 
     @Column(name = "user_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @NotEmpty(message = "Name is required!")
+
     @Column(name = "name", nullable = false)
     private String name;
 
-    @NotEmpty(message = "Email is required!")
+
     @Column(name = "email", unique = true, nullable = false)
     private String email;
 
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Pattern(regexp = "^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$"
-            , message = "Invalid phone number!")
     @Column(name = "phone", unique = true, nullable = false)
     private String phone;
 
@@ -84,8 +88,53 @@ public class User {
     private Set<Syllabus> syllabusSet;
 
     // n-1 to UserPermission
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "permission_id", nullable = false)
     @JsonIgnore
     private UserPermission userPermission;
+
+
+    @OneToOne
+    RefreshToken refreshToken;
+
+    // security
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        for (String permission : userPermission.getPermissions()) {
+            authorities.add(new SimpleGrantedAuthority(permission));
+        }
+        return authorities;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
 }

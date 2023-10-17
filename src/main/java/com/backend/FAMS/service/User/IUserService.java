@@ -8,6 +8,11 @@ package com.backend.FAMS.service.User;/*  Welcome to Jio word
 */
 
 
+
+import com.backend.FAMS.dto.User.request.UserDTOCreateRequest;
+
+import com.backend.FAMS.dto.User.request.UserChangePass;
+
 import com.backend.FAMS.dto.User.request.UserDTOUpdateRequest;
 import com.backend.FAMS.dto.User.response.UserDTOResponse;
 import com.backend.FAMS.entity.User.User;
@@ -20,12 +25,17 @@ import java.util.List;
 
 public interface IUserService {
     List<User> findAll();
+
     Page<User> findAll(Pageable pageable);
 
-    User createUser(User user, String roleName);
+    User createUser(UserDTOCreateRequest userDTOCreateRequest);
 
     ResponseEntity<UserDTOResponse> updateUser(UserDTOUpdateRequest userDTOUpdateRequest,
                                                Long id, String roleName, BindingResult bindingResult);
 
     ResponseEntity<UserDTOResponse> getUser(Long id);
+
+
+    ResponseEntity<?> changePassword(UserChangePass userChangePass, BindingResult bindingResult);
+
 }
