@@ -1,4 +1,4 @@
-package com.backend.FAMS.mapper.User;/*  Welcome to Jio word
+package com.backend.FAMS.mapper;/*  Welcome to Jio word
     @author: Jio
     Date: 10/6/2023
     Time: 2:46 PM
@@ -15,6 +15,8 @@ import com.backend.FAMS.entity.User.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

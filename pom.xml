@@ -57,6 +57,7 @@
             <version>${org.mapstruct.version}</version>
         </dependency>
 
+
         <!-- springdoc -->
         <dependency>
             <groupId>org.springdoc</groupId>

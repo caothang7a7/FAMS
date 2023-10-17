@@ -15,7 +15,7 @@ import com.backend.FAMS.entity.User.User;
 import com.backend.FAMS.entity.User.UserPermission;
 import com.backend.FAMS.entity.User.user_enum.UserRole;
 import com.backend.FAMS.exception.NotFoundException;
-import com.backend.FAMS.mapper.User.UserMapper;
+import com.backend.FAMS.mapper.UserMapper;
 import com.backend.FAMS.repository.User.UserPermissionRepository;
 import com.backend.FAMS.repository.User.UserRepository;
 import com.backend.FAMS.service.User.IUserService;
@@ -26,6 +26,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -43,6 +44,7 @@ public class UserServiceImpl implements IUserService {
 
     UserRepository userRepository;
     UserPermissionRepository userPermissionRepository;
+    @Autowired
     UserMapper userMapper;
     ValidatorUtil validatorUtil;
     UserUtil util;

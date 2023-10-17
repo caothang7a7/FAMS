@@ -14,7 +14,7 @@ import com.backend.FAMS.dto.User.request.UserDTOUpdateRequest;
 import com.backend.FAMS.dto.User.response.UserDTOResponse;
 import com.backend.FAMS.entity.User.User;
 import com.backend.FAMS.exception.ApplicationException;
-import com.backend.FAMS.mapper.User.UserMapper;
+import com.backend.FAMS.mapper.UserMapper;
 import com.backend.FAMS.service.User.IUserService;
 import com.backend.FAMS.util.User.UserUtil;
 import com.backend.FAMS.util.User.ValidatorUtil;

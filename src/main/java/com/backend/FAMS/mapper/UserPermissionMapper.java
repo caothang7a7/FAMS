@@ -1,4 +1,4 @@
-package com.backend.FAMS.mapper.User;
+package com.backend.FAMS.mapper;
 
 
 import com.backend.FAMS.dto.User.request.UserPermissionDTOUpdateRequest;
