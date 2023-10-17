@@ -45,9 +45,8 @@ public class TrainingProgram {
     @Column(name = "modified_date", nullable = true)
     private Date modifiedDate;
 
-    @Column(name = "duration", nullable = true)
+    @Column(name = "duration")
     private int duration;
-
     // --- relationship----
 
     // n-1 to User
