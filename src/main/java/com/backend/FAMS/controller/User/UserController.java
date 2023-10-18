@@ -16,18 +16,14 @@ import com.backend.FAMS.dto.User.response.UserDTOResponse;
 import com.backend.FAMS.entity.Security.RefreshToken;
 import com.backend.FAMS.entity.User.User;
 import com.backend.FAMS.exception.ApplicationException;
-import com.backend.FAMS.exception.NotFoundException;
 import com.backend.FAMS.mapper.User.UserMapper;
-import com.backend.FAMS.repository.User.UserRepository;
 import com.backend.FAMS.service.User.IUserService;
 import com.backend.FAMS.service.sercutity.IJwtService;
 import com.backend.FAMS.service.sercutity.RefreshTokenService;
 import com.backend.FAMS.util.User.UserUtil;
 import com.backend.FAMS.util.User.ValidatorUtil;
 import jakarta.validation.Valid;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -38,7 +34,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
