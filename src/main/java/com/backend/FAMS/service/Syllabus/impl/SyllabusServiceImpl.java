@@ -5,7 +5,6 @@ import com.backend.FAMS.entity.LearningObjective.LearningObjective;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.entity.TrainingContent.TrainingContent;
 import com.backend.FAMS.entity.TrainingProgram.TrainingProgramSyllabus;
-import com.backend.FAMS.entity.TrainingUnit.TrainingUnit;
 import com.backend.FAMS.entity.User.User;
 import com.backend.FAMS.repository.LearningObjective.LearningObjectiveRepository;
 import com.backend.FAMS.repository.Syllabus.SyllabusRepository;
@@ -136,23 +135,24 @@ public class SyllabusServiceImpl implements SyllabusService {
     @Override
     public SyllabusDTO createDaySyllabusOutlineScreen(SyllabusDTO syllabusDTO) {
         // Get the maximum day number from the training units
-        Integer maxDayNumber = trainingUnitRepository.findMaxDayNumber();
-
-        // Calculate the new day number
-        Integer newDayNumber = maxDayNumber != null ? maxDayNumber + 1 : 1;
-
-        // Create a new TrainingUnit and set its day number
-        TrainingUnit trainingUnit = new TrainingUnit();
-        trainingUnit.setDayNumber(newDayNumber);
-
-        // Save the new TrainingUnit
-        TrainingUnit newDay = trainingUnitRepository.save(trainingUnit);
-
-        // Create a response DTO and set its properties
-        SyllabusDTO responseDay = new SyllabusDTO();
-        responseDay.setDayNumber(newDay.getDayNumber());
-
-        return responseDay;
+//        Integer maxDayNumber = trainingUnitRepository.findMaxDayNumber();
+//
+//        // Calculate the new day number
+//        Integer newDayNumber = maxDayNumber != null ? maxDayNumber + 1 : 1;
+//
+//        // Create a new TrainingUnit and set its day number
+//        TrainingUnit trainingUnit = new TrainingUnit();
+//        trainingUnit.setDayNumber(newDayNumber);
+//
+//        // Save the new TrainingUnit
+//        TrainingUnit newDay = trainingUnitRepository.save(trainingUnit);
+//
+//        // Create a response DTO and set its properties
+//        SyllabusDTO responseDay = new SyllabusDTO();
+//        responseDay.setDayNumber(newDay.getDayNumber());
+//
+//        return responseDay;
+        return null;
     }
 
     @Override

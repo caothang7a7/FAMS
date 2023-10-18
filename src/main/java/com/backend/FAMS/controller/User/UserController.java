@@ -9,39 +9,46 @@ package com.backend.FAMS.controller.User;/*  Welcome to Jio word
 
 
 import com.backend.FAMS.dto.ApiResponse;
+import com.backend.FAMS.dto.User.request.UserChangePass;
 import com.backend.FAMS.dto.User.request.UserDTOCreateRequest;
 import com.backend.FAMS.dto.User.request.UserDTOUpdateRequest;
 import com.backend.FAMS.dto.User.response.UserDTOResponse;
+import com.backend.FAMS.entity.Security.RefreshToken;
 import com.backend.FAMS.entity.User.User;
 import com.backend.FAMS.exception.ApplicationException;
 import com.backend.FAMS.mapper.UserMapper;
 import com.backend.FAMS.service.User.IUserService;
+import com.backend.FAMS.service.sercutity.IJwtService;
+import com.backend.FAMS.service.sercutity.RefreshTokenService;
 import com.backend.FAMS.util.User.UserUtil;
 import com.backend.FAMS.util.User.ValidatorUtil;
 import jakarta.validation.Valid;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.util.HashMap;
 
 @RestController
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequestMapping("/api/v1/users")
 public class UserController {
 
-    IUserService userService;
-    UserMapper userMapper;
-    ValidatorUtil validatorUtil;
-    UserUtil util;
+    private final IUserService userService;
+    private final UserMapper userMapper;
+    private final ValidatorUtil validatorUtil;
+    private final UserUtil util;
+    private final IJwtService jwtService;
+    private final RefreshTokenService refreshTokenService;
 
+
+    @PreAuthorize("hasAnyAuthority('VIEW_USER MANAGEMENT')")
     @GetMapping
     public ResponseEntity<?> getUsers(@RequestParam(defaultValue = "1") int page) {
         try {
@@ -55,6 +62,7 @@ public class UserController {
             apiResponse.ok(userDTOPage);
             return new ResponseEntity<>(apiResponse, HttpStatus.OK);
         } catch (Exception ex) {
+            System.out.println("biibi");
             throw new ApplicationException();
         }
     }
@@ -64,15 +72,32 @@ public class UserController {
                                       BindingResult bindingResult) throws ParseException {
         ApiResponse apiResponse = new ApiResponse();
 
+        HashMap<String, Object> token = new HashMap<>();
+
+        // validate
         util.validateCreate(userDTOCreateRequest, bindingResult);
-        User user = userMapper.toEntity(userDTOCreateRequest);
+
         if (bindingResult.hasErrors()) {
             apiResponse.error(validatorUtil.handleValidationErrors(bindingResult.getFieldErrors()));
             return ResponseEntity.badRequest().body(apiResponse);
         }
-        user.setDob(userDTOCreateRequest.getDob());
-        user = userService.createUser(user, userDTOCreateRequest.getUserPermission());
-        apiResponse.ok(user);
+        // validate end
+
+        // service
+        User user = userService.createUser(userDTOCreateRequest);
+        // end service
+
+        //trend token
+        var jwtToken = jwtService.generateToken(user); // trend token by user
+        RefreshToken refreshToken = refreshTokenService.generateRefreshToken(user.getEmail());
+
+        // tra ve token data
+        token.put("access token", jwtToken);
+        token.put("refresh token", refreshToken.getToken());
+
+        // end trend token
+
+        apiResponse.ok(userMapper.toResponse(user),token);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
@@ -88,6 +113,16 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<?> findUser(@PathVariable Long id) {
         return userService.getUser(id);
+    }
+
+
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(@Valid @RequestBody UserChangePass userChangePass,
+                                            BindingResult bindingResult) {
+
+        return userService.changePassword(userChangePass, bindingResult);
+
+
     }
 
 }

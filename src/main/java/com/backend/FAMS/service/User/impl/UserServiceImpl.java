@@ -9,6 +9,10 @@ package com.backend.FAMS.service.User.impl;/*  Welcome to Jio word
 
 
 import com.backend.FAMS.dto.ApiResponse;
+
+import com.backend.FAMS.dto.User.request.UserChangePass;
+
+import com.backend.FAMS.dto.User.request.UserDTOCreateRequest;
 import com.backend.FAMS.dto.User.request.UserDTOUpdateRequest;
 import com.backend.FAMS.dto.User.response.UserDTOResponse;
 import com.backend.FAMS.entity.User.User;
@@ -22,15 +26,14 @@ import com.backend.FAMS.service.User.IUserService;
 
 import com.backend.FAMS.util.User.UserUtil;
 import com.backend.FAMS.util.User.ValidatorUtil;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -38,16 +41,20 @@ import java.util.Date;
 import java.util.List;
 
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+
 @Service
 public class UserServiceImpl implements IUserService {
 
-    UserRepository userRepository;
-    UserPermissionRepository userPermissionRepository;
-    @Autowired
-    UserMapper userMapper;
-    ValidatorUtil validatorUtil;
-    UserUtil util;
+    private final UserRepository userRepository;
+    private final UserPermissionRepository userPermissionRepository;
+    private final UserMapper userMapper;
+    private final ValidatorUtil validatorUtil;
+    private final UserUtil util;
+    private final PasswordEncoder passwordEncoder;
+
+
+
+
 
     @Override
     public List<User> findAll() {
@@ -65,27 +72,35 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User createUser(User user, String roleName) {
+    public User createUser(UserDTOCreateRequest userDTOCreateRequest) {
+
+        User user = userMapper.toEntity(userDTOCreateRequest);
         // Tạo mật khẩu ngẫu nhiên
 //        String randomPassword = UserUtil.generateRandomPassword();
 
         user.setPassword(RandomStringUtils.randomAlphanumeric(10));
 
-        UserRole role = UserRole.valueOf(roleName);
+        UserRole role = UserRole.valueOf(userDTOCreateRequest.getUserPermission());
 
         UserPermission userPermission = userPermissionRepository.findByRole(role).orElseThrow(
                 () -> new NotFoundException("Create fail by not found role")
         );
 
         user.setUserPermission(userPermission);
-        System.out.println(userRepository.findById(1L));
+        user.setCreatedDate(new Date());
+
+        // password encode
+        String hashedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(hashedPassword);
+
+        //save
         userRepository.save(user);
+
+        // find user created
         user = userRepository.findByEmail(user.getEmail()).orElseThrow(
                 () -> new NotFoundException("Create fail by not found user")
         );
-
         // gui gmail
-
 
         return user;
     }
@@ -129,5 +144,28 @@ public class UserServiceImpl implements IUserService {
         apiResponse.ok(userDTOResponse);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<?> changePassword(UserChangePass userChangePass, BindingResult bindingResult) {
+
+
+        ApiResponse apiResponse = new ApiResponse();
+        User user = userRepository.findByEmail(userChangePass.getEmail()).orElseThrow(
+                () -> new NotFoundException("Not found Email.")
+        );
+        if (bindingResult.hasErrors()) {
+            apiResponse.error(validatorUtil.handleValidationErrors(bindingResult.getFieldErrors()));
+            return ResponseEntity.badRequest().body(apiResponse);
+        }
+//        userMapper.changePassworded(userChangePass, user);
+
+        user.setPassword(userChangePass.getNewPassword());
+
+        userRepository.save(user);
+
+        apiResponse.ok(user);
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
 
 }

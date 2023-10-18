@@ -1,13 +1,18 @@
 package com.backend.FAMS.mapper;/*  Welcome to Jio word
+=======
+package com.backend.FAMS.mapper.User;
+/*  Welcome to Jio word
+>>>>>>> main:src/main/java/com/backend/FAMS/mapper/User/UserMapper.java
     @author: Jio
     Date: 10/6/2023
     Time: 2:46 PM
-    
+
     ProjectName: fams-backend
     Jio: I wish you always happy with coding <3
 */
 
 
+import com.backend.FAMS.dto.User.request.UserChangePass;
 import com.backend.FAMS.dto.User.request.UserDTOCreateRequest;
 import com.backend.FAMS.dto.User.request.UserDTOUpdateRequest;
 import com.backend.FAMS.dto.User.response.UserDTOResponse;
@@ -41,6 +46,10 @@ public interface UserMapper {
     @Mapping(target = "modifiedDate", ignore = true)
     @Mapping(target = "password", ignore = true)
     void toUpdate(UserDTOUpdateRequest userDTOUpdateRequest, @MappingTarget User user);
+
+
+    UserChangePass toChangePasswordDTO(User user);
+    User toChangePassword(UserChangePass userChangePas);
 
 
 }

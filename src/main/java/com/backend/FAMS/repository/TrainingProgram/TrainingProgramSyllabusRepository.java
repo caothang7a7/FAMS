@@ -8,10 +8,5 @@ import java.util.Set;
 
 @Repository
 public interface TrainingProgramSyllabusRepository extends JpaRepository<TrainingProgramSyllabus, String> {
-
     Set<TrainingProgramSyllabus> findAllBySyllabus_TopicCode(String topicCode);
-
-    TrainingProgramSyllabus findFirstBySyllabus_TopicCode(String topicCode);
-
-
 }
