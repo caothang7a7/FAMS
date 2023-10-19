@@ -7,7 +7,7 @@ import com.backend.FAMS.dto.User.response.UserPermissionDTOResponse;
 import com.backend.FAMS.entity.User.UserPermission;
 import com.backend.FAMS.exception.ApplicationException;
 import com.backend.FAMS.exception.NotFoundException;
-import com.backend.FAMS.mapper.UserPermissionMapper;
+import com.backend.FAMS.mapper.User.UserPermissionMapper;
 import com.backend.FAMS.repository.User.UserPermissionRepository;
 import com.backend.FAMS.service.User.IUserPermissionService;
 import lombok.AccessLevel;

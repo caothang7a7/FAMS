@@ -1,6 +1,7 @@
 package com.backend.FAMS.service.Syllabus.impl;
 
-import com.backend.FAMS.dto.Syllabus.response.SyllabusDTO;
+import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
+import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
 import com.backend.FAMS.entity.LearningObjective.LearningObjective;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.entity.TrainingContent.TrainingContent;
@@ -39,12 +40,12 @@ public class SyllabusServiceImpl implements SyllabusService {
     TrainingUnitRepository trainingUnitRepository;
 
     @Override
-    public List<SyllabusDTO> getListSyllabus() {
-        List<SyllabusDTO> dtoList = new ArrayList<>();
+    public List<SyllabusDTOResponse> getListSyllabus() {
+        List<SyllabusDTOResponse> dtoList = new ArrayList<>();
 
         List<Syllabus> syllabusList = syllabusRepository.findAll();
         for(Syllabus syllabus: syllabusList){
-            SyllabusDTO dto = new SyllabusDTO();
+            SyllabusDTOResponse dto = new SyllabusDTOResponse();
             dto.setTopicCode(syllabus.getTopicCode());
             dto.setTopicName(syllabus.getTopicName());
             dto.setSyllabusStatus(syllabus.getSyllabusStatus());
@@ -68,20 +69,19 @@ public class SyllabusServiceImpl implements SyllabusService {
         return dtoList;
     }
 
-
     @Override
-    public void createSyllabus() {
-
+    public Syllabus createSyllabusGeneralScreen(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest) {
+return null;
     }
 
     @Override
-    public SyllabusDTO createSyllabusOtherScreen(SyllabusDTO syllabusDTO, String topicCode) {
+    public SyllabusDTOResponse createSyllabusOtherScreen(SyllabusDTOResponse syllabusDTO, String topicCode) {
         return null;
     }
 
     @Override
-    public SyllabusDTO getSyllabusById(String topicCode){
-        SyllabusDTO syllabusDTO = new SyllabusDTO();
+    public SyllabusDTOResponse getSyllabusById(String topicCode){
+        SyllabusDTOResponse syllabusDTO = new SyllabusDTOResponse();
 
         Syllabus syllabus = syllabusRepository.findById(topicCode).orElseThrow();
         LearningObjective learningObjective = learningObjectiveRepository.findById(syllabus.getTopicCode()).orElseThrow();
@@ -117,7 +117,7 @@ public class SyllabusServiceImpl implements SyllabusService {
     }
 
     @Override
-    public SyllabusDTO createSyllabusOtherScreen(SyllabusDTO syllabusDTO) {
+    public SyllabusDTOResponse createSyllabusOtherScreen(SyllabusDTOResponse syllabusDTO) {
         Syllabus syllabus = new Syllabus();
         TrainingContent trainingContent = new TrainingContent();
 
@@ -127,13 +127,13 @@ public class SyllabusServiceImpl implements SyllabusService {
 
         Syllabus newSyllabus = syllabusRepository.save(syllabus);
 
-        SyllabusDTO responseSyllabus = new SyllabusDTO();
+        SyllabusDTOResponse responseSyllabus = new SyllabusDTOResponse();
         responseSyllabus.setTrainingPrincipal(newSyllabus.getTrainingPrincipal());
 //        responseSyllabus.setTrainingProgramDuration(syllabus.get);
         return responseSyllabus;
     }
     @Override
-    public SyllabusDTO createDaySyllabusOutlineScreen(SyllabusDTO syllabusDTO) {
+    public SyllabusDTOResponse createDaySyllabusOutlineScreen(SyllabusDTOResponse syllabusDTO) {
         // Get the maximum day number from the training units
 //        Integer maxDayNumber = trainingUnitRepository.findMaxDayNumber();
 //
@@ -156,7 +156,7 @@ public class SyllabusServiceImpl implements SyllabusService {
     }
 
     @Override
-    public Set<SyllabusDTO> showOutlineScreen(String topicName) {
+    public Set<SyllabusDTOResponse> showOutlineScreen(String topicName) {
         return null;
     }
 
@@ -173,7 +173,7 @@ public class SyllabusServiceImpl implements SyllabusService {
 //        return null;
 //    }
     @Override
-    public SyllabusDTO createSyllabusOutlineScreen(SyllabusDTO syllabusDTO){
+    public SyllabusDTOResponse createSyllabusOutlineScreen(SyllabusDTOResponse syllabusDTO){
         return null;
     }
 }

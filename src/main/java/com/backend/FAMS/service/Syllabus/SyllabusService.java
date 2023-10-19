@@ -1,24 +1,26 @@
 package com.backend.FAMS.service.Syllabus;
 
-import com.backend.FAMS.dto.Syllabus.response.SyllabusDTO;
+import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
+import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
+import com.backend.FAMS.entity.Syllabus.Syllabus;
 
 
 import java.util.List;
 import java.util.Set;
 
 public interface SyllabusService {
-    List<SyllabusDTO> getListSyllabus();
+    List<SyllabusDTOResponse> getListSyllabus();
 
-    void createSyllabus();
+    Syllabus createSyllabusGeneralScreen(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest);
 
-    SyllabusDTO createSyllabusOtherScreen(SyllabusDTO syllabusDTO, String topicCode);
+    SyllabusDTOResponse createSyllabusOtherScreen(SyllabusDTOResponse syllabusDTO, String topicCode);
 
-    SyllabusDTO getSyllabusById(String topicCode);
+    SyllabusDTOResponse getSyllabusById(String topicCode);
 
-    SyllabusDTO createSyllabusOtherScreen(SyllabusDTO syllabusDTO);
+    SyllabusDTOResponse createSyllabusOtherScreen(SyllabusDTOResponse syllabusDTO);
 
-    SyllabusDTO createSyllabusOutlineScreen(SyllabusDTO syllabusDTO);
-    SyllabusDTO createDaySyllabusOutlineScreen(SyllabusDTO syllabusDTO);
+    SyllabusDTOResponse createSyllabusOutlineScreen(SyllabusDTOResponse syllabusDTO);
+    SyllabusDTOResponse createDaySyllabusOutlineScreen(SyllabusDTOResponse syllabusDTO);
 
-    Set<SyllabusDTO> showOutlineScreen(String topicName);
+    Set<SyllabusDTOResponse> showOutlineScreen(String topicName);
 }
