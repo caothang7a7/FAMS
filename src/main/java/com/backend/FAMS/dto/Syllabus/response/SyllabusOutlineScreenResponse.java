@@ -20,6 +20,7 @@ public class SyllabusOutlineScreenResponse {
     private String learningObject;
     private TrainingFormat trainingFormat;
     private DeliveryType deliveryType;
+    private String[][] content;
 
 
 }
