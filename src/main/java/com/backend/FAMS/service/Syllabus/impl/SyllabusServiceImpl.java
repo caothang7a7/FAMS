@@ -1,10 +1,13 @@
 package com.backend.FAMS.service.Syllabus.impl;
 
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTO;
+import com.backend.FAMS.dto.Syllabus.response.SyllabusOutlineScreenResponse;
 import com.backend.FAMS.entity.LearningObjective.LearningObjective;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.entity.TrainingContent.TrainingContent;
+import com.backend.FAMS.entity.TrainingContent.trainingContent_enum.DeliveryType;
 import com.backend.FAMS.entity.TrainingProgram.TrainingProgramSyllabus;
+import com.backend.FAMS.entity.TrainingUnit.TrainingUnit;
 import com.backend.FAMS.entity.User.User;
 import com.backend.FAMS.repository.LearningObjective.LearningObjectiveRepository;
 import com.backend.FAMS.repository.Syllabus.SyllabusRepository;
@@ -156,8 +159,30 @@ public class SyllabusServiceImpl implements SyllabusService {
     }
 
     @Override
-    public Set<SyllabusDTO> showOutlineScreen(String topicName) {
-        return null;
+    public SyllabusOutlineScreenResponse showOutlineScreen(String topicName) {
+        SyllabusOutlineScreenResponse syllabusOutlineScreenResponse = new SyllabusOutlineScreenResponse();
+
+        Syllabus syllabus = syllabusRepository.findSyllabusByTopicName(topicName);
+        syllabusOutlineScreenResponse.setTopicCode(syllabus.getTopicCode());
+        syllabusOutlineScreenResponse.setTopicName(syllabus.getTopicName());
+        Set<TrainingUnit> trainingUnits = trainingUnitRepository.findBySyllabusTopicCodeOrderByDayNumber(syllabus.getTopicCode());
+        Integer[][] integers = new Integer[trainingUnits.size()][];
+        int i = 0;
+        for (TrainingUnit trainingUnit:trainingUnits ){
+            syllabusOutlineScreenResponse.setUnitCode(trainingUnit.getUnitCode());
+            syllabusOutlineScreenResponse.setUnitName(trainingUnit.getUnitName());
+            integers[i] = new Integer[]{trainingUnit.getDayNumber()};
+            i++;
+            syllabusOutlineScreenResponse.setDayNumber(integers);
+            Set<TrainingContent> trainingContents = trainingContentRepository.findByTrainingUnit_UnitCode(trainingUnit.getUnitCode());
+            for (TrainingContent trainingContent:trainingContents){
+//                syllabusOutlineScreenResponse.setDeliveryType(Enum.valueOf(DeliveryType.class,String.valueOf(trainingContent.getDeliveryType())));
+                syllabusOutlineScreenResponse.setDeliveryType(trainingContent.getDeliveryType());
+                syllabusOutlineScreenResponse.setTrainingFormat(trainingContent.getTrainingFormat());
+                syllabusOutlineScreenResponse.setLearningObject(trainingContent.getLearningObjective().getObjectiveCode());
+            }
+        }
+        return syllabusOutlineScreenResponse;
     }
 
     //    @Override
@@ -172,6 +197,7 @@ public class SyllabusServiceImpl implements SyllabusService {
 //
 //        return null;
 //    }
+
     @Override
     public SyllabusDTO createSyllabusOutlineScreen(SyllabusDTO syllabusDTO){
         return null;

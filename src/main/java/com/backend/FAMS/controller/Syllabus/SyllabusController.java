@@ -2,6 +2,7 @@ package com.backend.FAMS.controller.Syllabus;
 
 
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTO;
+import com.backend.FAMS.dto.Syllabus.response.SyllabusOutlineScreenResponse;
 import com.backend.FAMS.service.Syllabus.SyllabusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,7 +37,7 @@ public class SyllabusController {
         return new ResponseEntity<SyllabusDTO>(syllabusService.createSyllabusOtherScreen(syllabusDTO), HttpStatus.CREATED);
     }
     @GetMapping("/OutlineScreen/{topicName}")
-    public ResponseEntity<Set<SyllabusDTO>> showOutlineScreen(@PathVariable("topicName") String topicName){
+    public ResponseEntity<SyllabusOutlineScreenResponse> showOutlineScreen(@PathVariable("topicName") String topicName){
         return new ResponseEntity<>(syllabusService.showOutlineScreen(topicName), HttpStatus.OK);
     }
     @PostMapping("/OutlineScreen/day")

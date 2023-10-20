@@ -1,6 +1,7 @@
 package com.backend.FAMS.service.Syllabus;
 
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTO;
+import com.backend.FAMS.dto.Syllabus.response.SyllabusOutlineScreenResponse;
 
 
 import java.util.List;
@@ -19,6 +20,5 @@ public interface SyllabusService {
 
     SyllabusDTO createSyllabusOutlineScreen(SyllabusDTO syllabusDTO);
     SyllabusDTO createDaySyllabusOutlineScreen(SyllabusDTO syllabusDTO);
-
-    Set<SyllabusDTO> showOutlineScreen(String topicName);
+    SyllabusOutlineScreenResponse showOutlineScreen(String topicName);
 }

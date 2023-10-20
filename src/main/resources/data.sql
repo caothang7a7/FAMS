@@ -115,20 +115,20 @@ VALUES ('A01', 'Java basic', 1, 'A01'),
        ('TU-14', 'Azure DevOps Foundation', 9, 'H01'),
        ('TU-15', 'Java Language Basic', 9, 'A01');
 
-INSERT INTO tbl_training_content (content, learning_objective_code,type, duration, note,training_content_id,unit_code)
-VALUES ('Java Language Basic 1','A01','Assignment',7,'This training content will introduce learners to advanced concepts of Java programming.',1,'A01'),
-       ('Java Language Basic 2','A01','Quiz',10,'This training content will introduce learners to advanced concepts of Java programming.',2,'A01'),
-       ('C# Language Basic 1','A02','Assignment',14,'This training content will introduce learners to advanced concepts of Java programming.',3,'A02'),
-       ('C# Language Basic 2','A02','Assignment',7,'This training content will introduce learners to advanced concepts of Java programming.',4,'A02'),
-       ('Python Language Basic 1','S01','Guides',7,'This training content will introduce learners to advanced concepts of Java programming.',5,'S01'),
-       ('Python Language Basic 2','S01','Assignment',10,'This training content will introduce learners to advanced concepts of Java programming.',6,'S01'),
-       ('Python Language Basic 3','S01','Quiz',14,'This training content will introduce learners to advanced concepts of Java programming.',7,'S02'),
-       ('C# language Programing 1','K01','Assignment',10,'This training content will introduce learners to advanced concepts of Java programming.',8,'K01'),
-       ('DevOps Foundation','H01','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',9,'H01'),
-       ('Azure DevOps Foundation','S04','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',10,'TU-07'),
-       ('Azure DevOps Foundation','H03','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',11,'TU-08'),
-       ('Azure DevOps Foundation','K05','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',12,'TU-09'),
-       ('Azure DevOps Foundation','S05','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',13,'TU-10');
+INSERT INTO tbl_training_content (content, learning_objective_code,type, duration, note,training_content_id,unit_code,trainingformat,deliverytype)
+VALUES ('Java Language Basic 1','A01','Assignment',7,'This training content will introduce learners to advanced concepts of Java programming.',1,'A01','ONLINE','Assignment_Lab'),
+       ('Java Language Basic 2','A01','Quiz',10,'This training content will introduce learners to advanced concepts of Java programming.',2,'A01','ONLINE','Assignment_Lab'),
+       ('C# Language Basic 1','A02','Assignment',14,'This training content will introduce learners to advanced concepts of Java programming.',3,'A02','ONLINE','Assignment_Lab'),
+       ('C# Language Basic 2','A02','Assignment',7,'This training content will introduce learners to advanced concepts of Java programming.',4,'A02','ONLINE','Concept_Lecture'),
+       ('Python Language Basic 1','S01','Guides',7,'This training content will introduce learners to advanced concepts of Java programming.',5,'S01','ONLINE','Concept_Lecture'),
+       ('Python Language Basic 2','S01','Assignment',10,'This training content will introduce learners to advanced concepts of Java programming.',6,'S01','ONLINE','Assignment_Lab'),
+       ('Python Language Basic 3','S01','Quiz',14,'This training content will introduce learners to advanced concepts of Java programming.',7,'S02','ONLINE','Assignment_Lab'),
+       ('C# language Programing 1','K01','Assignment',10,'This training content will introduce learners to advanced concepts of Java programming.',8,'K01','ONLINE','Assignment_Lab'),
+       ('DevOps Foundation','H01','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',9,'H01','ONLINE','Assignment_Lab'),
+       ('Azure DevOps Foundation','S04','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',10,'TU-07','ONLINE','Assignment_Lab'),
+       ('Azure DevOps Foundation','H03','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',11,'TU-08','ONLINE','Assignment_Lab'),
+       ('Azure DevOps Foundation','K05','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',12,'TU-09','ONLINE','Assignment_Lab'),
+       ('Azure DevOps Foundation','S05','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',13,'TU-12','ONLINE','Assignment_Lab');
 
 INSERT INTO tbl_class_user(user_id, class_id,user_type)
 VALUES (3,1,'Trainer'),
