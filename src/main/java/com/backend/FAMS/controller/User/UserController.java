@@ -48,8 +48,8 @@ public class UserController {
     private final RefreshTokenService refreshTokenService;
 
 
-    @PreAuthorize("hasAnyAuthority('VIEW_USER MANAGEMENT')")
-    @GetMapping
+//    @PreAuthorize("hasAnyAuthority('VIEW_USER MANAGEMENT')")
+    @GetMapping("/list-users")
     public ResponseEntity<?> getUsers(@RequestParam(defaultValue = "1") int page) {
         try {
             ApiResponse apiResponse = new ApiResponse();

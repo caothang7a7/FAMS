@@ -3,6 +3,7 @@ package com.backend.FAMS.mapper.User;
 
 
 
+import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
 import com.backend.FAMS.dto.User.request.UserChangePass;
 import com.backend.FAMS.dto.User.request.UserDTOCreateRequest;
 import com.backend.FAMS.dto.User.request.UserDTOUpdateRequest;
@@ -27,7 +28,9 @@ public interface UserMapper {
 
     @Mapping(target = "userPermission", ignore = true)
     User toEntity(UserDTOCreateRequest userDTOCreateRequest);
+    @Mapping(target = "userPermission", ignore = true)
 
+    User toEntity(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest);
     @Mapping(target = "userPermission", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
     @Mapping(target = "createdDate", ignore = true)

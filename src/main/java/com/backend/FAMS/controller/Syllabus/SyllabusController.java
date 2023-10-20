@@ -4,7 +4,11 @@ package com.backend.FAMS.controller.Syllabus;
 import com.backend.FAMS.dto.ApiResponse;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
+import com.backend.FAMS.entity.Security.RefreshToken;
+import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.service.Syllabus.SyllabusService;
+import com.backend.FAMS.service.sercutity.IJwtService;
+import com.backend.FAMS.service.sercutity.RefreshTokenService;
 import com.backend.FAMS.util.User.ValidatorUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +34,8 @@ public class SyllabusController {
     private final ValidatorUtil validatorUtil;
     @Autowired
     SyllabusService syllabusService;
+    private final IJwtService jwtService;
+    private final RefreshTokenService refreshTokenService;
     @GetMapping("/list-syllabus")
     public ResponseEntity<List<SyllabusDTOResponse>>  getAllSyllabus(){
        return new ResponseEntity<>(syllabusService.getListSyllabus(), HttpStatus.OK);
@@ -43,6 +49,8 @@ public class SyllabusController {
             apiResponse.error(validatorUtil.handleValidationErrors(bindingResult.getFieldErrors()));
             return ResponseEntity.badRequest().body(apiResponse);
         }
+        syllabusService.createSyllabusGeneralScreen(sylaSyllabusDTOCreateGeneralRequest);
+        apiResponse.ok(sylaSyllabusDTOCreateGeneralRequest);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 

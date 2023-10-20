@@ -7,6 +7,10 @@ import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.entity.TrainingContent.TrainingContent;
 import com.backend.FAMS.entity.TrainingProgram.TrainingProgramSyllabus;
 import com.backend.FAMS.entity.User.User;
+import com.backend.FAMS.exception.NotFoundException;
+import com.backend.FAMS.mapper.LearningObjectiveMapper;
+import com.backend.FAMS.mapper.Syllabus.SyllabusMapper;
+import com.backend.FAMS.mapper.User.UserMapper;
 import com.backend.FAMS.repository.LearningObjective.LearningObjectiveRepository;
 import com.backend.FAMS.repository.Syllabus.SyllabusRepository;
 import com.backend.FAMS.repository.User.UserRepository;
@@ -38,6 +42,17 @@ public class SyllabusServiceImpl implements SyllabusService {
     TrainingProgramSyllabusRepository trainingProgramSyllabusRepository;
     @Autowired
     TrainingUnitRepository trainingUnitRepository;
+    @Autowired
+    SyllabusMapper syllabusMapper;
+    @Autowired
+    LearningObjectiveMapper learningObjectiveMapper;
+    @Autowired
+    UserMapper userMapper;
+
+//    @Override
+//    public List<SyllabusDTOResponse> getListSyllabus() {
+//        return null;
+//    }
 
     @Override
     public List<SyllabusDTOResponse> getListSyllabus() {
@@ -69,9 +84,29 @@ public class SyllabusServiceImpl implements SyllabusService {
         return dtoList;
     }
 
+
     @Override
     public Syllabus createSyllabusGeneralScreen(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest) {
-return null;
+        Syllabus syllabus = syllabusMapper.toEntity(syllabusDTOCreateGeneralRequest);
+        //LearningObjective learningObjective = learningObjectiveMapper.toEntity(syllabusDTOCreateGeneralRequest);
+//        User user = userMapper.toEntity(syllabusDTOCreateGeneralRequest);
+        // test save
+
+        //
+        syllabus.setTopicName(syllabusDTOCreateGeneralRequest.getTopicName());
+        syllabus.setTopicCode(syllabusDTOCreateGeneralRequest.getTopicCode());
+        syllabus.setTrainingAudience(syllabusDTOCreateGeneralRequest.getTrainingAudience());
+        syllabus.setTechnicalGroup(syllabusDTOCreateGeneralRequest.getTechnicalGroup());
+        syllabus.setCreatedDate(syllabusDTOCreateGeneralRequest.getCreateDate());
+        User user = userRepository.findById(syllabusDTOCreateGeneralRequest.getUserID()).orElseThrow(
+                () -> new NotFoundException("user not found with " +syllabusDTOCreateGeneralRequest.getUserID())
+        );
+        syllabus.setUser(user);
+        //learningObjective.setDescription(syllabusDTOCreateGeneralRequest.getDescription());
+        //learningObjectiveRepository.save(learningObjective);
+
+        syllabusRepository.save(syllabus);
+        return syllabus;
     }
 
     @Override
