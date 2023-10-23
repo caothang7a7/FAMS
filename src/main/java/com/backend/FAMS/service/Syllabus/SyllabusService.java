@@ -1,6 +1,9 @@
 package com.backend.FAMS.service.Syllabus;
 
+import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTO;
+import com.backend.FAMS.dto.Syllabus.response.SyllabusDTODetailInformation;
+import com.backend.FAMS.dto.trainingContent.TrainingContentDTOCreateOtherScreen;
 
 
 import java.util.List;
@@ -8,15 +11,8 @@ import java.util.Set;
 
 public interface SyllabusService {
     List<SyllabusDTO> getListSyllabus();
-
-    void createSyllabus();
-
-    SyllabusDTO createSyllabusOtherScreen(SyllabusDTO syllabusDTO, String topicCode);
-
-    SyllabusDTO getSyllabusById(String topicCode);
-
-    SyllabusDTO createSyllabusOtherScreen(SyllabusDTO syllabusDTO);
-
+    SyllabusDTOCreateOtherScreen createSyllabusOtherScreen(SyllabusDTOCreateOtherScreen syllabusDTO);
+    SyllabusDTODetailInformation getSyllabusById(String topicCode);
     SyllabusDTO createSyllabusOutlineScreen(SyllabusDTO syllabusDTO);
     SyllabusDTO createDaySyllabusOutlineScreen(SyllabusDTO syllabusDTO);
 

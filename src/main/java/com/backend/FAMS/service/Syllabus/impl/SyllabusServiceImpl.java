@@ -1,11 +1,15 @@
 package com.backend.FAMS.service.Syllabus.impl;
 
+import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTO;
+import com.backend.FAMS.dto.Syllabus.response.SyllabusDTODetailInformation;
+import com.backend.FAMS.dto.trainingContent.TrainingContentDTOCreateOtherScreen;
 import com.backend.FAMS.entity.LearningObjective.LearningObjective;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.entity.TrainingContent.TrainingContent;
 import com.backend.FAMS.entity.TrainingProgram.TrainingProgramSyllabus;
 import com.backend.FAMS.entity.User.User;
+import com.backend.FAMS.mapper.Syllabus.SyllabusMapper;
 import com.backend.FAMS.repository.LearningObjective.LearningObjectiveRepository;
 import com.backend.FAMS.repository.Syllabus.SyllabusRepository;
 import com.backend.FAMS.repository.User.UserRepository;
@@ -29,14 +33,14 @@ public class SyllabusServiceImpl implements SyllabusService {
     UserRepository userRepository;
     @Autowired
     LearningObjectiveRepository learningObjectiveRepository;
-
     @Autowired
     TrainingContentRepository trainingContentRepository;
-
     @Autowired
     TrainingProgramSyllabusRepository trainingProgramSyllabusRepository;
     @Autowired
     TrainingUnitRepository trainingUnitRepository;
+    @Autowired
+    SyllabusMapper syllabusMapper;
 
     @Override
     public List<SyllabusDTO> getListSyllabus() {
@@ -70,18 +74,40 @@ public class SyllabusServiceImpl implements SyllabusService {
 
 
     @Override
-    public void createSyllabus() {
+    public SyllabusDTOCreateOtherScreen createSyllabusOtherScreen(SyllabusDTOCreateOtherScreen syllabusDTO) {
+        Syllabus syllabus = new Syllabus();
+        TrainingContent trainingContent = new TrainingContent();
 
+//        trainingContent.setDuration(trainingContentDTO.getDuration());
+        User user = new User();
+        user = userRepository.findById(2L).orElseThrow();
+        syllabus.setQuiz(syllabusDTO.getQuizPercent());
+        syllabus.setAssignment(syllabusDTO.getAssignmentPercent());
+        syllabus.setFinalTest(syllabusDTO.getFinalPercent());
+        syllabus.setFinalTheory(syllabusDTO.getFinalTheoryPercent());
+        syllabus.setFinalPractice(syllabusDTO.getFinalPracticePercent());
+        syllabus.setGpa(syllabusDTO.getGPA());
+
+        syllabus.setTrainingPrincipal(syllabusDTO.getTrainingPrinciples());
+        syllabus.setUser(user);
+
+        Syllabus newSyllabus = syllabusRepository.save(syllabus);
+
+        SyllabusDTOCreateOtherScreen responseDtoCreateOtherScreen = new SyllabusDTOCreateOtherScreen();
+        responseDtoCreateOtherScreen.setTopicName(newSyllabus.getTopicName());
+        responseDtoCreateOtherScreen.setQuizPercent(newSyllabus.getQuiz());
+        responseDtoCreateOtherScreen.setAssignmentPercent(newSyllabus.getAssignment());
+        responseDtoCreateOtherScreen.setFinalPercent(newSyllabus.getFinalTest());
+        responseDtoCreateOtherScreen.setFinalTheoryPercent(newSyllabus.getFinalTheory());
+        responseDtoCreateOtherScreen.setFinalPracticePercent(newSyllabus.getFinalPractice());
+        responseDtoCreateOtherScreen.setTrainingPrinciples(newSyllabus.getTrainingPrincipal());
+
+        return responseDtoCreateOtherScreen;
     }
 
     @Override
-    public SyllabusDTO createSyllabusOtherScreen(SyllabusDTO syllabusDTO, String topicCode) {
-        return null;
-    }
-
-    @Override
-    public SyllabusDTO getSyllabusById(String topicCode){
-        SyllabusDTO syllabusDTO = new SyllabusDTO();
+    public SyllabusDTODetailInformation getSyllabusById(String topicCode){
+        SyllabusDTODetailInformation syllabusDTO = new SyllabusDTODetailInformation();
 
         Syllabus syllabus = syllabusRepository.findById(topicCode).orElseThrow();
         LearningObjective learningObjective = learningObjectiveRepository.findById(syllabus.getTopicCode()).orElseThrow();
@@ -116,22 +142,6 @@ public class SyllabusServiceImpl implements SyllabusService {
         return syllabusDTO;
     }
 
-    @Override
-    public SyllabusDTO createSyllabusOtherScreen(SyllabusDTO syllabusDTO) {
-        Syllabus syllabus = new Syllabus();
-        TrainingContent trainingContent = new TrainingContent();
-
-        trainingContent.setDuration(syllabusDTO.getTrainingProgramDuration());
-        syllabus.setTrainingPrincipal(syllabusDTO.getTrainingPrincipal());
-        syllabus.setTopicCode("A08");
-
-        Syllabus newSyllabus = syllabusRepository.save(syllabus);
-
-        SyllabusDTO responseSyllabus = new SyllabusDTO();
-        responseSyllabus.setTrainingPrincipal(newSyllabus.getTrainingPrincipal());
-//        responseSyllabus.setTrainingProgramDuration(syllabus.get);
-        return responseSyllabus;
-    }
     @Override
     public SyllabusDTO createDaySyllabusOutlineScreen(SyllabusDTO syllabusDTO) {
         // Get the maximum day number from the training units
