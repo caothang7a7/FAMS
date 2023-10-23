@@ -21,8 +21,6 @@ import java.util.Date;
 public class SyllabusDTOCreateGeneralRequest {
     @NotEmpty(message = "Syllabus name is required")
     String topicName;
-    @NotEmpty(message = "Syllabus code is required")
-    String topicCode;
     @NotEmpty(message = "Version is required")
     String version;
     String level; // chưa có field nào trong db
@@ -30,16 +28,13 @@ public class SyllabusDTOCreateGeneralRequest {
     String technicalGroup;
     @NotEmpty(message = "Number of audience is required")
     String trainingAudience;
-    @NotEmpty(message = "Description is required")
-    String description;
+//    @NotEmpty(message = "Description is required")
+//    String description;
     @JsonFormat(timezone = "yyyy-mm-dd")
     Date createDate;
 
     @NotNull(message = "UserId is required")
 //    @JsonProperty("userId")
 //    @Nullable
-
     Long userID;
-
-
 }

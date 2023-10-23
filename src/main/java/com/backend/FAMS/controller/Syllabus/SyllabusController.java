@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -41,16 +43,16 @@ public class SyllabusController {
        return new ResponseEntity<>(syllabusService.getListSyllabus(), HttpStatus.OK);
     }
     @PostMapping("/create-general-syllabus")
-    public ResponseEntity<?> createSyllabusGeneralScreen(@Valid @RequestBody SyllabusDTOCreateGeneralRequest sylaSyllabusDTOCreateGeneralRequest,
-                                                         BindingResult bindingResult)
-    {
+    public ResponseEntity<?> createSyllabusGeneralScreen(@Valid @RequestBody SyllabusDTOCreateGeneralRequest syllaSyllabusDTOCreateGeneralRequest,
+                                                         BindingResult bindingResult) throws ParseException {
         ApiResponse apiResponse = new ApiResponse();
         if(bindingResult.hasErrors()){
             apiResponse.error(validatorUtil.handleValidationErrors(bindingResult.getFieldErrors()));
             return ResponseEntity.badRequest().body(apiResponse);
         }
-        syllabusService.createSyllabusGeneralScreen(sylaSyllabusDTOCreateGeneralRequest);
-        apiResponse.ok(sylaSyllabusDTOCreateGeneralRequest);
+        syllabusService.createSyllabusGeneralScreen(syllaSyllabusDTOCreateGeneralRequest);
+        apiResponse.ok(syllaSyllabusDTOCreateGeneralRequest);
+
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 

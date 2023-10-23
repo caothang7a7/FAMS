@@ -85,7 +85,7 @@ public class Syllabus {
     @ManyToOne
     @MapsId("userId")
 //    @JoinColumn(name = "userId", insertable = false, updatable = false)
-    @JoinColumn(name = "userId", nullable = true)
+    @JoinColumn(nullable = true,insertable = false,name = "userId")
     @JsonIgnore
     private User user;
 

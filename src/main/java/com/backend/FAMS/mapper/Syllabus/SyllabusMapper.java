@@ -21,7 +21,6 @@ public interface SyllabusMapper {
     @Mapping(target = "trainingPrincipal", ignore = true)
     @Mapping(target = "trainingMaterial", ignore = true)
     @Mapping(target = "user", ignore = true)
-    //@Mapping(target = "description", ignore = true)
     Syllabus toEntity(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest);
 
 
@@ -30,7 +29,6 @@ public interface SyllabusMapper {
     @Mapping(target = "trainingAudience", ignore = true)
     @Mapping(target = "topicOutline", ignore = true)
     @Mapping(target = "trainingPrincipal", ignore = true)
-    @Mapping(target = "createdDate", ignore = true)
     @Mapping(target = "modifiedBy", ignore = true)
     @Mapping(target = "modifiedDate", ignore = true)
     @Mapping(target = "trainingProgramDuration", ignore = true)
@@ -38,5 +36,5 @@ public interface SyllabusMapper {
     @Mapping(target = "courseObjective", ignore = true)
     @Mapping(target = "outputStandard", ignore = true)
     @Mapping(target = "userLevel", ignore = true)
-    SyllabusDTOResponse toResponse(Syllabus syllabus);
+    SyllabusDTOResponse toListSyllabus(Syllabus syllabus);
 }

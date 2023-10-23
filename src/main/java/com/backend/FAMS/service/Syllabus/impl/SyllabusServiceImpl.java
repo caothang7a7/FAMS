@@ -17,8 +17,12 @@ import com.backend.FAMS.repository.User.UserRepository;
 import com.backend.FAMS.service.Syllabus.SyllabusService;
 import com.backend.FAMS.repository.TrainingProgram.TrainingProgramSyllabusRepository;
 import com.backend.FAMS.repository.TrainingUnit.TrainingUnitRepository;
+import com.backend.FAMS.util.Syllabus.SyllabusUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import com.backend.FAMS.repository.TrainingContent.TrainingContentRepository;
 
@@ -48,11 +52,6 @@ public class SyllabusServiceImpl implements SyllabusService {
     LearningObjectiveMapper learningObjectiveMapper;
     @Autowired
     UserMapper userMapper;
-
-//    @Override
-//    public List<SyllabusDTOResponse> getListSyllabus() {
-//        return null;
-//    }
 
     @Override
     public List<SyllabusDTOResponse> getListSyllabus() {
@@ -84,17 +83,11 @@ public class SyllabusServiceImpl implements SyllabusService {
         return dtoList;
     }
 
-
     @Override
-    public Syllabus createSyllabusGeneralScreen(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest) {
+    public Syllabus createSyllabusGeneralScreen(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest) throws ParseException {
         Syllabus syllabus = syllabusMapper.toEntity(syllabusDTOCreateGeneralRequest);
-        //LearningObjective learningObjective = learningObjectiveMapper.toEntity(syllabusDTOCreateGeneralRequest);
-//        User user = userMapper.toEntity(syllabusDTOCreateGeneralRequest);
-        // test save
-
-        //
+//        LearningObjective learningObjective = learningObjectiveMapper.toEntity(syllabusDTOCreateGeneralRequest);
         syllabus.setTopicName(syllabusDTOCreateGeneralRequest.getTopicName());
-        syllabus.setTopicCode(syllabusDTOCreateGeneralRequest.getTopicCode());
         syllabus.setTrainingAudience(syllabusDTOCreateGeneralRequest.getTrainingAudience());
         syllabus.setTechnicalGroup(syllabusDTOCreateGeneralRequest.getTechnicalGroup());
         syllabus.setCreatedDate(syllabusDTOCreateGeneralRequest.getCreateDate());
@@ -102,10 +95,38 @@ public class SyllabusServiceImpl implements SyllabusService {
                 () -> new NotFoundException("user not found with " +syllabusDTOCreateGeneralRequest.getUserID())
         );
         syllabus.setUser(user);
-        //learningObjective.setDescription(syllabusDTOCreateGeneralRequest.getDescription());
+//        learningObjective.setDescription(syllabusDTOCreateGeneralRequest.getDescription());
         //learningObjectiveRepository.save(learningObjective);
 
-        syllabusRepository.save(syllabus);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date timenow = new Date();
+        Date date = dateFormat.parse(dateFormat.format(timenow));
+
+        // Auto-generated topicCode
+        String topicCode = "";
+        String preTopicCode = "";
+        int min = 1;
+        int max = 4;
+        Random random = new Random();
+        int number = random.nextInt((max - min) + 1) + min;
+        switch (number){
+            case 1:
+                preTopicCode = "A";
+                break;
+            case 2:
+                preTopicCode = "S";
+                break;
+            case 3:
+                preTopicCode = "K";
+                break;
+            case 4:
+                preTopicCode = "H";
+                break;
+        }
+        SyllabusUtil utils = new SyllabusUtil(syllabusRepository);
+        topicCode = utils.generateTopicCode(preTopicCode);
+        syllabusRepository.customSaveSyllabus(topicCode, syllabusDTOCreateGeneralRequest.getTopicName(), syllabusDTOCreateGeneralRequest.getTechnicalGroup(), syllabusDTOCreateGeneralRequest.getVersion(), syllabusDTOCreateGeneralRequest.getTrainingAudience(), "outline",
+                "learning material", "principles", "priority", "INACTIVE", "Quách Gia", date, syllabusDTOCreateGeneralRequest.getUserID());
         return syllabus;
     }
 
