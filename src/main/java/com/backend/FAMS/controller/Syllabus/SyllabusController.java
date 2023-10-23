@@ -4,6 +4,7 @@ package com.backend.FAMS.controller.Syllabus;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTO;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTODetailInformation;
+import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOShowOtherScreen;
 import com.backend.FAMS.service.Syllabus.SyllabusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,6 +37,11 @@ public class SyllabusController {
     @PostMapping("/createSyllabusOtherScreen")
     public ResponseEntity<SyllabusDTOCreateOtherScreen> createSyllabusOtherScreen(@RequestBody SyllabusDTOCreateOtherScreen syllabusDTO){
         return new ResponseEntity<SyllabusDTOCreateOtherScreen>(syllabusService.createSyllabusOtherScreen(syllabusDTO), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/showOtherScreen/{topicName}")
+    public ResponseEntity<SyllabusDTOShowOtherScreen> showSyllabusOtherScreen(@PathVariable("topicName") String topicName){
+        return new ResponseEntity<SyllabusDTOShowOtherScreen>(syllabusService.showSyllabusOtherScreen(topicName), HttpStatus.OK);
     }
     @GetMapping("/OutlineScreen/{topicName}")
     public ResponseEntity<Set<SyllabusDTO>> showOutlineScreen(@PathVariable("topicName") String topicName){
