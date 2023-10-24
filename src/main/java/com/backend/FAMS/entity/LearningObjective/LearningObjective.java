@@ -20,10 +20,10 @@ public class LearningObjective {
     @Column(name = "code", nullable = false, unique = true)
     private String objectiveCode;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = true)
     private String objectiveName;
 
-    @Column(name = "type", nullable = false)
+    @Column(name = "type", nullable = true)
     private String type;
 
     @Column(name = "description", nullable = false)

@@ -1,27 +1,25 @@
 package com.backend.FAMS.service.Syllabus;
 
 import com.backend.FAMS.dto.Syllabus.request.SyllabusOutlineScreen;
-import com.backend.FAMS.dto.Syllabus.response.SyllabusDTO;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusOutlineScreenResponse;
+import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
+import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
-
-
+import java.text.ParseException;
 import java.util.List;
-import java.util.Set;
 
 public interface SyllabusService {
-    List<SyllabusDTO> getListSyllabus();
+    List<SyllabusDTOResponse> getListSyllabus();
 
-    void createSyllabus();
+    Syllabus createSyllabusGeneralScreen(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest) throws ParseException;
 
-    SyllabusDTO createSyllabusOtherScreen(SyllabusDTO syllabusDTO, String topicCode);
+    SyllabusDTOResponse createSyllabusOtherScreen(SyllabusDTOResponse syllabusDTO, String topicCode);
 
-    SyllabusDTO getSyllabusById(String topicCode);
+    SyllabusDTOResponse getSyllabusById(String topicCode);
 
-    SyllabusDTO createSyllabusOtherScreen(SyllabusDTO syllabusDTO);
+    SyllabusDTOResponse createSyllabusOtherScreen(SyllabusDTOResponse syllabusDTO);
 
     SyllabusOutlineScreen createSyllabusOutlineScreen(SyllabusOutlineScreen syllabusOutlineScreen);
     SyllabusOutlineScreenResponse showOutlineScreen(String topicName);
 
-    Syllabus addDate(String topicCode);
 }

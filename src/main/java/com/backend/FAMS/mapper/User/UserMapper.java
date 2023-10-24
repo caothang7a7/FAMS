@@ -1,14 +1,9 @@
+
 package com.backend.FAMS.mapper.User;
-/*  Welcome to Jio word
-    @author: Jio
-    Date: 10/6/2023
-    Time: 2:46 PM
-
-    ProjectName: fams-backend
-    Jio: I wish you always happy with coding <3
-*/
 
 
+
+import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
 import com.backend.FAMS.dto.User.request.UserChangePass;
 import com.backend.FAMS.dto.User.request.UserDTOCreateRequest;
 import com.backend.FAMS.dto.User.request.UserDTOUpdateRequest;
@@ -33,7 +28,9 @@ public interface UserMapper {
 
     @Mapping(target = "userPermission", ignore = true)
     User toEntity(UserDTOCreateRequest userDTOCreateRequest);
+    @Mapping(target = "userPermission", ignore = true)
 
+    User toEntity(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest);
     @Mapping(target = "userPermission", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
     @Mapping(target = "createdDate", ignore = true)
