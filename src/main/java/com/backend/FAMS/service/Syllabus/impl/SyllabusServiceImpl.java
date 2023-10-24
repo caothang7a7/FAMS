@@ -76,13 +76,6 @@ public class SyllabusServiceImpl implements SyllabusService {
 
     @Override
     public SyllabusDTOCreateOtherScreen createSyllabusOtherScreen(SyllabusDTOCreateOtherScreen dto) {
-        Syllabus syllabus = new Syllabus();
-        TrainingContent trainingContent = new TrainingContent();
-
-        syllabus = syllabusMapper.createSyllabusOtherScreenMaptoEntity(dto);
-
-        syllabusRepository.createSyllabusOtherScreen(dto.getTopicName(), dto.getTrainingPrincipal(), dto.getQuiz(), dto.getAssignment(), dto.getFinalTest(), dto.getFinalTheory(), dto.getFinalPractice(), dto.getGpa(), dto.getUserId());
-
         return dto;
     }
 

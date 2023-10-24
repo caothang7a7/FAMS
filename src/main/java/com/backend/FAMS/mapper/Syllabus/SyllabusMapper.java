@@ -15,5 +15,17 @@ public interface SyllabusMapper {
 
     SyllabusDTOShowOtherScreen mapToDTO(Syllabus syllabus);
 
+    @Mapping(target = "topicCode", ignore = true)
+    @Mapping(target = "technicalGroup", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "trainingAudience", ignore = true)
+    @Mapping(target = "topicOutline", ignore = true)
+    @Mapping(target = "trainingMaterial", ignore = true)
+    @Mapping(target = "priority", ignore = true)
+    @Mapping(target = "syllabusStatus", ignore = true)
+    @Mapping(target = "createdBy", ignore = true)
+    @Mapping(target = "createdDate", ignore = true)
+    @Mapping(target = "modifiedBy", ignore = true)
+    @Mapping(target = "modifiedDate", ignore = true)
     Syllabus createSyllabusOtherScreenMaptoEntity(SyllabusDTOCreateOtherScreen dto);
 }

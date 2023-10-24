@@ -13,4 +13,5 @@ public class SyllabusDTOCreateOtherScreen {
     private int finalPractice;
     private int gpa;
     private long userId;
+    private int duration;
 }
