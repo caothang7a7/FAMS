@@ -1,6 +1,7 @@
 package com.backend.FAMS.entity.Syllabus;
 
 
+import com.backend.FAMS.entity.Syllabus.syllabus_enum.SyllabusLevel;
 import com.backend.FAMS.entity.Syllabus.syllabus_enum.SyllabusStatus;
 import com.backend.FAMS.entity.TrainingProgram.TrainingProgramSyllabus;
 import com.backend.FAMS.entity.TrainingUnit.TrainingUnit;
@@ -83,6 +84,9 @@ public class Syllabus {
     @Column(name = "gpa", nullable = true)
     private int gpa;
 
+    @Column(name = "level", nullable = true)
+    @Enumerated(EnumType.STRING)
+    private SyllabusLevel level;
     // --- relationship----
 
     // tao quan he 1-n to SyllabusObjective
@@ -103,11 +107,9 @@ public class Syllabus {
     // n-1 to User
     @ManyToOne
     @MapsId("userId")
-    @JoinColumn(name = "userId", insertable = false, updatable = false)
+//    @JoinColumn(name = "userId", insertable = false, updatable = false)
+    @JoinColumn(nullable = true,insertable = false,name = "userId")
     @JsonIgnore
     private User user;
-
-
-
 
 }

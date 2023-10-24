@@ -54,8 +54,8 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(requet -> requet
                         .requestMatchers(ENDPOINTS_WHITELIST).permitAll()
-                        .requestMatchers(HttpMethod.POST,"/api/v1/users").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers(HttpMethod.POST,"/api/v1/syllabus").permitAll()
+                        .anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)

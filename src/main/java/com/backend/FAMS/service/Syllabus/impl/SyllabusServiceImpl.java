@@ -1,26 +1,38 @@
 package com.backend.FAMS.service.Syllabus.impl;
 
+
 import com.backend.FAMS.dto.Syllabus.request.SyllabusOutlineScreen;
-import com.backend.FAMS.dto.Syllabus.response.SyllabusDTO;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusOutlineScreenResponse;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTODetailInformation;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOShowOtherScreen;
+import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
+import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
 import com.backend.FAMS.entity.LearningObjective.LearningObjective;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
+import com.backend.FAMS.entity.Syllabus.SyllabusObjective;
+import com.backend.FAMS.entity.Syllabus.SyllabusObjectiveId;
 import com.backend.FAMS.entity.TrainingContent.TrainingContent;
 import com.backend.FAMS.entity.TrainingProgram.TrainingProgramSyllabus;
 import com.backend.FAMS.entity.TrainingUnit.TrainingUnit;
 import com.backend.FAMS.entity.User.User;
 import com.backend.FAMS.mapper.Syllabus.SyllabusMapper;
+import com.backend.FAMS.exception.NotFoundException;
+import com.backend.FAMS.mapper.LearningObjectiveMapper;
+import com.backend.FAMS.mapper.TrainingContent.TrainingContentMapper;
+import com.backend.FAMS.mapper.User.UserMapper;
 import com.backend.FAMS.repository.LearningObjective.LearningObjectiveRepository;
+import com.backend.FAMS.repository.Syllabus.SyllabusObjectiveRepository;
 import com.backend.FAMS.repository.Syllabus.SyllabusRepository;
 import com.backend.FAMS.repository.User.UserRepository;
 import com.backend.FAMS.service.Syllabus.SyllabusService;
 import com.backend.FAMS.repository.TrainingProgram.TrainingProgramSyllabusRepository;
 import com.backend.FAMS.repository.TrainingUnit.TrainingUnitRepository;
+import com.backend.FAMS.util.Syllabus.SyllabusUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import com.backend.FAMS.repository.TrainingContent.TrainingContentRepository;
 
@@ -37,6 +49,8 @@ public class SyllabusServiceImpl implements SyllabusService {
     @Autowired
     LearningObjectiveRepository learningObjectiveRepository;
     @Autowired
+    SyllabusObjectiveRepository syllabusObjectiveRepository;
+    @Autowired
     TrainingContentRepository trainingContentRepository;
     @Autowired
     TrainingProgramSyllabusRepository trainingProgramSyllabusRepository;
@@ -44,21 +58,27 @@ public class SyllabusServiceImpl implements SyllabusService {
     TrainingUnitRepository trainingUnitRepository;
     @Autowired
     SyllabusMapper syllabusMapper;
+    @Autowired
+    LearningObjectiveMapper learningObjectiveMapper;
+    @Autowired
+    UserMapper userMapper;
+    @Autowired
+    TrainingContentMapper trainingContentMapper;
 
     @Override
-    public List<SyllabusDTO> getListSyllabus() {
-        List<SyllabusDTO> dtoList = new ArrayList<>();
+    public List<SyllabusDTOResponse> getListSyllabus() {
+        List<SyllabusDTOResponse> dtoList = new ArrayList<>();
 
         List<Syllabus> syllabusList = syllabusRepository.findAll();
-        for(Syllabus syllabus: syllabusList){
-            SyllabusDTO dto = new SyllabusDTO();
+        for (Syllabus syllabus : syllabusList) {
+            SyllabusDTOResponse dto = new SyllabusDTOResponse();
             dto.setTopicCode(syllabus.getTopicCode());
             dto.setTopicName(syllabus.getTopicName());
             dto.setSyllabusStatus(syllabus.getSyllabusStatus());
             dto.setCreatedBy(syllabus.getCreatedBy());
             dto.setCreatedDate(syllabus.getCreatedDate());
             Set<TrainingContent> trainingContentList = trainingContentRepository.findByTrainingUnit_UnitCode(syllabus.getTopicCode());
-            for(TrainingContent trainingContent: trainingContentList){
+            for (TrainingContent trainingContent : trainingContentList) {
                 dto.setDuration(trainingContent.getDuration());
             }
             Set<TrainingProgramSyllabus> trainingProgramSyllabi = trainingProgramSyllabusRepository.findAllBySyllabus_TopicCode(syllabus.getTopicCode());
@@ -75,28 +95,94 @@ public class SyllabusServiceImpl implements SyllabusService {
         return dtoList;
     }
 
-
     @Override
     public SyllabusDTOCreateOtherScreen createSyllabusOtherScreen(SyllabusDTOCreateOtherScreen dto) {
         return dto;
     }
 
     @Override
-    public SyllabusDTODetailInformation getSyllabusById(String topicCode){
-        SyllabusDTODetailInformation syllabusDTO = new SyllabusDTODetailInformation();
+    public Syllabus createSyllabusGeneralScreen(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest) throws ParseException {
+        Syllabus syllabus = syllabusMapper.toEntity(syllabusDTOCreateGeneralRequest);
+        syllabus.setTopicName(syllabusDTOCreateGeneralRequest.getTopicName());
+        syllabus.setTrainingAudience(syllabusDTOCreateGeneralRequest.getTrainingAudience());
+        syllabus.setTechnicalGroup(syllabusDTOCreateGeneralRequest.getTechnicalGroup());
+        syllabus.setCreatedDate(syllabusDTOCreateGeneralRequest.getCreateDate());
+        syllabus.setLevel(syllabusDTOCreateGeneralRequest.getLevel());
+        User user = userRepository.findById(syllabusDTOCreateGeneralRequest.getUserID()).orElseThrow(
+                () -> new NotFoundException("user not found with " + syllabusDTOCreateGeneralRequest.getUserID())
+        );
+        syllabus.setUser(user);
 
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date timenow = new Date();
+        Date date = dateFormat.parse(dateFormat.format(timenow));
+
+        // Auto-generated topicCode
+        String topicCode = "";
+        String preTopicCode = "";
+        int min = 1;
+        int max = 4;
+        Random random = new Random();
+        int number = random.nextInt((max - min) + 1) + min;
+        switch (number) {
+            case 1:
+                preTopicCode = "A";
+                break;
+            case 2:
+                preTopicCode = "S";
+                break;
+            case 3:
+                preTopicCode = "K";
+                break;
+            case 4:
+                preTopicCode = "H";
+                break;
+        }
+        SyllabusUtil utils = new SyllabusUtil(syllabusRepository);
+        topicCode = utils.generateTopicCode(preTopicCode);
+        syllabus.setTopicCode(topicCode);
+//        syllabusRepository.customSaveSyllabus(topicCode, syllabusDTOCreateGeneralRequest.getTopicName(), syllabusDTOCreateGeneralRequest.getTechnicalGroup(), syllabusDTOCreateGeneralRequest.getVersion(), syllabusDTOCreateGeneralRequest.getTrainingAudience(), "outline",
+//                "learning material", "principles", "priority", "INACTIVE", "Quách Gia", date, syllabusDTOCreateGeneralRequest.getUserID());
+
+        LearningObjective learningObjective1 = learningObjectiveMapper.toEntity(syllabusDTOCreateGeneralRequest);
+        learningObjective1.setObjectiveCode(topicCode);
+        learningObjective1.setDescription(syllabusDTOCreateGeneralRequest.getDescription());
+
+//        learningObjectiveRepository.save(learningObjective1);
+
+        // Tạo SyllabusObjectiveId cho quan hệ
+        SyllabusObjectiveId syllabusObjectiveId = new SyllabusObjectiveId();
+        syllabusObjectiveId.setTopicCode(topicCode);
+        syllabusObjectiveId.setObjectiveCode(learningObjective1.getObjectiveCode());
+
+        // Tạo một SyllabusObjective và thiết lập mối quan hệ
+        SyllabusObjective syllabusObjective = new SyllabusObjective();
+        syllabusObjective.setSyllabusObjectiveId(syllabusObjectiveId);
+        syllabusObjective.setSyllabus(syllabus);
+        syllabusObjective.setLearningObjective(learningObjective1);
+//        syllabusObjectiveRepository.save(syllabusObjective);
+
+
+        return syllabus;
+    }
+
+
+    @Override
+    public SyllabusDTODetailInformation getSyllabusById(String topicCode) {
+        SyllabusDTODetailInformation syllabusDTO = new SyllabusDTODetailInformation();
         Syllabus syllabus = syllabusRepository.findById(topicCode).orElseThrow();
         LearningObjective learningObjective = learningObjectiveRepository.findById(syllabus.getTopicCode()).orElseThrow();
         Set<TrainingProgramSyllabus> trainingProgram = trainingProgramRepository.findAllBySyllabus_TopicCode(syllabus.getTopicCode());
         Integer[][] integers = new Integer[trainingProgram.size()][];
 
         int i = 0;
-        for(TrainingProgramSyllabus trainingProgramSyllabus : trainingProgram){
+        for (TrainingProgramSyllabus trainingProgramSyllabus : trainingProgram) {
             integers[i] = new Integer[]{trainingProgramSyllabus.getTrainingProgram().getDuration()};
             i++;
             syllabusDTO.setDurationArr(integers);
         }
-        for(TrainingProgramSyllabus trainingProgramSyllabus: trainingProgram){
+        for (TrainingProgramSyllabus trainingProgramSyllabus : trainingProgram) {
             syllabusDTO.setOutputStandard(trainingProgramSyllabus.getTrainingProgram().getTrainingProgramCode());
         }
 
@@ -120,11 +206,8 @@ public class SyllabusServiceImpl implements SyllabusService {
 
     @Override
     public SyllabusDTOShowOtherScreen showSyllabusOtherScreen(String topicName) {
-        SyllabusDTOShowOtherScreen dtoShowOtherScreen = new SyllabusDTOShowOtherScreen();
-        Syllabus syllabus =  new Syllabus();
-        syllabus = syllabusRepository.findSyllabusByTopicName(topicName);
-
-        dtoShowOtherScreen = syllabusMapper.mapToDTO(syllabus);
+        Syllabus syllabus  = syllabusRepository.findSyllabusByTopicName(topicName);
+        SyllabusDTOShowOtherScreen dtoShowOtherScreen = syllabusMapper.mapToDTO(syllabus);
         return dtoShowOtherScreen;
     }
 
@@ -139,7 +222,7 @@ public class SyllabusServiceImpl implements SyllabusService {
         Integer[][] integers = new Integer[trainingUnits.size()][];
         int i = 0;
 
-        for (TrainingUnit trainingUnit:trainingUnits ){
+        for (TrainingUnit trainingUnit : trainingUnits) {
             syllabusOutlineScreenResponse.setUnitCode(trainingUnit.getUnitCode());
             syllabusOutlineScreenResponse.setUnitName(trainingUnit.getUnitName());
             integers[i] = new Integer[]{trainingUnit.getDayNumber()};
@@ -148,7 +231,7 @@ public class SyllabusServiceImpl implements SyllabusService {
             Set<TrainingContent> trainingContents = trainingContentRepository.findByTrainingUnit_UnitCode(trainingUnit.getUnitCode());
             String[][] strings = new String[trainingContents.size()][];
             int y = 0;
-            for (TrainingContent trainingContent:trainingContents){
+            for (TrainingContent trainingContent : trainingContents) {
 //                syllabusOutlineScreenResponse.setDeliveryType(Enum.valueOf(DeliveryType.class,String.valueOf(trainingContent.getDeliveryType())));
                 syllabusOutlineScreenResponse.setDeliveryType(trainingContent.getDeliveryType());
                 syllabusOutlineScreenResponse.setTrainingFormat(trainingContent.getTrainingFormat());
@@ -167,3 +250,6 @@ public class SyllabusServiceImpl implements SyllabusService {
         return syllabusOutlineScreen;
     }
 }
+
+
+
