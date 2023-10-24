@@ -21,7 +21,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class Syllabus {
     @Id
-    @Column(name = "topic_code", nullable = false, unique = true)
+    @Column(name = "topic_code", nullable = true, unique = true)
     @GeneratedValue(strategy = GenerationType.UUID)
     private String topicCode;
 

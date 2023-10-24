@@ -5,12 +5,12 @@ import lombok.Data;
 @Data
 public class SyllabusDTOCreateOtherScreen {
     private String topicName;
-    private int duration;
-    private String trainingPrinciples;
-    private int quizPercent;
-    private int assignmentPercent;
-    private int finalPercent;
-    private int finalTheoryPercent;
-    private int finalPracticePercent;
-    private int GPA;
+    private String trainingPrincipal;
+    private int quiz;
+    private int assignment;
+    private int finalTest;
+    private int finalTheory;
+    private int finalPractice;
+    private int gpa;
+    private long userId;
 }

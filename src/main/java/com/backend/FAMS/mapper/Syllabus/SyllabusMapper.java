@@ -13,13 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public interface SyllabusMapper {
 
-//    @Mapping(target = "topicName", ignore = false)
-//    @Mapping(target = "assignment", ignore = false)
-//    @Mapping(target = "quiz", ignore = false)
-//    @Mapping(target = "gpa", ignore = false)
-//    @Mapping(target = "trainingPrincipal", ignore = false)
-//    @Mapping(target = "finalTest", ignore = false)
-//    @Mapping(target = "finalPractice", ignore = false)
-//    @Mapping(target = "finalTheory", ignore = false)
     SyllabusDTOShowOtherScreen mapToDTO(Syllabus syllabus);
+
+    Syllabus createSyllabusOtherScreenMaptoEntity(SyllabusDTOCreateOtherScreen dto);
 }

@@ -75,35 +75,15 @@ public class SyllabusServiceImpl implements SyllabusService {
 
 
     @Override
-    public SyllabusDTOCreateOtherScreen createSyllabusOtherScreen(SyllabusDTOCreateOtherScreen syllabusDTO) {
+    public SyllabusDTOCreateOtherScreen createSyllabusOtherScreen(SyllabusDTOCreateOtherScreen dto) {
         Syllabus syllabus = new Syllabus();
         TrainingContent trainingContent = new TrainingContent();
 
-//        trainingContent.setDuration(trainingContentDTO.getDuration());
-        User user = new User();
-        user = userRepository.findById(2L).orElseThrow();
-        syllabus.setQuiz(syllabusDTO.getQuizPercent());
-        syllabus.setAssignment(syllabusDTO.getAssignmentPercent());
-        syllabus.setFinalTest(syllabusDTO.getFinalPercent());
-        syllabus.setFinalTheory(syllabusDTO.getFinalTheoryPercent());
-        syllabus.setFinalPractice(syllabusDTO.getFinalPracticePercent());
-        syllabus.setGpa(syllabusDTO.getGPA());
+        syllabus = syllabusMapper.createSyllabusOtherScreenMaptoEntity(dto);
 
-        syllabus.setTrainingPrincipal(syllabusDTO.getTrainingPrinciples());
-        syllabus.setUser(user);
+        syllabusRepository.createSyllabusOtherScreen(dto.getTopicName(), dto.getTrainingPrincipal(), dto.getQuiz(), dto.getAssignment(), dto.getFinalTest(), dto.getFinalTheory(), dto.getFinalPractice(), dto.getGpa(), dto.getUserId());
 
-        Syllabus newSyllabus = syllabusRepository.save(syllabus);
-
-        SyllabusDTOCreateOtherScreen responseDtoCreateOtherScreen = new SyllabusDTOCreateOtherScreen();
-        responseDtoCreateOtherScreen.setTopicName(newSyllabus.getTopicName());
-        responseDtoCreateOtherScreen.setQuizPercent(newSyllabus.getQuiz());
-        responseDtoCreateOtherScreen.setAssignmentPercent(newSyllabus.getAssignment());
-        responseDtoCreateOtherScreen.setFinalPercent(newSyllabus.getFinalTest());
-        responseDtoCreateOtherScreen.setFinalTheoryPercent(newSyllabus.getFinalTheory());
-        responseDtoCreateOtherScreen.setFinalPracticePercent(newSyllabus.getFinalPractice());
-        responseDtoCreateOtherScreen.setTrainingPrinciples(newSyllabus.getTrainingPrincipal());
-
-        return responseDtoCreateOtherScreen;
+        return dto;
     }
 
     @Override
