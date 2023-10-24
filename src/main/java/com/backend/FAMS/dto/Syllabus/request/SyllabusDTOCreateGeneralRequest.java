@@ -1,5 +1,6 @@
 package com.backend.FAMS.dto.Syllabus.request;
 
+import com.backend.FAMS.entity.Syllabus.syllabus_enum.SyllabusLevel;
 import com.backend.FAMS.entity.User.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,7 +24,7 @@ public class SyllabusDTOCreateGeneralRequest {
     String topicName;
     @NotEmpty(message = "Version is required")
     String version;
-    String level; // chưa có field nào trong db
+    SyllabusLevel level;
     @NotEmpty(message = "Technical Group is required")
     String technicalGroup;
     @NotEmpty(message = "Number of audience is required")

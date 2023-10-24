@@ -93,24 +93,6 @@ public class SyllabusServiceImpl implements SyllabusService {
         return dtoList;
     }
 
-//    @Override
-//    public List<SyllabusDTOResponse> getListSyllabus() {
-//        List<SyllabusDTOResponse> mergedDTOList = new ArrayList<>();
-//        List<Syllabus> syllabusList = syllabusRepository.findAll();
-//        for(Syllabus syllabus: syllabusList) {
-//            List<TrainingContent> trainingContentList = trainingContentRepository.findTrainingContentByTrainingUnit_UnitCode(syllabus.getTopicCode());
-//            List<SyllabusDTOResponse> dto1 = syllabusMapper.toListSyllabus(syllabusList);
-//            List<SyllabusDTOResponse> dto2 = trainingContentMapper.toResponse(trainingContentList);
-//            for(TrainingContent trainingContent: trainingContentList) {
-//                if(trainingContent.getDuration() != 0) {
-//                    mergedDTOList.addAll(dto1);
-//                    mergedDTOList.addAll(dto2);
-//                }
-//            }
-//        }
-//        return mergedDTOList;
-//    }
-
     @Override
     public Syllabus createSyllabusGeneralScreen(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest) throws ParseException {
         Syllabus syllabus = syllabusMapper.toEntity(syllabusDTOCreateGeneralRequest);
@@ -118,6 +100,7 @@ public class SyllabusServiceImpl implements SyllabusService {
         syllabus.setTrainingAudience(syllabusDTOCreateGeneralRequest.getTrainingAudience());
         syllabus.setTechnicalGroup(syllabusDTOCreateGeneralRequest.getTechnicalGroup());
         syllabus.setCreatedDate(syllabusDTOCreateGeneralRequest.getCreateDate());
+        syllabus.setLevel(syllabusDTOCreateGeneralRequest.getLevel());
         User user = userRepository.findById(syllabusDTOCreateGeneralRequest.getUserID()).orElseThrow(
                 () -> new NotFoundException("user not found with " +syllabusDTOCreateGeneralRequest.getUserID())
         );

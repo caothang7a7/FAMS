@@ -1,6 +1,7 @@
 package com.backend.FAMS.entity.Syllabus;
 
 
+import com.backend.FAMS.entity.Syllabus.syllabus_enum.SyllabusLevel;
 import com.backend.FAMS.entity.Syllabus.syllabus_enum.SyllabusStatus;
 import com.backend.FAMS.entity.TrainingProgram.TrainingProgramSyllabus;
 import com.backend.FAMS.entity.TrainingUnit.TrainingUnit;
@@ -64,6 +65,9 @@ public class Syllabus {
     @Column(name = "modified_date", nullable = true)
     private Date modifiedDate;
 
+    @Column(name = "level", nullable = true)
+    @Enumerated(EnumType.STRING)
+    private SyllabusLevel level;
     // --- relationship----
 
     // tao quan he 1-n to SyllabusObjective
