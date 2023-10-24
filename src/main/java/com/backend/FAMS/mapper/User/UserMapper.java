@@ -1,8 +1,9 @@
-package com.backend.FAMS.mapper.User;/*  Welcome to Jio word
+package com.backend.FAMS.mapper.User;
+/*  Welcome to Jio word
     @author: Jio
     Date: 10/6/2023
     Time: 2:46 PM
-    
+
     ProjectName: fams-backend
     Jio: I wish you always happy with coding <3
 */
