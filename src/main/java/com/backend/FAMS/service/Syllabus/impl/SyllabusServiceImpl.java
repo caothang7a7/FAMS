@@ -1,5 +1,6 @@
 package com.backend.FAMS.service.Syllabus.impl;
 
+import com.backend.FAMS.dto.Syllabus.request.SyllabusOutlineScreen;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTO;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusOutlineScreenResponse;
 import com.backend.FAMS.entity.LearningObjective.LearningObjective;
@@ -137,28 +138,28 @@ public class SyllabusServiceImpl implements SyllabusService {
 //        responseSyllabus.setTrainingProgramDuration(syllabus.get);
         return responseSyllabus;
     }
-    @Override
-    public SyllabusDTO createDaySyllabusOutlineScreen(SyllabusDTO syllabusDTO) {
-        // Get the maximum day number from the training units
-//        Integer maxDayNumber = trainingUnitRepository.findMaxDayNumber();
-//
-//        // Calculate the new day number
-//        Integer newDayNumber = maxDayNumber != null ? maxDayNumber + 1 : 1;
-//
-//        // Create a new TrainingUnit and set its day number
-//        TrainingUnit trainingUnit = new TrainingUnit();
-//        trainingUnit.setDayNumber(newDayNumber);
-//
-//        // Save the new TrainingUnit
-//        TrainingUnit newDay = trainingUnitRepository.save(trainingUnit);
-//
-//        // Create a response DTO and set its properties
-//        SyllabusDTO responseDay = new SyllabusDTO();
-//        responseDay.setDayNumber(newDay.getDayNumber());
-//
-//        return responseDay;
-        return null;
-    }
+//    @Override
+//    public SyllabusDTO createDaySyllabusOutlineScreen(SyllabusDTO syllabusDTO) {
+//        // Get the maximum day number from the training units
+////        Integer maxDayNumber = trainingUnitRepository.findMaxDayNumber();
+////
+////        // Calculate the new day number
+////        Integer newDayNumber = maxDayNumber != null ? maxDayNumber + 1 : 1;
+////
+////        // Create a new TrainingUnit and set its day number
+////        TrainingUnit trainingUnit = new TrainingUnit();
+////        trainingUnit.setDayNumber(newDayNumber);
+////
+////        // Save the new TrainingUnit
+////        TrainingUnit newDay = trainingUnitRepository.save(trainingUnit);
+////
+////        // Create a response DTO and set its properties
+////        SyllabusDTO responseDay = new SyllabusDTO();
+////        responseDay.setDayNumber(newDay.getDayNumber());
+////
+////        return responseDay;
+//        return null;
+//    }
 
     @Override
     public SyllabusOutlineScreenResponse showOutlineScreen(String topicName) {
@@ -207,8 +208,16 @@ public class SyllabusServiceImpl implements SyllabusService {
 //    }
 
     @Override
-    public SyllabusDTO createSyllabusOutlineScreen(SyllabusDTO syllabusDTO){
-        return null;
+    public SyllabusOutlineScreen createSyllabusOutlineScreen(SyllabusOutlineScreen syllabusOutlineScreen){
+//        Syllabus syllabus = syllabusMapper.CreateOutlineScreen(syllabusOutlineScreen);
+//
+//        syllabus.setTopicCode(syllabusOutlineScreen.getTopicCode());
+//        syllabus.setTopicName(syllabusOutlineScreen.getTopicName());
+
+
+
+//        syllabus.setTrainingUnits();
+        return syllabusOutlineScreen;
     }
 
     @Override

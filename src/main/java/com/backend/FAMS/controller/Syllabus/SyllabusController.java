@@ -1,6 +1,7 @@
 package com.backend.FAMS.controller.Syllabus;
 
 
+import com.backend.FAMS.dto.Syllabus.request.SyllabusOutlineScreen;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTO;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusOutlineScreenResponse;
 import com.backend.FAMS.service.Syllabus.SyllabusService;
@@ -40,8 +41,8 @@ public class SyllabusController {
     public ResponseEntity<SyllabusOutlineScreenResponse> showOutlineScreen(@PathVariable("topicName") String topicName){
         return new ResponseEntity<>(syllabusService.showOutlineScreen(topicName), HttpStatus.OK);
     }
-    @PostMapping("/OutlineScreen/day")
-    public ResponseEntity<SyllabusDTO> createDaySyllabusOutlineScreen(@RequestBody SyllabusDTO syllabusDTO){
-        return new ResponseEntity<SyllabusDTO>(syllabusService.createDaySyllabusOutlineScreen(syllabusDTO), HttpStatus.CREATED);
+    @PostMapping("/OutlineScreen")
+    public ResponseEntity<SyllabusOutlineScreen> createDaySyllabusOutlineScreen(@RequestBody SyllabusOutlineScreen syllabusOutlineScreen){
+        return new ResponseEntity<SyllabusOutlineScreen>(syllabusService.createSyllabusOutlineScreen(syllabusOutlineScreen), HttpStatus.CREATED);
     }
 }
