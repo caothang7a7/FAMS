@@ -2,7 +2,9 @@ package com.backend.FAMS.entity.Class;
 
 import com.backend.FAMS.entity.Class.class_enum.ClassStatus;
 import com.backend.FAMS.entity.TrainingProgram.TrainingProgram;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -64,10 +66,12 @@ public class Classroom {
     // n -1 to TrainingProgram
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "training_program_code", nullable = false)
+    @JsonBackReference
     private TrainingProgram trainingProgram;
 
     // 1-n to ClassUser
     @OneToMany(mappedBy = "classroom")
     @JsonIgnore
+    @JsonManagedReference
     private Set<ClassUser> classUsers;
 }

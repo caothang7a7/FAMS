@@ -8,6 +8,7 @@ package com.backend.FAMS.mapper.User;/*  Welcome to Jio word
 */
 
 
+import com.backend.FAMS.dto.User.request.UserChangePass;
 import com.backend.FAMS.dto.User.request.UserDTOCreateRequest;
 import com.backend.FAMS.dto.User.request.UserDTOUpdateRequest;
 import com.backend.FAMS.dto.User.response.UserDTOResponse;
@@ -39,6 +40,10 @@ public interface UserMapper {
     @Mapping(target = "modifiedDate", ignore = true)
     @Mapping(target = "password", ignore = true)
     void toUpdate(UserDTOUpdateRequest userDTOUpdateRequest, @MappingTarget User user);
+
+
+    UserChangePass toChangePasswordDTO(User user);
+    User toChangePassword(UserChangePass userChangePas);
 
 
 }

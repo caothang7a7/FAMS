@@ -16,8 +16,8 @@ public class TrainingProgramSyllabus {
     @EmbeddedId
     private TrainingProgramSyllabusId trainingProgramSyllabusId;
 
-    @Column(name = "sequence")
-    private int sequence;
+//    @Column(name = "sequence")
+//    private int sequence;
 
     // --- relationship----
 

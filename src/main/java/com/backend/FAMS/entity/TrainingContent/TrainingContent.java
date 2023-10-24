@@ -1,6 +1,8 @@
 package com.backend.FAMS.entity.TrainingContent;
 
 import com.backend.FAMS.entity.LearningObjective.LearningObjective;
+import com.backend.FAMS.entity.TrainingContent.trainingContent_enum.DeliveryType;
+import com.backend.FAMS.entity.TrainingContent.trainingContent_enum.TrainingFormat;
 import com.backend.FAMS.entity.TrainingUnit.TrainingUnit;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -30,6 +32,13 @@ public class TrainingContent {
     @Column(name = "note")
     private String note;
 
+    @Column(name = "trainingformat")
+    @Enumerated(EnumType.STRING)
+    private TrainingFormat trainingFormat;
+
+    @Column(name = "deliverytype")
+    @Enumerated(EnumType.STRING)
+    private DeliveryType deliveryType;
     // --- relationship----
 
     // n-1 to LearningObjective
