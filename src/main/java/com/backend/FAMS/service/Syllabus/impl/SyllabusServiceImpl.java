@@ -3,10 +3,12 @@ package com.backend.FAMS.service.Syllabus.impl;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusOutlineScreen;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTO;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusOutlineScreenResponse;
+import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
+import com.backend.FAMS.dto.Syllabus.response.SyllabusDTODetailInformation;
+import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOShowOtherScreen;
 import com.backend.FAMS.entity.LearningObjective.LearningObjective;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.entity.TrainingContent.TrainingContent;
-import com.backend.FAMS.entity.TrainingContent.trainingContent_enum.DeliveryType;
 import com.backend.FAMS.entity.TrainingProgram.TrainingProgramSyllabus;
 import com.backend.FAMS.entity.TrainingUnit.TrainingUnit;
 import com.backend.FAMS.entity.User.User;
@@ -34,16 +36,15 @@ public class SyllabusServiceImpl implements SyllabusService {
     UserRepository userRepository;
     @Autowired
     LearningObjectiveRepository learningObjectiveRepository;
-
     @Autowired
     TrainingContentRepository trainingContentRepository;
-
     @Autowired
     TrainingProgramSyllabusRepository trainingProgramSyllabusRepository;
     @Autowired
     TrainingUnitRepository trainingUnitRepository;
-
+    @Autowired
     SyllabusMapper syllabusMapper;
+
     @Override
     public List<SyllabusDTO> getListSyllabus() {
         List<SyllabusDTO> dtoList = new ArrayList<>();
@@ -76,18 +77,13 @@ public class SyllabusServiceImpl implements SyllabusService {
 
 
     @Override
-    public void createSyllabus() {
-
+    public SyllabusDTOCreateOtherScreen createSyllabusOtherScreen(SyllabusDTOCreateOtherScreen dto) {
+        return dto;
     }
 
     @Override
-    public SyllabusDTO createSyllabusOtherScreen(SyllabusDTO syllabusDTO, String topicCode) {
-        return null;
-    }
-
-    @Override
-    public SyllabusDTO getSyllabusById(String topicCode){
-        SyllabusDTO syllabusDTO = new SyllabusDTO();
+    public SyllabusDTODetailInformation getSyllabusById(String topicCode){
+        SyllabusDTODetailInformation syllabusDTO = new SyllabusDTODetailInformation();
 
         Syllabus syllabus = syllabusRepository.findById(topicCode).orElseThrow();
         LearningObjective learningObjective = learningObjectiveRepository.findById(syllabus.getTopicCode()).orElseThrow();
@@ -123,43 +119,14 @@ public class SyllabusServiceImpl implements SyllabusService {
     }
 
     @Override
-    public SyllabusDTO createSyllabusOtherScreen(SyllabusDTO syllabusDTO) {
-        Syllabus syllabus = new Syllabus();
-        TrainingContent trainingContent = new TrainingContent();
+    public SyllabusDTOShowOtherScreen showSyllabusOtherScreen(String topicName) {
+        SyllabusDTOShowOtherScreen dtoShowOtherScreen = new SyllabusDTOShowOtherScreen();
+        Syllabus syllabus =  new Syllabus();
+        syllabus = syllabusRepository.findSyllabusByTopicName(topicName);
 
-        trainingContent.setDuration(syllabusDTO.getTrainingProgramDuration());
-        syllabus.setTrainingPrincipal(syllabusDTO.getTrainingPrincipal());
-        syllabus.setTopicCode("A08");
-
-        Syllabus newSyllabus = syllabusRepository.save(syllabus);
-
-        SyllabusDTO responseSyllabus = new SyllabusDTO();
-        responseSyllabus.setTrainingPrincipal(newSyllabus.getTrainingPrincipal());
-//        responseSyllabus.setTrainingProgramDuration(syllabus.get);
-        return responseSyllabus;
+        dtoShowOtherScreen = syllabusMapper.mapToDTO(syllabus);
+        return dtoShowOtherScreen;
     }
-//    @Override
-//    public SyllabusDTO createDaySyllabusOutlineScreen(SyllabusDTO syllabusDTO) {
-//        // Get the maximum day number from the training units
-////        Integer maxDayNumber = trainingUnitRepository.findMaxDayNumber();
-////
-////        // Calculate the new day number
-////        Integer newDayNumber = maxDayNumber != null ? maxDayNumber + 1 : 1;
-////
-////        // Create a new TrainingUnit and set its day number
-////        TrainingUnit trainingUnit = new TrainingUnit();
-////        trainingUnit.setDayNumber(newDayNumber);
-////
-////        // Save the new TrainingUnit
-////        TrainingUnit newDay = trainingUnitRepository.save(trainingUnit);
-////
-////        // Create a response DTO and set its properties
-////        SyllabusDTO responseDay = new SyllabusDTO();
-////        responseDay.setDayNumber(newDay.getDayNumber());
-////
-////        return responseDay;
-//        return null;
-//    }
 
     @Override
     public SyllabusOutlineScreenResponse showOutlineScreen(String topicName) {
@@ -194,34 +161,9 @@ public class SyllabusServiceImpl implements SyllabusService {
         return syllabusOutlineScreenResponse;
     }
 
-    //    @Override
-//    public Set<SyllabusDTO> showOutlineScreen(String topicName){
-//        SyllabusDTO syllabusDTO = new SyllabusDTO();
-//        Syllabus syllabus = syllabusRepository.findSyllabusByTopicName(topicName);
-//        Set<TrainingUnit> trainingUnitList = trainingUnitRepository.findAllById(syllabus.getTopicName());
-//        for (TrainingUnit trainingUnit : trainingUnitList){
-//
-//        }
-//
-//
-//        return null;
-//    }
 
     @Override
     public SyllabusOutlineScreen createSyllabusOutlineScreen(SyllabusOutlineScreen syllabusOutlineScreen){
-//        Syllabus syllabus = syllabusMapper.CreateOutlineScreen(syllabusOutlineScreen);
-//
-//        syllabus.setTopicCode(syllabusOutlineScreen.getTopicCode());
-//        syllabus.setTopicName(syllabusOutlineScreen.getTopicName());
-
-
-
-//        syllabus.setTrainingUnits();
         return syllabusOutlineScreen;
-    }
-
-    @Override
-    public Syllabus addDate(String topicCode){
-return null;
     }
 }
