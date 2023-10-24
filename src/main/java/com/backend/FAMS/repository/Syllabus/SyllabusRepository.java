@@ -1,5 +1,6 @@
 package com.backend.FAMS.repository.Syllabus;
 
+import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,6 +27,12 @@ public interface SyllabusRepository extends JpaRepository<Syllabus, String> {
                             @Param("priority") String priority, @Param("publicStatus") String publicStatus,
                             @Param("createdBy") String createdBy, @Param("createdDate") Date createdDate,
                             @Param("userId") Long userId);
-    Syllabus findByTopicCodeContains(String preTopicCode);
     List<Syllabus> findAllByTopicCodeContains(String topicCode);
+
+    @Query(value ="Select s.topic_code, s.topic_name, s.public_status, s.created_by, ttc.duration, ttp.training_program_code, s.created_date\n" +
+            "From tbl_syllabus s\n" +
+            "JOIN tbl_training_unit ttu on s.topic_code = ttu.topic_code\n" +
+            "JOIN tbl_training_content ttc on ttu.unit_code = ttc.unit_code\n" +
+            "JOIN tbl_training_program ttp on s.user_id = ttp.user_id", nativeQuery = true)
+    List<Syllabus> selectSyllabus();
 }

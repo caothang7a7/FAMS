@@ -28,8 +28,8 @@ public class SyllabusDTOCreateGeneralRequest {
     String technicalGroup;
     @NotEmpty(message = "Number of audience is required")
     String trainingAudience;
-//    @NotEmpty(message = "Description is required")
-//    String description;
+    @NotEmpty(message = "Description is required")
+    String description;
     @JsonFormat(timezone = "yyyy-mm-dd")
     Date createDate;
 
