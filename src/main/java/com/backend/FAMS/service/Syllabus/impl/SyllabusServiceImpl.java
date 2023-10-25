@@ -45,11 +45,10 @@ public class SyllabusServiceImpl implements SyllabusService {
     UserRepository userRepository;
     @Autowired
     LearningObjectiveRepository learningObjectiveRepository;
-@Autowired
+    @Autowired
     SyllabusObjectiveRepository syllabusObjectiveRepository;
     @Autowired
     TrainingContentRepository trainingContentRepository;
-
     @Autowired
     TrainingProgramSyllabusRepository trainingProgramSyllabusRepository;
     @Autowired
@@ -76,8 +75,10 @@ public class SyllabusServiceImpl implements SyllabusService {
             dto.setCreatedBy(syllabus.getCreatedBy());
             dto.setCreatedDate(syllabus.getCreatedDate());
             Set<TrainingContent> trainingContentList = trainingContentRepository.findByTrainingUnit_UnitCode(syllabus.getTopicCode());
+            int duration = 0;
             for(TrainingContent trainingContent: trainingContentList){
-                dto.setDuration(trainingContent.getDuration());
+                duration += trainingContent.getDuration();
+                dto.setDuration(duration);
             }
             Set<TrainingProgramSyllabus> trainingProgramSyllabi = trainingProgramSyllabusRepository.findAllBySyllabus_TopicCode(syllabus.getTopicCode());
 
@@ -91,6 +92,13 @@ public class SyllabusServiceImpl implements SyllabusService {
             dtoList.add(dto);
         }
         return dtoList;
+    }
+
+    @Override
+    public SyllabusDTOResponse searchSyllabus(String key) {
+        Syllabus syllabus = syllabusRepository.findById(key).orElseThrow(() -> new NotFoundException("Syllabus"));
+        SyllabusDTOResponse dto = syllabusMapper.toDTO(syllabus);
+        return dto;
     }
 
     @Override
@@ -156,7 +164,6 @@ public class SyllabusServiceImpl implements SyllabusService {
         syllabusObjective.setLearningObjective(learningObjective1);
 //        syllabusObjectiveRepository.save(syllabusObjective);
 
-
         return syllabus;
     }
 
@@ -220,24 +227,6 @@ public class SyllabusServiceImpl implements SyllabusService {
     }
     @Override
     public SyllabusDTOResponse createDaySyllabusOutlineScreen(SyllabusDTOResponse syllabusDTO) {
-        // Get the maximum day number from the training units
-//        Integer maxDayNumber = trainingUnitRepository.findMaxDayNumber();
-//
-//        // Calculate the new day number
-//        Integer newDayNumber = maxDayNumber != null ? maxDayNumber + 1 : 1;
-//
-//        // Create a new TrainingUnit and set its day number
-//        TrainingUnit trainingUnit = new TrainingUnit();
-//        trainingUnit.setDayNumber(newDayNumber);
-//
-//        // Save the new TrainingUnit
-//        TrainingUnit newDay = trainingUnitRepository.save(trainingUnit);
-//
-//        // Create a response DTO and set its properties
-//        SyllabusDTO responseDay = new SyllabusDTO();
-//        responseDay.setDayNumber(newDay.getDayNumber());
-//
-//        return responseDay;
         return null;
     }
 
@@ -246,18 +235,6 @@ public class SyllabusServiceImpl implements SyllabusService {
         return null;
     }
 
-    //    @Override
-//    public Set<SyllabusDTO> showOutlineScreen(String topicName){
-//        SyllabusDTO syllabusDTO = new SyllabusDTO();
-//        Syllabus syllabus = syllabusRepository.findSyllabusByTopicName(topicName);
-//        Set<TrainingUnit> trainingUnitList = trainingUnitRepository.findAllById(syllabus.getTopicName());
-//        for (TrainingUnit trainingUnit : trainingUnitList){
-//
-//        }
-//
-//
-//        return null;
-//    }
     @Override
     public SyllabusDTOResponse createSyllabusOutlineScreen(SyllabusDTOResponse syllabusDTO){
         return null;

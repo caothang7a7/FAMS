@@ -41,5 +41,5 @@ public interface SyllabusMapper {
 ////    @Mapping(target = "outputStandard", ignore = true)
 //    @Mapping(target = "userLevel", ignore = true)
 
-    List<SyllabusDTOResponse> toListSyllabus(List<Syllabus> syllabus);
+    SyllabusDTOResponse toDTO(Syllabus syllabus);
 }

@@ -3,10 +3,7 @@ package com.backend.FAMS.service.Syllabus;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
-
-
 import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -25,4 +22,5 @@ public interface SyllabusService {
     SyllabusDTOResponse createDaySyllabusOutlineScreen(SyllabusDTOResponse syllabusDTO);
 
     Set<SyllabusDTOResponse> showOutlineScreen(String topicName);
+    SyllabusDTOResponse searchSyllabus(String key);
 }
