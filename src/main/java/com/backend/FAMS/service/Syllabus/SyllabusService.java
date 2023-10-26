@@ -8,6 +8,9 @@ import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOShowOtherScreen;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
+import org.springframework.validation.BindingResult;
+
+import javax.naming.Binding;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +21,7 @@ public interface SyllabusService {
     SyllabusDTOShowOtherScreen showSyllabusOtherScreen(String topicName);
     List<SyllabusDTOResponse> getListSyllabus();
 
-    Syllabus createSyllabusGeneralScreen(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest) throws ParseException;
+    Syllabus createSyllabusGeneralScreen(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest, BindingResult result) throws ParseException;
     SyllabusOutlineScreen createSyllabusOutlineScreen(SyllabusOutlineScreen syllabusOutlineScreen);
     SyllabusOutlineScreenResponse showOutlineScreen(String topicName);
 

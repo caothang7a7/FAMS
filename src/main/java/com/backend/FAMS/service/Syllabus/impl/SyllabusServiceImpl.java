@@ -35,6 +35,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import com.backend.FAMS.repository.TrainingContent.TrainingContentRepository;
+import org.springframework.validation.BindingResult;
 
 import java.util.*;
 
@@ -106,70 +107,76 @@ public class SyllabusServiceImpl implements SyllabusService {
     }
 
     @Override
-    public Syllabus createSyllabusGeneralScreen(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest) throws ParseException {
+    public Syllabus createSyllabusGeneralScreen(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest, BindingResult bindingResult) throws ParseException {
         Syllabus syllabus = syllabusMapper.toEntity(syllabusDTOCreateGeneralRequest);
-        syllabus.setTopicName(syllabusDTOCreateGeneralRequest.getTopicName());
-        syllabus.setTrainingAudience(syllabusDTOCreateGeneralRequest.getTrainingAudience());
-        syllabus.setTechnicalGroup(syllabusDTOCreateGeneralRequest.getTechnicalGroup());
-        syllabus.setCreatedDate(syllabusDTOCreateGeneralRequest.getCreateDate());
-        syllabus.setLevel(syllabusDTOCreateGeneralRequest.getLevel());
-        User user = userRepository.findById(syllabusDTOCreateGeneralRequest.getUserID()).orElseThrow(
-                () -> new NotFoundException("user not found with " + syllabusDTOCreateGeneralRequest.getUserID())
-        );
-        syllabus.setUser(user);
+        Syllabus existingTopicName = syllabusRepository.findByTopicName(syllabusDTOCreateGeneralRequest.getTopicName());
+        if (existingTopicName != null) {
+            bindingResult.rejectValue("topicName", "duplicate.topicName", "Topic name already exists.");
+        } else {
+            syllabus.setTopicName(syllabusDTOCreateGeneralRequest.getTopicName());
+            syllabus.setTrainingAudience(syllabusDTOCreateGeneralRequest.getTrainingAudience());
+            syllabus.setTechnicalGroup(syllabusDTOCreateGeneralRequest.getTechnicalGroup());
+            syllabus.setCreatedDate(syllabusDTOCreateGeneralRequest.getCreateDate());
+            syllabus.setLevel(syllabusDTOCreateGeneralRequest.getLevel());
+            User user = userRepository.findById(syllabusDTOCreateGeneralRequest.getUserID()).orElseThrow(
+                    () -> new NotFoundException("user not found with " + syllabusDTOCreateGeneralRequest.getUserID())
+            );
+            syllabus.setUser(user);
 
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date timenow = new Date();
+            Date date = dateFormat.parse(dateFormat.format(timenow));
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date timenow = new Date();
-        Date date = dateFormat.parse(dateFormat.format(timenow));
+            // Auto-generated topicCode
+            String topicCode = "";
+            String preTopicCode = "";
+            int min = 1;
+            int max = 4;
+            Random random = new Random();
+            int number = random.nextInt((max - min) + 1) + min;
+            switch (number) {
+                case 1:
+                    preTopicCode = "A";
+                    break;
+                case 2:
+                    preTopicCode = "S";
+                    break;
+                case 3:
+                    preTopicCode = "K";
+                    break;
+                case 4:
+                    preTopicCode = "H";
+                    break;
+            }
+            SyllabusUtil utils = new SyllabusUtil(syllabusRepository);
+            topicCode = utils.generateTopicCode(preTopicCode);
+            syllabus.setTopicCode(topicCode);
+            syllabusRepository.customSaveSyllabus(topicCode, syllabusDTOCreateGeneralRequest.getTopicName(), syllabusDTOCreateGeneralRequest.getTechnicalGroup(), syllabusDTOCreateGeneralRequest.getVersion(), syllabusDTOCreateGeneralRequest.getTrainingAudience(), "outline",
+                    "learning material", "principles", "priority", "INACTIVE", "Quách Gia", date, syllabusDTOCreateGeneralRequest.getUserID(), 0, 0, 0, 0, 0, 0);
 
-        // Auto-generated topicCode
-        String topicCode = "";
-        String preTopicCode = "";
-        int min = 1;
-        int max = 4;
-        Random random = new Random();
-        int number = random.nextInt((max - min) + 1) + min;
-        switch (number) {
-            case 1:
-                preTopicCode = "A";
-                break;
-            case 2:
-                preTopicCode = "S";
-                break;
-            case 3:
-                preTopicCode = "K";
-                break;
-            case 4:
-                preTopicCode = "H";
-                break;
+            LearningObjective learningObjective1 = learningObjectiveMapper.toEntity(syllabusDTOCreateGeneralRequest);
+            learningObjective1.setObjectiveCode(topicCode);
+            learningObjective1.setDescription(syllabusDTOCreateGeneralRequest.getDescription());
+            learningObjective1.setObjectiveName(syllabusDTOCreateGeneralRequest.getLearningObjectiveName());
+            learningObjective1.setType(syllabusDTOCreateGeneralRequest.getLearningObjectiveType());
+
+            learningObjectiveRepository.save(learningObjective1);
+
+            // Tạo SyllabusObjectiveId cho quan hệ
+            SyllabusObjectiveId syllabusObjectiveId = new SyllabusObjectiveId();
+            syllabusObjectiveId.setTopicCode(topicCode);
+            syllabusObjectiveId.setObjectiveCode(learningObjective1.getObjectiveCode());
+
+            // Tạo một SyllabusObjective và thiết lập mối quan hệ
+            SyllabusObjective syllabusObjective = new SyllabusObjective();
+            syllabusObjective.setSyllabusObjectiveId(syllabusObjectiveId);
+            syllabusObjective.setSyllabus(syllabus);
+            syllabusObjective.setLearningObjective(learningObjective1);
+            syllabusObjectiveRepository.save(syllabusObjective);
         }
-        SyllabusUtil utils = new SyllabusUtil(syllabusRepository);
-        topicCode = utils.generateTopicCode(preTopicCode);
-        syllabus.setTopicCode(topicCode);
-        syllabusRepository.customSaveSyllabus(topicCode, syllabusDTOCreateGeneralRequest.getTopicName(), syllabusDTOCreateGeneralRequest.getTechnicalGroup(), syllabusDTOCreateGeneralRequest.getVersion(), syllabusDTOCreateGeneralRequest.getTrainingAudience(), "outline",
-                "learning material", "principles", "priority", "INACTIVE", "Quách Gia", date, syllabusDTOCreateGeneralRequest.getUserID());
+            return syllabus;
+        }
 
-        LearningObjective learningObjective1 = learningObjectiveMapper.toEntity(syllabusDTOCreateGeneralRequest);
-        learningObjective1.setObjectiveCode(topicCode);
-        learningObjective1.setDescription(syllabusDTOCreateGeneralRequest.getDescription());
-
-        learningObjectiveRepository.save(learningObjective1);
-
-        // Tạo SyllabusObjectiveId cho quan hệ
-        SyllabusObjectiveId syllabusObjectiveId = new SyllabusObjectiveId();
-        syllabusObjectiveId.setTopicCode(topicCode);
-        syllabusObjectiveId.setObjectiveCode(learningObjective1.getObjectiveCode());
-
-        // Tạo một SyllabusObjective và thiết lập mối quan hệ
-        SyllabusObjective syllabusObjective = new SyllabusObjective();
-        syllabusObjective.setSyllabusObjectiveId(syllabusObjectiveId);
-        syllabusObjective.setSyllabus(syllabus);
-        syllabusObjective.setLearningObjective(learningObjective1);
-        syllabusObjectiveRepository.save(syllabusObjective);
-
-        return syllabus;
-    }
 
     @Override
     public SyllabusDTOCreateOtherScreen createSyllabusOtherScreen(SyllabusDTOCreateOtherScreen syllabusDTO) {

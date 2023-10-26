@@ -50,11 +50,11 @@ public class SyllabusController {
     public ResponseEntity<?> createSyllabusGeneralScreen(@Valid @RequestBody SyllabusDTOCreateGeneralRequest syllaSyllabusDTOCreateGeneralRequest,
                                                          BindingResult bindingResult) throws ParseException {
         ApiResponse apiResponse = new ApiResponse();
+        syllabusService.createSyllabusGeneralScreen(syllaSyllabusDTOCreateGeneralRequest, bindingResult);
         if(bindingResult.hasErrors()){
             apiResponse.error(validatorUtil.handleValidationErrors(bindingResult.getFieldErrors()));
             return ResponseEntity.badRequest().body(apiResponse);
         }
-        syllabusService.createSyllabusGeneralScreen(syllaSyllabusDTOCreateGeneralRequest);
         apiResponse.ok(syllaSyllabusDTOCreateGeneralRequest);
 
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
