@@ -47,7 +47,7 @@ public class SyllabusController {
     @GetMapping("/search-syllabus/{key}")
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<SyllabusDTOResponse> searchSyllabus(@PathVariable("key") String key){
+    public ResponseEntity<?> searchSyllabus(@PathVariable("key") String key){
         return new ResponseEntity<>(syllabusService.searchSyllabus(key), HttpStatus.OK);
     }
 

@@ -22,5 +22,5 @@ public interface SyllabusService {
     SyllabusDTOResponse createDaySyllabusOutlineScreen(SyllabusDTOResponse syllabusDTO);
 
     Set<SyllabusDTOResponse> showOutlineScreen(String topicName);
-    SyllabusDTOResponse searchSyllabus(String key);
+    Set<SyllabusDTOResponse> searchSyllabus(String key);
 }

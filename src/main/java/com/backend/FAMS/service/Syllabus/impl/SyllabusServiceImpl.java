@@ -95,9 +95,10 @@ public class SyllabusServiceImpl implements SyllabusService {
     }
 
     @Override
-    public SyllabusDTOResponse searchSyllabus(String key) {
-        Syllabus syllabus = syllabusRepository.findById(key).orElseThrow(() -> new NotFoundException("Syllabus"));
-        SyllabusDTOResponse dto = syllabusMapper.toDTO(syllabus);
+    public Set<SyllabusDTOResponse> searchSyllabus(String key) {
+        //lỗi khi search 1 phần kí tự của field
+        Set<Syllabus> syllabus = syllabusRepository.findByTopicCodeOrTopicNameContainsIgnoreCase(key, key);
+        Set<SyllabusDTOResponse> dto = syllabusMapper.toDTO(syllabus);
         return dto;
     }
 

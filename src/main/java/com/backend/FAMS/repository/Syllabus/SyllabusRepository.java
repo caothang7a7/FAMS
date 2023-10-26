@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface SyllabusRepository extends JpaRepository<Syllabus, String> {
@@ -29,10 +30,5 @@ public interface SyllabusRepository extends JpaRepository<Syllabus, String> {
                             @Param("userId") Long userId);
     List<Syllabus> findAllByTopicCodeContains(String topicCode);
 
-    @Query(value ="Select s.topic_code, s.topic_name, s.public_status, s.created_by, ttc.duration, ttp.training_program_code, s.created_date\n" +
-            "From tbl_syllabus s\n" +
-            "JOIN tbl_training_unit ttu on s.topic_code = ttu.topic_code\n" +
-            "JOIN tbl_training_content ttc on ttu.unit_code = ttc.unit_code\n" +
-            "JOIN tbl_training_program ttp on s.user_id = ttp.user_id", nativeQuery = true)
-    List<Syllabus> selectSyllabus();
+    Set<Syllabus> findByTopicCodeOrTopicNameContainsIgnoreCase(String key, String key1);
 }
