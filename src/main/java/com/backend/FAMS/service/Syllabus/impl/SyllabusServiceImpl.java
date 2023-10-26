@@ -144,14 +144,14 @@ public class SyllabusServiceImpl implements SyllabusService {
         SyllabusUtil utils = new SyllabusUtil(syllabusRepository);
         topicCode = utils.generateTopicCode(preTopicCode);
         syllabus.setTopicCode(topicCode);
-//        syllabusRepository.customSaveSyllabus(topicCode, syllabusDTOCreateGeneralRequest.getTopicName(), syllabusDTOCreateGeneralRequest.getTechnicalGroup(), syllabusDTOCreateGeneralRequest.getVersion(), syllabusDTOCreateGeneralRequest.getTrainingAudience(), "outline",
-//                "learning material", "principles", "priority", "INACTIVE", "Quách Gia", date, syllabusDTOCreateGeneralRequest.getUserID());
+        syllabusRepository.customSaveSyllabus(topicCode, syllabusDTOCreateGeneralRequest.getTopicName(), syllabusDTOCreateGeneralRequest.getTechnicalGroup(), syllabusDTOCreateGeneralRequest.getVersion(), syllabusDTOCreateGeneralRequest.getTrainingAudience(), "outline",
+                "learning material", "principles", "priority", "INACTIVE", "Quách Gia", date, syllabusDTOCreateGeneralRequest.getUserID());
 
         LearningObjective learningObjective1 = learningObjectiveMapper.toEntity(syllabusDTOCreateGeneralRequest);
         learningObjective1.setObjectiveCode(topicCode);
         learningObjective1.setDescription(syllabusDTOCreateGeneralRequest.getDescription());
 
-//        learningObjectiveRepository.save(learningObjective1);
+        learningObjectiveRepository.save(learningObjective1);
 
         // Tạo SyllabusObjectiveId cho quan hệ
         SyllabusObjectiveId syllabusObjectiveId = new SyllabusObjectiveId();
@@ -163,7 +163,7 @@ public class SyllabusServiceImpl implements SyllabusService {
         syllabusObjective.setSyllabusObjectiveId(syllabusObjectiveId);
         syllabusObjective.setSyllabus(syllabus);
         syllabusObjective.setLearningObjective(learningObjective1);
-//        syllabusObjectiveRepository.save(syllabusObjective);
+        syllabusObjectiveRepository.save(syllabusObjective);
 
         return syllabus;
     }
