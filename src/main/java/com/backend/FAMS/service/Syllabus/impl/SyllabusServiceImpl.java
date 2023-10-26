@@ -78,8 +78,10 @@ public class SyllabusServiceImpl implements SyllabusService {
             dto.setCreatedBy(syllabus.getCreatedBy());
             dto.setCreatedDate(syllabus.getCreatedDate());
             Set<TrainingContent> trainingContentList = trainingContentRepository.findByTrainingUnit_UnitCode(syllabus.getTopicCode());
-            for (TrainingContent trainingContent : trainingContentList) {
-                dto.setDuration(trainingContent.getDuration());
+            int duration = 0;
+            for(TrainingContent trainingContent: trainingContentList){
+                duration += trainingContent.getDuration();
+                dto.setDuration(duration);
             }
             Set<TrainingProgramSyllabus> trainingProgramSyllabi = trainingProgramSyllabusRepository.findAllBySyllabus_TopicCode(syllabus.getTopicCode());
 
@@ -96,7 +98,10 @@ public class SyllabusServiceImpl implements SyllabusService {
     }
 
     @Override
-    public SyllabusDTOCreateOtherScreen createSyllabusOtherScreen(SyllabusDTOCreateOtherScreen dto) {
+    public Set<SyllabusDTOResponse> searchSyllabus(String key) {
+        //lỗi khi search 1 phần kí tự của field
+        Set<Syllabus> syllabus = syllabusRepository.findByTopicCodeOrTopicNameContainsIgnoreCase(key, key);
+        Set<SyllabusDTOResponse> dto = syllabusMapper.toDTO(syllabus);
         return dto;
     }
 
@@ -142,14 +147,14 @@ public class SyllabusServiceImpl implements SyllabusService {
         SyllabusUtil utils = new SyllabusUtil(syllabusRepository);
         topicCode = utils.generateTopicCode(preTopicCode);
         syllabus.setTopicCode(topicCode);
-//        syllabusRepository.customSaveSyllabus(topicCode, syllabusDTOCreateGeneralRequest.getTopicName(), syllabusDTOCreateGeneralRequest.getTechnicalGroup(), syllabusDTOCreateGeneralRequest.getVersion(), syllabusDTOCreateGeneralRequest.getTrainingAudience(), "outline",
-//                "learning material", "principles", "priority", "INACTIVE", "Quách Gia", date, syllabusDTOCreateGeneralRequest.getUserID());
+        syllabusRepository.customSaveSyllabus(topicCode, syllabusDTOCreateGeneralRequest.getTopicName(), syllabusDTOCreateGeneralRequest.getTechnicalGroup(), syllabusDTOCreateGeneralRequest.getVersion(), syllabusDTOCreateGeneralRequest.getTrainingAudience(), "outline",
+                "learning material", "principles", "priority", "INACTIVE", "Quách Gia", date, syllabusDTOCreateGeneralRequest.getUserID());
 
         LearningObjective learningObjective1 = learningObjectiveMapper.toEntity(syllabusDTOCreateGeneralRequest);
         learningObjective1.setObjectiveCode(topicCode);
         learningObjective1.setDescription(syllabusDTOCreateGeneralRequest.getDescription());
 
-//        learningObjectiveRepository.save(learningObjective1);
+        learningObjectiveRepository.save(learningObjective1);
 
         // Tạo SyllabusObjectiveId cho quan hệ
         SyllabusObjectiveId syllabusObjectiveId = new SyllabusObjectiveId();
@@ -161,12 +166,15 @@ public class SyllabusServiceImpl implements SyllabusService {
         syllabusObjective.setSyllabusObjectiveId(syllabusObjectiveId);
         syllabusObjective.setSyllabus(syllabus);
         syllabusObjective.setLearningObjective(learningObjective1);
-//        syllabusObjectiveRepository.save(syllabusObjective);
-
+        syllabusObjectiveRepository.save(syllabusObjective);
 
         return syllabus;
     }
 
+    @Override
+    public SyllabusDTOCreateOtherScreen createSyllabusOtherScreen(SyllabusDTOCreateOtherScreen syllabusDTO) {
+        return null;
+    }
 
     @Override
     public SyllabusDTODetailInformation getSyllabusById(String topicCode) {
@@ -206,9 +214,24 @@ public class SyllabusServiceImpl implements SyllabusService {
 
     @Override
     public SyllabusDTOShowOtherScreen showSyllabusOtherScreen(String topicName) {
-        Syllabus syllabus  = syllabusRepository.findSyllabusByTopicName(topicName);
+        Syllabus syllabus = syllabusRepository.findSyllabusByTopicName(topicName);
         SyllabusDTOShowOtherScreen dtoShowOtherScreen = syllabusMapper.mapToDTO(syllabus);
         return dtoShowOtherScreen;
+    }
+    public SyllabusDTOResponse createSyllabusOtherScreen(SyllabusDTOResponse syllabusDTO) {
+        Syllabus syllabus = new Syllabus();
+        TrainingContent trainingContent = new TrainingContent();
+
+        trainingContent.setDuration(syllabusDTO.getTrainingProgramDuration());
+        syllabus.setTrainingPrincipal(syllabusDTO.getTrainingPrincipal());
+        syllabus.setTopicCode("A08");
+
+        Syllabus newSyllabus = syllabusRepository.save(syllabus);
+
+        SyllabusDTOResponse responseSyllabus = new SyllabusDTOResponse();
+        responseSyllabus.setTrainingPrincipal(newSyllabus.getTrainingPrincipal());
+//        responseSyllabus.setTrainingProgramDuration(syllabus.get);
+        return responseSyllabus;
     }
 
     @Override
@@ -243,7 +266,6 @@ public class SyllabusServiceImpl implements SyllabusService {
         }
         return syllabusOutlineScreenResponse;
     }
-
 
     @Override
     public SyllabusOutlineScreen createSyllabusOutlineScreen(SyllabusOutlineScreen syllabusOutlineScreen){

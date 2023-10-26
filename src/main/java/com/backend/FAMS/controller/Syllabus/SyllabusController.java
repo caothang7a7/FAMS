@@ -7,6 +7,7 @@ import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOShowOtherScreen;
 import com.backend.FAMS.dto.ApiResponse;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
+import com.backend.FAMS.exception.NotFoundException;
 import com.backend.FAMS.service.Syllabus.SyllabusService;
 import com.backend.FAMS.service.sercutity.IJwtService;
 import com.backend.FAMS.service.sercutity.RefreshTokenService;
@@ -37,6 +38,14 @@ public class SyllabusController {
     public ResponseEntity<List<SyllabusDTOResponse>>  getAllSyllabus(){
        return new ResponseEntity<>(syllabusService.getListSyllabus(), HttpStatus.OK);
     }
+
+    @GetMapping("/search-syllabus/{key}")
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<?> searchSyllabus(@PathVariable("key") String key){
+        return new ResponseEntity<>(syllabusService.searchSyllabus(key), HttpStatus.OK);
+    }
+
     @PostMapping("/create-general-syllabus")
     public ResponseEntity<?> createSyllabusGeneralScreen(@Valid @RequestBody SyllabusDTOCreateGeneralRequest syllaSyllabusDTOCreateGeneralRequest,
                                                          BindingResult bindingResult) throws ParseException {

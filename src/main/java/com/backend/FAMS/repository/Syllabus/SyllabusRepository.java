@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface SyllabusRepository extends JpaRepository<Syllabus, String> {
@@ -40,4 +41,5 @@ public interface SyllabusRepository extends JpaRepository<Syllabus, String> {
                             @Param("userId") Long userId);
     List<Syllabus> findAllByTopicCodeContains(String topicCode);
 
+    Set<Syllabus> findByTopicCodeOrTopicNameContainsIgnoreCase(String key, String key1);
 }
