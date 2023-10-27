@@ -30,6 +30,9 @@ import com.backend.FAMS.repository.TrainingProgram.TrainingProgramSyllabusReposi
 import com.backend.FAMS.repository.TrainingUnit.TrainingUnitRepository;
 import com.backend.FAMS.util.Syllabus.SyllabusUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -67,7 +70,7 @@ public class SyllabusServiceImpl implements SyllabusService {
     TrainingContentMapper trainingContentMapper;
 
     @Override
-    public List<SyllabusDTOResponse> getListSyllabus() {
+    public Page<SyllabusDTOResponse> getListSyllabus(Pageable pageable) {
         List<SyllabusDTOResponse> dtoList = new ArrayList<>();
 
         List<Syllabus> syllabusList = syllabusRepository.findAll();
@@ -95,7 +98,12 @@ public class SyllabusServiceImpl implements SyllabusService {
             dto.setOutputStandardArr(arr);
             dtoList.add(dto);
         }
-        return dtoList;
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), dtoList.size());
+
+        List<SyllabusDTOResponse> pageContent = dtoList.subList(start, end);
+
+        return new PageImpl<>(pageContent, pageable, dtoList.size());
     }
 
     @Override

@@ -15,6 +15,8 @@ import com.backend.FAMS.util.User.ValidatorUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -35,8 +37,12 @@ public class SyllabusController {
     private final IJwtService jwtService;
     private final RefreshTokenService refreshTokenService;
     @GetMapping("/list-syllabus")
-    public ResponseEntity<List<SyllabusDTOResponse>>  getAllSyllabus(){
-       return new ResponseEntity<>(syllabusService.getListSyllabus(), HttpStatus.OK);
+    public ResponseEntity<?>  getAllSyllabus(@RequestParam(defaultValue = "1") int page){
+       ApiResponse apiResponse = new ApiResponse();
+        PageRequest pageRequest = PageRequest.of(page - 1, 2);
+        Page<SyllabusDTOResponse> syllabusDTOResponsePage = syllabusService.getListSyllabus(pageRequest);
+        apiResponse.ok(syllabusDTOResponsePage);
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
     @GetMapping("/search-syllabus/{key}")
