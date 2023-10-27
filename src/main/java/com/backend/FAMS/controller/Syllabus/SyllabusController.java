@@ -39,7 +39,7 @@ public class SyllabusController {
     @GetMapping("/list-syllabus")
     public ResponseEntity<?>  getAllSyllabus(@RequestParam(defaultValue = "1") int page){
        ApiResponse apiResponse = new ApiResponse();
-        PageRequest pageRequest = PageRequest.of(page - 1, 2);
+        PageRequest pageRequest = PageRequest.of(page - 1, 9);
         Page<SyllabusDTOResponse> syllabusDTOResponsePage = syllabusService.getListSyllabus(pageRequest);
         apiResponse.ok(syllabusDTOResponsePage);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
