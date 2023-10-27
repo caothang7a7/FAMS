@@ -1,5 +1,5 @@
 package com.backend.FAMS.controller.Syllabus;
-import com.backend.FAMS.dto.Syllabus.request.SyllabusOutlineScreen;
+import com.backend.FAMS.dto.Syllabus.request.TrainingUnitDTOCreate;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusOutlineScreenResponse;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTODetailInformation;
@@ -7,6 +7,7 @@ import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOShowOtherScreen;
 import com.backend.FAMS.dto.ApiResponse;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
+import com.backend.FAMS.dto.trainingContent.TrainingContentDTOCreateOutlineScreen;
 import com.backend.FAMS.exception.NotFoundException;
 import com.backend.FAMS.service.Syllabus.SyllabusService;
 import com.backend.FAMS.service.sercutity.IJwtService;
@@ -85,8 +86,18 @@ public class SyllabusController {
     public ResponseEntity<SyllabusOutlineScreenResponse> showOutlineScreen(@PathVariable("topicName") String topicName){
         return new ResponseEntity<>(syllabusService.showOutlineScreen(topicName), HttpStatus.OK);
     }
-    @PostMapping("/OutlineScreen")
-    public ResponseEntity<SyllabusOutlineScreen> createDaySyllabusOutlineScreen(@RequestBody SyllabusOutlineScreen syllabusOutlineScreen) {
-        return new ResponseEntity<SyllabusOutlineScreen>(syllabusService.createSyllabusOutlineScreen(syllabusOutlineScreen), HttpStatus.CREATED);
+
+    @PostMapping("/OutlineScreen/addDay/{topicName}")
+    public ResponseEntity<?> addOutlineScreen(@PathVariable("topicName") String topicName){
+        return new ResponseEntity<>(syllabusService.addDay(topicName), HttpStatus.OK);
+    }
+
+    @PostMapping("/OutlineScreen/createTrainingUnit/{dayNumber}/{topicCode}")
+    public ResponseEntity<?> createTrainingUnit(@PathVariable("dayNumber") int dayNumber, @RequestBody TrainingUnitDTOCreate dto,@PathVariable("topicCode") String topicCode){
+        return new ResponseEntity<>(syllabusService.createTrainingUnitScreen(dayNumber, dto,topicCode), HttpStatus.OK);
+    }
+    @PostMapping("/OutlineScreen/createTrainingUnit/{dayNumber}/{unitCode}/{learningObjectCode}")
+    public ResponseEntity<?> createTrainingContent(@PathVariable("dayNumber") int dayNumber,@PathVariable("unitCode") String unitCode,@PathVariable("learningObjectCode") String learingObjectCode, @RequestBody TrainingContentDTOCreateOutlineScreen dto){
+        return new ResponseEntity<>(syllabusService.createTrainingContentScreen(dayNumber,unitCode,learingObjectCode,dto), HttpStatus.OK);
     }
 }
