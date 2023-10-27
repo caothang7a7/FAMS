@@ -12,7 +12,7 @@ import com.backend.FAMS.dto.trainingContent.TrainingContentDTOCreateOutlineScree
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.entity.TrainingContent.TrainingContent;
 import com.backend.FAMS.entity.TrainingUnit.TrainingUnit;
-
+import org.springframework.validation.BindingResult;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Set;
@@ -23,16 +23,13 @@ public interface SyllabusService {
     SyllabusDTOShowOtherScreen showSyllabusOtherScreen(String topicName);
     List<SyllabusDTOResponse> getListSyllabus();
 
-    Syllabus createSyllabusGeneralScreen(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest) throws ParseException;
-
-
-
-
 //    SyllabusOutlineScreen createSyllabusOutlineScreen(SyllabusOutlineScreen syllabusOutlineScreen,String topicName);
+    Syllabus createSyllabusGeneralScreen(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest, BindingResult result) throws ParseException;
     SyllabusOutlineScreenResponse showOutlineScreen(String topicName);
     TrainingUnit addDay(String topicCode);
 
     TrainingUnit createTrainingUnitScreen(int dayNumber, TrainingUnitDTOCreate trainingUnitDTOCreate,String topicCode);
 
     TrainingContent createTrainingContentScreen(int dayNumber, String unitName,String learningObjectCode, TrainingContentDTOCreateOutlineScreen dto);
+    Set<SyllabusDTOResponse> searchSyllabus(String key);
 }

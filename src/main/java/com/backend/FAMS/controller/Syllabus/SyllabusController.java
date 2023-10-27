@@ -1,5 +1,4 @@
 package com.backend.FAMS.controller.Syllabus;
-import com.backend.FAMS.dto.Syllabus.request.SyllabusOutlineScreen;
 import com.backend.FAMS.dto.Syllabus.request.TrainingUnitDTOCreate;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusOutlineScreenResponse;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
@@ -9,6 +8,7 @@ import com.backend.FAMS.dto.ApiResponse;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
 import com.backend.FAMS.dto.trainingContent.TrainingContentDTOCreateOutlineScreen;
+import com.backend.FAMS.exception.NotFoundException;
 import com.backend.FAMS.service.Syllabus.SyllabusService;
 import com.backend.FAMS.service.sercutity.IJwtService;
 import com.backend.FAMS.service.sercutity.RefreshTokenService;
@@ -39,15 +39,23 @@ public class SyllabusController {
     public ResponseEntity<List<SyllabusDTOResponse>>  getAllSyllabus(){
        return new ResponseEntity<>(syllabusService.getListSyllabus(), HttpStatus.OK);
     }
+
+    @GetMapping("/search-syllabus/{key}")
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<?> searchSyllabus(@PathVariable("key") String key){
+        return new ResponseEntity<>(syllabusService.searchSyllabus(key), HttpStatus.OK);
+    }
+
     @PostMapping("/create-general-syllabus")
     public ResponseEntity<?> createSyllabusGeneralScreen(@Valid @RequestBody SyllabusDTOCreateGeneralRequest syllaSyllabusDTOCreateGeneralRequest,
                                                          BindingResult bindingResult) throws ParseException {
         ApiResponse apiResponse = new ApiResponse();
+        syllabusService.createSyllabusGeneralScreen(syllaSyllabusDTOCreateGeneralRequest, bindingResult);
         if(bindingResult.hasErrors()){
             apiResponse.error(validatorUtil.handleValidationErrors(bindingResult.getFieldErrors()));
             return ResponseEntity.badRequest().body(apiResponse);
         }
-        syllabusService.createSyllabusGeneralScreen(syllaSyllabusDTOCreateGeneralRequest);
         apiResponse.ok(syllaSyllabusDTOCreateGeneralRequest);
 
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);

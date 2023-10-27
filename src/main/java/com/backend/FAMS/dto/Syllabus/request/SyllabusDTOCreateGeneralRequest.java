@@ -38,4 +38,8 @@ public class SyllabusDTOCreateGeneralRequest {
 //    @JsonProperty("userId")
 //    @Nullable
     Long userID;
+
+    @NotEmpty(message = "Learning Objective name is required")
+    String learningObjectiveName;
+    String learningObjectiveType;
 }
