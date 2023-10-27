@@ -20,7 +20,7 @@ public class TrainingContentUtil {
     public long generateid(Set<TrainingContent> trainingContents){
         long id = 0;
         for(TrainingContent trainingContent: trainingContents){
-            for(int i = 0; i < trainingContents.size() - 1; i++){
+            for(int i = 0; i < trainingContents.size() ; i++){
                 if(trainingContent.getTrainingContentId() > id){
                     id = trainingContent.getTrainingContentId();
                 }
