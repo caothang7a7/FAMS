@@ -9,4 +9,7 @@ import java.util.Set;
 @Repository
 public interface TrainingUnitRepository extends JpaRepository<TrainingUnit, String> {
     Set<TrainingUnit> findBySyllabusTopicCodeOrderByDayNumber(String topicCode);
+    Set<TrainingUnit> findBySyllabusTopicCode(String topicCode);
+    Set<TrainingUnit> findTrainingUnitByDayNumberAndSyllabusTopicCode(int dayNumber,String topicCode);
+    Set<TrainingUnit> findAllByDayNumber(int dayNumber);
 }

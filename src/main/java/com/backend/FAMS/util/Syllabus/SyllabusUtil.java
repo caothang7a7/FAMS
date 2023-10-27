@@ -40,4 +40,5 @@ public class SyllabusUtil {
         topicCode = preTopicCode + suffixStr;
         return topicCode;
     }
+
 }

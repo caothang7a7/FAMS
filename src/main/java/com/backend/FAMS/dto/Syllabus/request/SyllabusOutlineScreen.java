@@ -16,7 +16,7 @@ public class SyllabusOutlineScreen {
     private String topicName;
     private String unitCode;
     private String unitName;
-    private Integer[][] dayNumber;
+    private int dayNumber;
     private int duration;
     private DeliveryType deliveryType;
     private TrainingFormat trainingFormat;

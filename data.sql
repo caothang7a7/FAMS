@@ -76,13 +76,13 @@ VALUES ('JLB','Java Basic', 2 , '2023-9-29','ACTIVE','Quách Gia','2023-9-29', N
        ('FDN','Fullstack .NET Develop', 15 , '2023-9-29', 'ACTIVE','Michael Williams','2023-9-29', NULL,NULL,'K01'),
        ('FJW','Fullstack JavaWeb Develop', 8 , '2023-9-29','ACTIVE','Cypher','2023-9-29', NULL,NULL,'H03');
 
-INSERT INTO tbl_syllabus(topic_code, topic_name, technical_group, version, training_audience, topic_outline, training_material, training_principal, priority, public_status, created_by, created_date, modified_by, modified_date,user_id)
-VALUES ('A01', 'Java Language Basic','Trainer PC need to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0',10, 'outline', 'learning material', 'principles','priority','ACTIVE','Quách Gia','2023-9-29', NULL,NULL,2),
-       ('A02', 'C# Language Basic','Trainer PC need to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 10, 'outline', 'learning material', 'principles','priority','INACTIVE','David Jones','2023-9-29', NULL,NULL,8),
-       ('S01', 'Python Language Basic','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 12, 'outline', 'learning material', 'principles','priority','DRAFT','David Jones','2023-9-29', NULL,NULL,8),
-       ('S02', 'C# language Programing','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 9, 'outline', 'learning material', 'principles','priority','INACTIVE','David Jones','2023-9-29', NULL,NULL,8),
-       ('K01', 'DevOps Foundation','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 12, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8),
-       ('H01', 'Azure DevOps Foundation','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8);
+INSERT INTO tbl_syllabus(topic_code, topic_name, technical_group, version, training_audience, topic_outline, training_material, training_principal, priority, public_status, created_by, created_date, modified_by, modified_date,user_id, assignment, quiz, gpa, final, final_theory, final_practice, final_theory)
+VALUES ('A01', 'Java Language Basic','Trainer PC need to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0',10, 'outline', 'learning material', 'principles','priority','ACTIVE','Quách Gia','2023-9-29', NULL,NULL,2, 12, 23, 43, 54, 53, 23 , 32),
+       ('A02', 'C# Language Basic','Trainer PC need to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 10, 'outline', 'learning material', 'principles','priority','INACTIVE','David Jones','2023-9-29', NULL,NULL,8, 12, 23, 43, 54, 53, 23 , 32),
+       ('S01', 'Python Language Basic','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 12, 'outline', 'learning material', 'principles','priority','DRAFT','David Jones','2023-9-29', NULL,NULL,8, 12, 23, 43, 54, 53, 23 , 32),
+       ('S02', 'C# language Programing','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 9, 'outline', 'learning material', 'principles','priority','INACTIVE','David Jones','2023-9-29', NULL,NULL,8, 12, 23, 43, 54, 53, 23 , 32),
+       ('K01', 'DevOps Foundation','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 12, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 12, 23, 43, 54, 53, 23 , 32),
+       ('H01', 'Azure DevOps Foundation','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 12, 23, 43, 54, 53, 23 , 32);
 
 INSERT INTO tbl_cLass(class_id, training_program_code, class_name, class_code, duration, status, location, fsu, start_date, end_date, created_by, created_date, modified_by, modified_date)
 VALUES (1, 'JLB','Java Basic_01','HCM23_JLB01', 31, 'OPENING', 'Ho Chi Minh',1, '2023-10-1','2023-11-1','Quách Gia','2023-9-29', NULL, NULL),
@@ -99,12 +99,12 @@ VALUES (1, 'JLB','Java Basic_01','HCM23_JLB01', 31, 'OPENING', 'Ho Chi Minh',1, 
        (12, 'FJW','Fullstack JavaWeb Develop_02','HCM23_FJW02', 31, 'PLANNING', 'Ho Chi Minh', 1, '2023-10-1','2023-11-1','Cypher','2023-9-29', NULL, NULL);
 
 INSERT INTO tbl_training_unit(unit_code, unit_name, day_number, topic_code)
-VALUES ('A01', 'Java basic', 1, 'A01'),
-       ('A02', 'Java basic 2', 2, 'A01'),
-       ('S01', 'C# Language Basic 1', 3, 'A02'),
-       ('S02', 'C# Language Basic 2', 4, 'A02'),
-       ('K01', 'Python Language Basic 1', 5, 'S01'),
-       ('H01', 'Python Language Basic 2', 6, 'S01'),
+VALUES ('TU-01', 'Java basic', 1, 'A01'),
+       ('TU-02', 'Java basic 2', 2, 'A01'),
+       ('TU-03', 'C# Language Basic 1', 3, 'A02'),
+       ('TU-04', 'C# Language Basic 2', 4, 'A02'),
+       ('TU-05', 'Python Language Basic 1', 5, 'S01'),
+       ('TU-06', 'Python Language Basic 2', 6, 'S01'),
        ('TU-07', 'Python Language Basic 3', 7, 'S01'),
        ('TU-08', 'Python Language Basic 4', 8, 'S01'),
        ('TU-09', 'C# language Programing', 9, 'S02'),
@@ -116,15 +116,15 @@ VALUES ('A01', 'Java basic', 1, 'A01'),
        ('TU-15', 'Java Language Basic', 9, 'A01');
 
 INSERT INTO tbl_training_content (content, learning_objective_code,type, duration, note,training_content_id,unit_code)
-VALUES ('Java Language Basic 1','A01','Assignment',7,'This training content will introduce learners to advanced concepts of Java programming.',1,'A01'),
-       ('Java Language Basic 2','A01','Quiz',10,'This training content will introduce learners to advanced concepts of Java programming.',2,'A01'),
-       ('C# Language Basic 1','A02','Assignment',14,'This training content will introduce learners to advanced concepts of Java programming.',3,'A02'),
-       ('C# Language Basic 2','A02','Assignment',7,'This training content will introduce learners to advanced concepts of Java programming.',4,'A02'),
-       ('Python Language Basic 1','S01','Guides',7,'This training content will introduce learners to advanced concepts of Java programming.',5,'S01'),
-       ('Python Language Basic 2','S01','Assignment',10,'This training content will introduce learners to advanced concepts of Java programming.',6,'S01'),
-       ('Python Language Basic 3','S01','Quiz',14,'This training content will introduce learners to advanced concepts of Java programming.',7,'S02'),
-       ('C# language Programing 1','K01','Assignment',10,'This training content will introduce learners to advanced concepts of Java programming.',8,'K01'),
-       ('DevOps Foundation','H01','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',9,'H01'),
+VALUES ('Java Language Basic 1','A01','Assignment',7,'This training content will introduce learners to advanced concepts of Java programming.',1,'TU-01'),
+       ('Java Language Basic 2','A01','Quiz',10,'This training content will introduce learners to advanced concepts of Java programming.',2,'TU-02'),
+       ('C# Language Basic 1','A02','Assignment',14,'This training content will introduce learners to advanced concepts of Java programming.',3,'TU-03'),
+       ('C# Language Basic 2','A02','Assignment',7,'This training content will introduce learners to advanced concepts of Java programming.',4,'TU-01'),
+       ('Python Language Basic 1','S01','Guides',7,'This training content will introduce learners to advanced concepts of Java programming.',5,'TU-04'),
+       ('Python Language Basic 2','S01','Assignment',10,'This training content will introduce learners to advanced concepts of Java programming.',6,'TU-06'),
+       ('Python Language Basic 3','S01','Quiz',14,'This training content will introduce learners to advanced concepts of Java programming.',7,'TU-01'),
+       ('C# language Programing 1','K01','Assignment',10,'This training content will introduce learners to advanced concepts of Java programming.',8,'TU-06'),
+       ('DevOps Foundation','H01','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',9,'TU-02'),
        ('Azure DevOps Foundation','S04','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',10,'TU-07'),
        ('Azure DevOps Foundation','H03','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',11,'TU-08'),
        ('Azure DevOps Foundation','K05','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',12,'TU-09'),
