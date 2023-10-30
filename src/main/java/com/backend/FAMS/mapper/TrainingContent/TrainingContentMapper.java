@@ -1,5 +1,6 @@
 package com.backend.FAMS.mapper.TrainingContent;
 
+import com.backend.FAMS.dto.Syllabus.request.SyllabusOutlineScreen;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
 import com.backend.FAMS.entity.LearningObjective.LearningObjective;
 import com.backend.FAMS.entity.TrainingContent.TrainingContent;
@@ -23,6 +24,8 @@ public interface TrainingContentMapper {
 //    @Mapping(target = "trainingUnit", ignore = true)
     @Mapping(source = "TrainingContent.duration", target = "duration")
     List<SyllabusDTOResponse> toResponse(List<TrainingContent> trainingContent);
+
+    TrainingContent toEntity(SyllabusOutlineScreen syllabusOutlineScreen);
 }
 
 
