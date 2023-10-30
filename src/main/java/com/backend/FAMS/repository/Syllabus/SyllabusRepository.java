@@ -24,6 +24,7 @@ public interface SyllabusRepository extends JpaRepository<Syllabus, String> {
                             @Param("finalPractice") int finalPractice, @Param("gpa") int gpa, @Param("userId") long userId);
 
     Syllabus findSyllabusByTopicName(String topicName);
+    Syllabus findSyllabusByTopicCodeContainsIgnoreCase(String topicCode);
 
     @Modifying
     @Transactional

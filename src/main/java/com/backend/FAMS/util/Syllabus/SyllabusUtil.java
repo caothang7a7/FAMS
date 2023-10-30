@@ -7,8 +7,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Objects;
 
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -40,4 +42,10 @@ public class SyllabusUtil {
         topicCode = preTopicCode + suffixStr;
         return topicCode;
     }
+
+    public boolean isValidExcelFile(MultipartFile file){
+        return Objects.equals(file.getContentType(),  "application/vnd. openxmIformats-officedocument spreadsheetml. sheet" );
+    }
+
+
 }
