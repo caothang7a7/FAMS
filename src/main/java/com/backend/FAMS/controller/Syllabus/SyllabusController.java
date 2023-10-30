@@ -27,7 +27,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/v1/syllabus")
 @RequiredArgsConstructor
@@ -37,6 +40,19 @@ public class SyllabusController {
     SyllabusService syllabusService;
     private final IJwtService jwtService;
     private final RefreshTokenService refreshTokenService;
+
+    @ControllerAdvice
+    public class GlobalExceptionHandler {
+        @ExceptionHandler(IllegalArgumentException.class)
+        public ResponseEntity<ApiResponse> handleIllegalArgumentException(IllegalArgumentException ex) {
+            ApiResponse apiResponse = new ApiResponse();
+            Map<String, String> errorMap = new HashMap<>();
+            errorMap.put("message", ex.getMessage());
+            apiResponse.error(errorMap);
+            return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @GetMapping("/list-syllabus")
     public ResponseEntity<?>  getAllSyllabus(@RequestParam(defaultValue = "1") int page){
        ApiResponse apiResponse = new ApiResponse();
