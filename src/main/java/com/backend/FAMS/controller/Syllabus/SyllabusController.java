@@ -56,10 +56,11 @@ public class SyllabusController {
     @GetMapping("/list-syllabus")
     public ResponseEntity<?>  getAllSyllabus(@RequestParam(defaultValue = "1") int page){
        ApiResponse apiResponse = new ApiResponse();
-        PageRequest pageRequest = PageRequest.of(page - 1, 9);
+        PageRequest pageRequest = PageRequest.of(page - 1, 4);
         Page<SyllabusDTOResponse> syllabusDTOResponsePage = syllabusService.getListSyllabus(pageRequest);
+        List<SyllabusDTOResponse> syllabusList = syllabusDTOResponsePage.getContent();
         apiResponse.ok(syllabusDTOResponsePage);
-        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+        return new ResponseEntity<>(syllabusList, HttpStatus.OK);
     }
 
     @GetMapping("/search-syllabus/{key}")

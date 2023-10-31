@@ -107,6 +107,7 @@ public class SyllabusServiceImpl implements SyllabusService {
         List<SyllabusDTOResponse> pageContent = dtoList.subList(start, end);
 
         return new PageImpl<>(pageContent, pageable, dtoList.size());
+//    return dtoList;
     }
 
     @Override
