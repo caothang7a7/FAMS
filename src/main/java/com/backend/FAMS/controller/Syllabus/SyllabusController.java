@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
@@ -42,6 +43,11 @@ public class SyllabusController {
     private final IJwtService jwtService;
     private final RefreshTokenService refreshTokenService;
 
+
+    @PostMapping("/importExcel")
+    public ResponseEntity<Syllabus> importSyllabusExcel(@RequestParam("file")MultipartFile file) throws IOException {
+       return new ResponseEntity<>(syllabusService.importSyllabusFromExcel(file), HttpStatus.OK);
+    }
     @GetMapping("/exportExcel/{topicCode}")
     public ResponseEntity<Syllabus> exportSyllabusExcel(HttpServletResponse response, @PathVariable("topicCode") String topicCode) throws  Exception{
         response.setContentType("application/octet-stream");
