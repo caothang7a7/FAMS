@@ -23,7 +23,7 @@ public interface SyllabusService {
     SyllabusDTOCreateOtherScreen createSyllabusOtherScreen(SyllabusDTOCreateOtherScreen syllabusDTO);
     SyllabusDTODetailInformation getSyllabusById(String topicCode);
     SyllabusDTOShowOtherScreen showSyllabusOtherScreen(String topicName);
-    Page<SyllabusDTOResponse> getListSyllabus(Pageable pageable);
+    Page<SyllabusDTOResponse> getListSyllabus(Pageable pageable) throws ParseException;
 
 //    SyllabusOutlineScreen createSyllabusOutlineScreen(SyllabusOutlineScreen syllabusOutlineScreen,String topicName);
     Syllabus createSyllabusGeneralScreen(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest, BindingResult result) throws ParseException;

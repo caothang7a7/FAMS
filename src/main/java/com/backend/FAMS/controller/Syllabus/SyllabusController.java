@@ -54,9 +54,9 @@ public class SyllabusController {
     }
 
     @GetMapping("/list-syllabus")
-    public ResponseEntity<?>  getAllSyllabus(@RequestParam(defaultValue = "1") int page){
+    public ResponseEntity<?>  getAllSyllabus(@RequestParam(defaultValue = "1") int page) throws ParseException {
        ApiResponse apiResponse = new ApiResponse();
-        PageRequest pageRequest = PageRequest.of(page - 1, 4);
+        PageRequest pageRequest = PageRequest.of(page - 1, 5);
         Page<SyllabusDTOResponse> syllabusDTOResponsePage = syllabusService.getListSyllabus(pageRequest);
         List<SyllabusDTOResponse> syllabusList = syllabusDTOResponsePage.getContent();
         apiResponse.ok(syllabusDTOResponsePage);

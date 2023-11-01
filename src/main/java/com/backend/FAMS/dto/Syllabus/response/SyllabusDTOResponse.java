@@ -23,7 +23,7 @@ public class SyllabusDTOResponse {
      String priority;
      SyllabusStatus syllabusStatus;
      String createdBy;
-     Date createdDate;
+     String createdDate;
      String modifiedBy;
      Date modifiedDate;
 

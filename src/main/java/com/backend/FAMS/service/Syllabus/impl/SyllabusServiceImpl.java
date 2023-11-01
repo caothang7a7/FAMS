@@ -73,7 +73,7 @@ public class SyllabusServiceImpl implements SyllabusService {
     TrainingContentMapper trainingContentMapper;
 
     @Override
-    public Page<SyllabusDTOResponse> getListSyllabus(Pageable pageable) {
+    public Page<SyllabusDTOResponse> getListSyllabus(Pageable pageable) throws ParseException {
         List<SyllabusDTOResponse> dtoList = new ArrayList<>();
 
         List<Syllabus> syllabusList = syllabusRepository.findAll();
@@ -83,7 +83,10 @@ public class SyllabusServiceImpl implements SyllabusService {
             dto.setTopicName(syllabus.getTopicName());
             dto.setSyllabusStatus(syllabus.getSyllabusStatus());
             dto.setCreatedBy(syllabus.getCreatedBy());
-            dto.setCreatedDate(syllabus.getCreatedDate());
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            String formattedDate = dateFormat.format(syllabus.getCreatedDate());
+            dto.setCreatedDate(formattedDate);
             Set<TrainingContent> trainingContentList = trainingContentRepository.findByTrainingUnit_UnitCode(syllabus.getTopicCode());
             int duration = 0;
             for(TrainingContent trainingContent: trainingContentList){
@@ -107,7 +110,6 @@ public class SyllabusServiceImpl implements SyllabusService {
         List<SyllabusDTOResponse> pageContent = dtoList.subList(start, end);
 
         return new PageImpl<>(pageContent, pageable, dtoList.size());
-//    return dtoList;
     }
 
     @Override
