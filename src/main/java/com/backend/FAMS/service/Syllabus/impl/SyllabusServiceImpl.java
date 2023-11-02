@@ -262,30 +262,63 @@ public class SyllabusServiceImpl implements SyllabusService {
         Syllabus syllabus = syllabusRepository.findSyllabusByTopicName(topicName);
         syllabusOutlineScreenResponse.setTopicCode(syllabus.getTopicCode());
         syllabusOutlineScreenResponse.setTopicName(syllabus.getTopicName());
+        syllabusOutlineScreenResponse.setVersion(syllabus.getVersion());
         Set<TrainingUnit> trainingUnits = trainingUnitRepository.findBySyllabusTopicCodeOrderByDayNumber(syllabus.getTopicCode());
         Integer[][] integers = new Integer[trainingUnits.size()][];
         int i = 0;
 
         for (TrainingUnit trainingUnit : trainingUnits) {
-            syllabusOutlineScreenResponse.setUnitCode(trainingUnit.getUnitCode());
-            syllabusOutlineScreenResponse.setUnitName(trainingUnit.getUnitName());
+//            syllabusOutlineScreenResponse.setUnitCode(trainingUnit.getUnitCode());
+//            syllabusOutlineScreenResponse.setUnitName(trainingUnit.getUnitName());
             integers[i] = new Integer[]{trainingUnit.getDayNumber()};
             i++;
             syllabusOutlineScreenResponse.setDayNumber(integers);
+            // Retrieve the day number from the training unit
+            int dayNumber = trainingUnit.getDayNumber();
+
+// Find training units by day number using the corrected parameter
+//            Set<TrainingUnit> trainingUnits1 = trainingUnitRepository.findAllByDayNumber(dayNumber);
+////            Set<TrainingUnit> trainingUnits1 = trainingUnitRepository.findAllByDayNumber(syllabusOutlineScreenResponse.getDayNumber());
+//            for (TrainingUnit trainingUnit1: trainingUnits1){
+
+
+
+        }
+
+        return syllabusOutlineScreenResponse;
+    }
+
+    @Override
+    public SyllabusOutlineScreenResponse showeachDayinOutlineScreen(String topicName, int day) {
+        SyllabusOutlineScreenResponse dto = new SyllabusOutlineScreenResponse();
+        List<TrainingUnit> trainingUnits1 = new ArrayList<>();
+        Syllabus syllabus = syllabusRepository.findSyllabusByTopicName(topicName);
+
+        Set<TrainingUnit> trainingUnits = trainingUnitRepository.findTrainingUnitByDayNumberAndSyllabusTopicCode(day,syllabus.getTopicCode());
+        String[][] strings = new String[trainingUnits.size()][];
+        String[][] strings1 = new String[trainingUnits.size()][];
+        int i = 0;
+        for (TrainingUnit trainingUnit:trainingUnits){
+            strings[i] = new String[]{trainingUnit.getUnitCode()};
+            strings1[i] = new String[]{trainingUnit.getUnitName()};
+            i++;
+            dto.setUnitCode(strings);
+            dto.setUnitName(strings1);
+
             Set<TrainingContent> trainingContents = trainingContentRepository.findByTrainingUnit_UnitCode(trainingUnit.getUnitCode());
-            String[][] strings = new String[trainingContents.size()][];
+            String[][] strings2 = new String[trainingContents.size()][];
             int y = 0;
             for (TrainingContent trainingContent : trainingContents) {
 //                syllabusOutlineScreenResponse.setDeliveryType(Enum.valueOf(DeliveryType.class,String.valueOf(trainingContent.getDeliveryType())));
-                syllabusOutlineScreenResponse.setDeliveryType(trainingContent.getDeliveryType());
-                syllabusOutlineScreenResponse.setTrainingFormat(trainingContent.getTrainingFormat());
-                strings[y] = new String[]{trainingContent.getContent()};
+                dto.setDeliveryType(trainingContent.getDeliveryType());
+                dto.setTrainingFormat(trainingContent.getTrainingFormat());
+                strings2[y] = new String[]{trainingContent.getContent()};
                 y++;
-                syllabusOutlineScreenResponse.setContent(strings);
-                syllabusOutlineScreenResponse.setLearningObject(trainingContent.getLearningObjective().getObjectiveCode());
+                dto.setContent(strings2);
+                dto.setLearningObject(trainingContent.getLearningObjective().getObjectiveCode());
             }
         }
-        return syllabusOutlineScreenResponse;
+        return dto;
     }
 
     @Override

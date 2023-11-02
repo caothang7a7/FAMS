@@ -34,4 +34,5 @@ public interface SyllabusService {
 
     TrainingContent createTrainingContentScreen(int dayNumber, String unitName,String learningObjectCode, TrainingContentDTOCreateOutlineScreen dto);
     Set<SyllabusDTOResponse> searchSyllabus(String key);
+    SyllabusOutlineScreenResponse showeachDayinOutlineScreen(String topicName, int day);
 }

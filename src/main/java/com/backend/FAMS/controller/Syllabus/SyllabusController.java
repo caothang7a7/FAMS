@@ -103,7 +103,10 @@ public class SyllabusController {
     public ResponseEntity<SyllabusOutlineScreenResponse> showOutlineScreen(@PathVariable("topicName") String topicName){
         return new ResponseEntity<>(syllabusService.showOutlineScreen(topicName), HttpStatus.OK);
     }
-
+    @GetMapping("/OutlineScreen/{topicName}/{day}")
+    public ResponseEntity<SyllabusOutlineScreenResponse> showeachDayinOutlineScreen(@PathVariable("topicName") String topicName,@PathVariable("day") int day){
+        return new ResponseEntity<>(syllabusService.showeachDayinOutlineScreen(topicName,day), HttpStatus.OK);
+    }
     @PostMapping("/OutlineScreen/addDay/{topicName}")
     public ResponseEntity<?> addOutlineScreen(@PathVariable("topicName") String topicName){
         return new ResponseEntity<>(syllabusService.addDay(topicName), HttpStatus.OK);
