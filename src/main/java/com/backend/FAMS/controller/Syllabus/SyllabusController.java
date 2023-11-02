@@ -28,6 +28,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -54,6 +56,11 @@ public class SyllabusController {
             apiResponse.error(errorMap);
             return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PostMapping("/importExcel")
+    public ResponseEntity<Syllabus> importSyllabusExcel(@RequestParam("file")MultipartFile file) throws IOException {
+       return new ResponseEntity<>(syllabusService.importSyllabusFromExcel(file), HttpStatus.OK);
     }
     @GetMapping("/exportExcel/{topicCode}")
     public ResponseEntity<Syllabus> exportSyllabusExcel(HttpServletResponse response, @PathVariable("topicCode") String topicCode) throws  Exception{

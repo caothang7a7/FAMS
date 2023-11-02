@@ -11,6 +11,8 @@ import com.backend.FAMS.entity.LearningObjective.LearningObjective;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.entity.Syllabus.SyllabusObjective;
 import com.backend.FAMS.entity.Syllabus.SyllabusObjectiveId;
+import com.backend.FAMS.entity.Syllabus.syllabus_enum.SyllabusLevel;
+import com.backend.FAMS.entity.Syllabus.syllabus_enum.SyllabusStatus;
 import com.backend.FAMS.entity.TrainingContent.TrainingContent;
 import com.backend.FAMS.entity.TrainingProgram.TrainingProgramSyllabus;
 import com.backend.FAMS.entity.TrainingUnit.TrainingUnit;
@@ -36,6 +38,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -44,6 +47,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
@@ -83,6 +87,8 @@ public class SyllabusServiceImpl implements SyllabusService {
     UserMapper userMapper;
     @Autowired
     TrainingContentMapper trainingContentMapper;
+    @Autowired
+    SyllabusUtil util;
 
     @Override
     public Page<SyllabusDTOResponse> getListSyllabus(Pageable pageable) throws ParseException {
@@ -543,26 +549,17 @@ public class SyllabusServiceImpl implements SyllabusService {
     }
 
     @Override
-    public Syllabus importSyllabusFromExcelFile(InputStream inputStream) throws IOException {
+    public Syllabus importSyllabusFromExcel(MultipartFile file) throws IOException {
         Syllabus syllabus = new Syllabus();
-        try {
-            XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
-            XSSFSheet sheet = workbook.getSheet("syllabus");
-
-            int rowIndex = 0;
-            for(Row row : sheet){
-                if(rowIndex == 0){
-                    rowIndex++;
-                    continue;
-                }
-
+//        if(util.isValidExcelFile(file)){
+            try{
+                syllabus = util.getDataFromExcel(file.getInputStream());
+                syllabusRepository.saveAndFlush(syllabus);
+            }catch (Exception ex){
+                throw new IllegalArgumentException ("The file is not a valid excel file");
             }
-        } catch (Exception ex) {
-
-        }
-
-
+//        }
         return syllabus;
-
     }
 }
+
