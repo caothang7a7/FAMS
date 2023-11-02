@@ -15,20 +15,27 @@ import org.springframework.data.domain.Pageable;
 import com.backend.FAMS.entity.TrainingContent.TrainingContent;
 import com.backend.FAMS.entity.TrainingUnit.TrainingUnit;
 import org.springframework.validation.BindingResult;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Set;
 
 public interface SyllabusService {
-    SyllabusDTOCreateOtherScreen createSyllabusOtherScreen(SyllabusDTOCreateOtherScreen syllabusDTO);
+    Syllabus createSyllabusOtherScreen(SyllabusDTOCreateOtherScreen syllabusDTO, String topicCode);
     SyllabusDTODetailInformation getSyllabusById(String topicCode);
     SyllabusDTOShowOtherScreen showSyllabusOtherScreen(String topicName);
     Page<SyllabusDTOResponse> getListSyllabus(Pageable pageable) throws ParseException;
-
-//    SyllabusOutlineScreen createSyllabusOutlineScreen(SyllabusOutlineScreen syllabusOutlineScreen,String topicName);
     Syllabus createSyllabusGeneralScreen(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest, BindingResult result) throws ParseException;
-    SyllabusOutlineScreenResponse showOutlineScreen(String topicName);
+
     TrainingUnit addDay(String topicCode);
+    SyllabusOutlineScreenResponse showOutlineScreen(String topicName);
+    Syllabus exportSyllabusToExcelFile(HttpServletResponse response, String topicCode) throws IOException;
+    Syllabus exportSyllabusToCSVFile(HttpServletResponse response, String topicCode) throws Exception;
+    Syllabus importSyllabusFromExcelFile(InputStream inputStream) throws IOException;
 
     TrainingUnit createTrainingUnitScreen(int dayNumber, TrainingUnitDTOCreate trainingUnitDTOCreate,String topicCode);
 
