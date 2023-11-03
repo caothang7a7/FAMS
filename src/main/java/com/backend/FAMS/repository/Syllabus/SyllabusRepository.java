@@ -26,6 +26,7 @@ public interface SyllabusRepository extends JpaRepository<Syllabus, String> {
 
     Syllabus findSyllabusByTopicName(String topicName);
     Syllabus findSyllabusByTopicCode(String topicCode);
+    Syllabus findSyllabusByTopicCodeContainsIgnoreCase(String topicCode);
 
     @Modifying
     @Transactional
