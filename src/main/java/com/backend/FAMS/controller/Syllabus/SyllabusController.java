@@ -53,20 +53,64 @@ public class SyllabusController {
         }
     }
 
-    @GetMapping("/list-syllabus")
-    public ResponseEntity<?>  getAllSyllabus(@RequestParam(defaultValue = "1") int page) throws ParseException {
-       ApiResponse apiResponse = new ApiResponse();
-        PageRequest pageRequest = PageRequest.of(page - 1, 5);
-        Page<SyllabusDTOResponse> syllabusDTOResponsePage = syllabusService.getListSyllabus(pageRequest);
-        List<SyllabusDTOResponse> syllabusList = syllabusDTOResponsePage.getContent();
-        apiResponse.ok(syllabusDTOResponsePage);
-        return new ResponseEntity<>(syllabusList, HttpStatus.OK);
-    }
+//    @GetMapping("/list-syllabus/{moreElement}")
+//    public ResponseEntity<?>  getAllSyllabus(@RequestParam(defaultValue = "1") int page, @PathVariable("moreElement") int moreElement) throws ParseException {
+//       ApiResponse apiResponse = new ApiResponse();
+//       int pageSize = 5;
+//       if(moreElement == 10){
+//            pageSize = 5 + (page * 5);
+//            if(){
+//
+//            }
+//       }
+//        PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+//        Page<SyllabusDTOResponse> syllabusDTOResponsePage = syllabusService.getListSyllabus(pageRequest);
+//        List<SyllabusDTOResponse> syllabusList = syllabusDTOResponsePage.getContent();
+//        apiResponse.ok(syllabusDTOResponsePage);
+//        return new ResponseEntity<>(syllabusList, HttpStatus.OK);
+//    }
+@GetMapping("/list-syllabus/{moreElement}")
+public ResponseEntity<?> getAllSyllabus(@RequestParam(defaultValue = "1") int page, @PathVariable("moreElement") int moreElement) throws ParseException {
+    ApiResponse apiResponse = new ApiResponse();
+    int pageSize = 5;
 
-    @GetMapping("/search-syllabus/{key}")
+    if (moreElement == 10) {
+        if (page == 1){
+            pageSize = moreElement;
+        }
+        else if (page > 1) {
+            pageSize = moreElement;
+            // Kiểm tra xem trang sau trang hiện tại có đủ 10 phần tử không
+            PageRequest currentPageRequest = PageRequest.of(page - 1, pageSize);
+            Page<SyllabusDTOResponse> currentPage = syllabusService.getListSyllabus(currentPageRequest);
+            List<SyllabusDTOResponse> currentPageList = currentPage.getContent();
+
+            if (currentPageList.size() < 10) {
+                // Trang hiện tại không đủ 10 phần tử, hiển thị tất cả phần tử có sẵn trên trang hiện tại
+                pageSize = currentPageList.size();
+            }
+                // Trang hiện tại có đủ 10 phần tử, nhưng kiểm tra trang tiếp theo
+                PageRequest nextPageRequest = PageRequest.of(page, pageSize); // Trang tiếp theo
+                Page<SyllabusDTOResponse> nextPage = syllabusService.getListSyllabus(nextPageRequest);
+                List<SyllabusDTOResponse> nextPageList = nextPage.getContent();
+
+                if (nextPageList.size() < 10) {
+                    // Trang sau trang hiện tại không đủ 10 phần tử, cập nhật pageSize cho trang hiện tại
+                    pageSize = moreElement;
+            }
+        }
+    }
+    PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+    Page<SyllabusDTOResponse> syllabusDTOResponsePage = syllabusService.getListSyllabus(pageRequest);
+    List<SyllabusDTOResponse> syllabusList = syllabusDTOResponsePage.getContent();
+    apiResponse.ok(syllabusDTOResponsePage);
+    return new ResponseEntity<>(syllabusList, HttpStatus.OK);
+}
+
+@GetMapping("/search-syllabus")
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<?> searchSyllabus(@PathVariable("key") String key){
+    public ResponseEntity<?> searchSyllabus(@RequestParam() String key){
         return new ResponseEntity<>(syllabusService.searchSyllabus(key), HttpStatus.OK);
     }
 

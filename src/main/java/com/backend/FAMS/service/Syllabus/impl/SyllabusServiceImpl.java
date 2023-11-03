@@ -83,7 +83,7 @@ public class SyllabusServiceImpl implements SyllabusService {
             dto.setTopicName(syllabus.getTopicName());
             dto.setSyllabusStatus(syllabus.getSyllabusStatus());
             dto.setCreatedBy(syllabus.getCreatedBy());
-
+            dto.setSyllabusStatus(syllabus.getSyllabusStatus());
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             String formattedDate = dateFormat.format(syllabus.getCreatedDate());
             dto.setCreatedDate(formattedDate);
