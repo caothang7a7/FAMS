@@ -4,15 +4,12 @@ import com.backend.FAMS.dto.Syllabus.response.SyllabusOutlineScreenResponse;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTODetailInformation;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOShowOtherScreen;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
-import com.backend.FAMS.dto.Syllabus.response.SyllabusDTODetailInformation;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
 import com.backend.FAMS.dto.trainingContent.TrainingContentDTOCreateOutlineScreen;
 import com.backend.FAMS.entity.LearningObjective.LearningObjective;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.entity.Syllabus.SyllabusObjective;
 import com.backend.FAMS.entity.Syllabus.SyllabusObjectiveId;
-import com.backend.FAMS.entity.Syllabus.syllabus_enum.SyllabusLevel;
-import com.backend.FAMS.entity.Syllabus.syllabus_enum.SyllabusStatus;
 import com.backend.FAMS.entity.TrainingContent.TrainingContent;
 import com.backend.FAMS.entity.TrainingProgram.TrainingProgramSyllabus;
 import com.backend.FAMS.entity.TrainingUnit.TrainingUnit;
@@ -38,10 +35,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -51,9 +44,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
-
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -131,11 +122,28 @@ public class SyllabusServiceImpl implements SyllabusService {
     }
 
     @Override
-    public Set<SyllabusDTOResponse> searchSyllabus(String key) {
-        //lỗi khi search 1 phần kí tự của field
-        Set<Syllabus> syllabus = syllabusRepository.findByTopicCodeOrTopicNameContainsIgnoreCase(key, key);
-        Set<SyllabusDTOResponse> dto = syllabusMapper.toDTO(syllabus);
-        return dto;}
+    public Page<SyllabusDTOResponse> searchSyllabus(String key, Pageable pageable) {
+        List<Syllabus> syllabus = syllabusRepository.findByTopicCodeOrTopicNameContainsIgnoreCase(key, key);
+        List<SyllabusDTOResponse> dto = syllabusMapper.toDTO(syllabus);
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), dto.size());
+
+        List<SyllabusDTOResponse> pageContent = dto.subList(start, end);
+
+        return new PageImpl<>(pageContent, pageable, dto.size());
+    }
+
+    @Override
+    public Page<SyllabusDTOResponse> searchSyllabusByCreatedDate(Date createdDate, Pageable pageable) {
+        List<Syllabus> syllabusList = syllabusRepository.findByCreatedDate(createdDate);
+        List<SyllabusDTOResponse> dto = syllabusMapper.toDTO(syllabusList);
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), dto.size());
+
+        List<SyllabusDTOResponse> pageContent = dto.subList(start, end);
+
+        return new PageImpl<>(pageContent, pageable, dto.size());
+    }
 
     public Syllabus createSyllabusOtherScreen(SyllabusDTOCreateOtherScreen dto, String topicCode) {
 

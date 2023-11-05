@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -41,6 +42,7 @@ public interface SyllabusService {
     TrainingUnit createTrainingUnitScreen(int dayNumber, TrainingUnitDTOCreate trainingUnitDTOCreate,String topicCode);
 
     TrainingContent createTrainingContentScreen(int dayNumber, String unitName,String learningObjectCode, TrainingContentDTOCreateOutlineScreen dto);
-    Set<SyllabusDTOResponse> searchSyllabus(String key);
+    Page<SyllabusDTOResponse> searchSyllabus(String key, Pageable pageable);
+    Page<SyllabusDTOResponse> searchSyllabusByCreatedDate(Date createdDate, Pageable pageable);
     SyllabusOutlineScreenResponse showeachDayinOutlineScreen(String topicName, int day);
 }

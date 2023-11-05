@@ -33,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,7 +87,7 @@ public ResponseEntity<?> getAllSyllabus(@RequestParam(defaultValue = "1") int pa
     ApiResponse apiResponse = new ApiResponse();
     int pageSize = 5;
 
-    if (moreElement == 10) {
+    if (moreElement == moreElement) {
         if (page == 1){
             pageSize = moreElement;
         }
@@ -97,7 +98,7 @@ public ResponseEntity<?> getAllSyllabus(@RequestParam(defaultValue = "1") int pa
             Page<SyllabusDTOResponse> currentPage = syllabusService.getListSyllabus(currentPageRequest);
             List<SyllabusDTOResponse> currentPageList = currentPage.getContent();
 
-            if (currentPageList.size() < 10) {
+            if (currentPageList.size() < moreElement) {
                 // Trang hiện tại không đủ 10 phần tử, hiển thị tất cả phần tử có sẵn trên trang hiện tại
                 pageSize = currentPageList.size();
             }
@@ -106,7 +107,7 @@ public ResponseEntity<?> getAllSyllabus(@RequestParam(defaultValue = "1") int pa
                 Page<SyllabusDTOResponse> nextPage = syllabusService.getListSyllabus(nextPageRequest);
                 List<SyllabusDTOResponse> nextPageList = nextPage.getContent();
 
-                if (nextPageList.size() < 10) {
+                if (nextPageList.size() < moreElement) {
                     // Trang sau trang hiện tại không đủ 10 phần tử, cập nhật pageSize cho trang hiện tại
                     pageSize = moreElement;
             }
@@ -119,11 +120,83 @@ public ResponseEntity<?> getAllSyllabus(@RequestParam(defaultValue = "1") int pa
     return new ResponseEntity<>(syllabusList, HttpStatus.OK);
 }
 
-@GetMapping("/search-syllabus")
+    @GetMapping("/search-syllabus-byCreatedDate/{moreElement}")
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<?> searchSyllabus(@RequestParam() String key){
-        return new ResponseEntity<>(syllabusService.searchSyllabus(key), HttpStatus.OK);
+    public ResponseEntity<?> searchSyllabusByCreatedDate(@RequestParam() Date key, @RequestParam(defaultValue = "1") int page, @PathVariable("moreElement") int moreElement){
+        ApiResponse apiResponse = new ApiResponse();
+        int pageSize = 5;
+
+        if (moreElement == moreElement) {
+            if (page == 1){
+                pageSize = moreElement;
+            }
+            else if (page > 1) {
+                pageSize = moreElement;
+                // Kiểm tra xem trang sau trang hiện tại có đủ 10 phần tử không
+                PageRequest currentPageRequest = PageRequest.of(page - 1, pageSize);
+                Page<SyllabusDTOResponse> currentPage = syllabusService.searchSyllabusByCreatedDate(key, currentPageRequest);
+                List<SyllabusDTOResponse> currentPageList = currentPage.getContent();
+
+                if (currentPageList.size() < 10) {
+                    // Trang hiện tại không đủ 10 phần tử, hiển thị tất cả phần tử có sẵn trên trang hiện tại
+                    pageSize = currentPageList.size();
+                }
+                // Trang hiện tại có đủ 10 phần tử, nhưng kiểm tra trang tiếp theo
+                PageRequest nextPageRequest = PageRequest.of(page, pageSize); // Trang tiếp theo
+                Page<SyllabusDTOResponse> nextPage = syllabusService.searchSyllabusByCreatedDate(key, nextPageRequest);
+                List<SyllabusDTOResponse> nextPageList = nextPage.getContent();
+
+                if (nextPageList.size() < 10) {
+                    // Trang sau trang hiện tại không đủ 10 phần tử, cập nhật pageSize cho trang hiện tại
+                    pageSize = moreElement;
+                }
+            }
+        }
+        PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+        Page<SyllabusDTOResponse> syllabusDTOResponsePage = syllabusService.searchSyllabusByCreatedDate(key, pageRequest);
+        List<SyllabusDTOResponse> syllabusList = syllabusDTOResponsePage.getContent();
+        apiResponse.ok(syllabusDTOResponsePage);
+        return new ResponseEntity<>(syllabusList, HttpStatus.OK);
+    }
+    @GetMapping("/search-syllabus/{moreElement}")
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<?> searchSyllabus(@RequestParam() String key, @PathVariable("moreElement") int moreElement, @RequestParam(defaultValue = "1") int page){
+        ApiResponse apiResponse = new ApiResponse();
+        int pageSize = 5;
+
+        if (moreElement == moreElement) {
+            if (page == 1){
+                pageSize = moreElement;
+            }
+            else if (page > 1) {
+                pageSize = moreElement;
+                // Kiểm tra xem trang sau trang hiện tại có đủ 10 phần tử không
+                PageRequest currentPageRequest = PageRequest.of(page - 1, pageSize);
+                Page<SyllabusDTOResponse> currentPage = syllabusService.searchSyllabus(key, currentPageRequest);
+                List<SyllabusDTOResponse> currentPageList = currentPage.getContent();
+
+                if (currentPageList.size() < 10) {
+                    // Trang hiện tại không đủ 10 phần tử, hiển thị tất cả phần tử có sẵn trên trang hiện tại
+                    pageSize = currentPageList.size();
+                }
+                // Trang hiện tại có đủ 10 phần tử, nhưng kiểm tra trang tiếp theo
+                PageRequest nextPageRequest = PageRequest.of(page, pageSize); // Trang tiếp theo
+                Page<SyllabusDTOResponse> nextPage = syllabusService.searchSyllabus(key, nextPageRequest);
+                List<SyllabusDTOResponse> nextPageList = nextPage.getContent();
+
+                if (nextPageList.size() < 10) {
+                    // Trang sau trang hiện tại không đủ 10 phần tử, cập nhật pageSize cho trang hiện tại
+                    pageSize = moreElement;
+                }
+            }
+        }
+        PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
+        Page<SyllabusDTOResponse> syllabusDTOResponsePage = syllabusService.searchSyllabus(key, pageRequest);
+        List<SyllabusDTOResponse> syllabusList = syllabusDTOResponsePage.getContent();
+        apiResponse.ok(syllabusDTOResponsePage);
+        return new ResponseEntity<>(syllabusList, HttpStatus.OK);
     }
 
     @PostMapping("/create-general-syllabus")

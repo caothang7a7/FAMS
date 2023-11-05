@@ -13,6 +13,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Set;
 
 @Mapper(componentModel = "spring")
@@ -52,5 +53,5 @@ public interface SyllabusMapper {
     TrainingUnit toEntity(TrainingUnitDTOCreate trainingUnitDTOCreate);
     TrainingContent toEntity(TrainingContentDTOCreateOutlineScreen trainingContentDTOCreateOutlineScreen) ;
 
-    Set<SyllabusDTOResponse> toDTO(Set<Syllabus> syllabus);
+    List<SyllabusDTOResponse> toDTO(List<Syllabus> syllabus);
 }
