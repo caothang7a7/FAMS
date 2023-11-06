@@ -1,12 +1,9 @@
 package com.backend.FAMS.service.Syllabus;
 
 import com.backend.FAMS.dto.Syllabus.request.SyllabusOutlineScreen;
-import com.backend.FAMS.dto.Syllabus.response.SyllabusOutlineScreenResponse;
+import com.backend.FAMS.dto.Syllabus.response.*;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
-import com.backend.FAMS.dto.Syllabus.response.SyllabusDTODetailInformation;
-import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOShowOtherScreen;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
-import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,5 +25,6 @@ public interface SyllabusService {
     Syllabus exportSyllabusToExcelFile(HttpServletResponse response, String topicCode) throws IOException;
     Syllabus exportSyllabusToCSVFile(HttpServletResponse response, String topicCode) throws Exception;
     Syllabus importSyllabusFromExcel(MultipartFile file) throws IOException;
+    SyllabusDTOOtherScreen showSyllabusOtherScreenByTopicCode(String topicCode);
 
 }

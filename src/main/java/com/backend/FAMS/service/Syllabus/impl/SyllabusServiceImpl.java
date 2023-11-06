@@ -4,10 +4,7 @@ package com.backend.FAMS.service.Syllabus.impl;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusOutlineScreen;
-import com.backend.FAMS.dto.Syllabus.response.SyllabusDTODetailInformation;
-import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
-import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOShowOtherScreen;
-import com.backend.FAMS.dto.Syllabus.response.SyllabusOutlineScreenResponse;
+import com.backend.FAMS.dto.Syllabus.response.*;
 import com.backend.FAMS.entity.LearningObjective.LearningObjective;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.entity.Syllabus.SyllabusObjective;
@@ -402,6 +399,13 @@ public class SyllabusServiceImpl implements SyllabusService {
             }
 //        }
         return syllabus;
+    }
+
+    @Override
+    public SyllabusDTOOtherScreen showSyllabusOtherScreenByTopicCode(String topicCode) {
+        Syllabus syllabus = syllabusRepository.findSyllabusByTopicCode(topicCode);
+        SyllabusDTOOtherScreen dtoOtherScreen = syllabusMapper.toDTO(syllabus);
+        return dtoOtherScreen;
     }
 
 

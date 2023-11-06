@@ -1,12 +1,9 @@
 package com.backend.FAMS.controller.Syllabus;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusOutlineScreen;
-import com.backend.FAMS.dto.Syllabus.response.SyllabusOutlineScreenResponse;
+import com.backend.FAMS.dto.Syllabus.response.*;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
-import com.backend.FAMS.dto.Syllabus.response.SyllabusDTODetailInformation;
-import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOShowOtherScreen;
 import com.backend.FAMS.dto.ApiResponse;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
-import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.service.Syllabus.SyllabusService;
 import com.backend.FAMS.service.sercutity.IJwtService;
@@ -101,6 +98,10 @@ public class SyllabusController {
     @GetMapping("/showOtherScreen/{topicName}")
     public ResponseEntity<SyllabusDTOShowOtherScreen> showSyllabusOtherScreen(@PathVariable("topicName") String topicName) {
         return new ResponseEntity<SyllabusDTOShowOtherScreen>(syllabusService.showSyllabusOtherScreen(topicName), HttpStatus.OK);
+    }
+    @GetMapping("/showOtherScreenById/{topicCode}")
+    public ResponseEntity<SyllabusDTOOtherScreen> showSyllabusOtherScreenByTopicCode(@PathVariable("topicCode") String topicCode) {
+        return new ResponseEntity<>(syllabusService.showSyllabusOtherScreenByTopicCode(topicCode), HttpStatus.OK);
     }
     @GetMapping("/OutlineScreen/{topicName}")
     public ResponseEntity<SyllabusOutlineScreenResponse> showOutlineScreen(@PathVariable("topicName") String topicName){

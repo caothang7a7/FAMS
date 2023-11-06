@@ -41,4 +41,6 @@ public interface SyllabusRepository extends JpaRepository<Syllabus, String> {
                             @Param("userId") Long userId);
     List<Syllabus> findAllByTopicCodeContains(String topicCode);
 
+    Syllabus findSyllabusByTopicCode(String topicCode);
+
 }
