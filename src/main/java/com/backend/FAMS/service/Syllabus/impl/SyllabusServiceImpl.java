@@ -393,7 +393,19 @@ public class SyllabusServiceImpl implements SyllabusService {
 //        if(util.isValidExcelFile(file)){
             try{
                 syllabus = util.getDataFromExcel(file.getInputStream());
-                syllabusRepository.saveAndFlush(syllabus);
+                syllabusRepository.customSaveSyllabus(syllabus.getTopicCode(),
+                        syllabus.getTopicName(),
+                        syllabus.getTechnicalGroup(),
+                        syllabus.getVersion(),
+                        syllabus.getTrainingAudience(),
+                        syllabus.getTopicOutline(),
+                        syllabus.getTrainingMaterial(),
+                        syllabus.getTrainingPrincipal(),
+                        syllabus.getPriority(),
+                        String.valueOf(syllabus.getSyllabusStatus()),
+                        syllabus.getCreatedBy(),
+                        syllabus.getCreatedDate(),
+                        2L);
             }catch (Exception ex){
                 throw new IllegalArgumentException ("The file is not a valid excel file");
             }
