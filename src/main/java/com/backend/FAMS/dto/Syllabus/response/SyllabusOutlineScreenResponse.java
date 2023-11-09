@@ -7,8 +7,6 @@ import com.backend.FAMS.entity.TrainingUnit.TrainingUnit;
 import lombok.*;
 
 import java.util.List;
-import java.util.Set;
-
 @Setter
 @Getter
 @Builder
@@ -27,6 +25,5 @@ public class SyllabusOutlineScreenResponse {
     private TrainingFormat trainingFormat;
     private DeliveryType deliveryType;
     private String[][] content;
-
 
 }

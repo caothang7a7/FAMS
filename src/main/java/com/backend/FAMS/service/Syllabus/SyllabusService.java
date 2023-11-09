@@ -38,9 +38,12 @@ public interface SyllabusService {
     Syllabus exportSyllabusToCSVFile(HttpServletResponse response, String topicCode) throws Exception;
     Syllabus importSyllabusFromExcel(MultipartFile file) throws IOException;
 
-    TrainingUnit createTrainingUnitScreen(int dayNumber, TrainingUnitDTOCreate trainingUnitDTOCreate,String topicCode);
+    TrainingUnit createTrainingUnitScreen(int dayNumber, TrainingUnitDTOCreate trainingUnitDTOCreate,String topicCode,String unitCode);
 
     TrainingContent createTrainingContentScreen(int dayNumber, String unitName,String learningObjectCode, TrainingContentDTOCreateOutlineScreen dto);
     Set<SyllabusDTOResponse> searchSyllabus(String key);
-    SyllabusOutlineScreenResponse showeachDayinOutlineScreen(String topicName, int day);
+
+    SyllabusOutlineScreenResponse showeachDayinOutlineScreen(String topicName,int day);
+    SyllabusOutlineScreenResponse showtrainingContentbyDayinOutlineScreen(String topicCode,int day,String unitCode);
+    TrainingUnit addunitCode(int dayNumber, String topicCode);
 }
