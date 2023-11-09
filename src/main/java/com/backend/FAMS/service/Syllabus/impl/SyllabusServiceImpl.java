@@ -1,11 +1,16 @@
 package com.backend.FAMS.service.Syllabus.impl;
-import com.backend.FAMS.dto.Syllabus.request.*;
+
+
+import com.backend.FAMS.dto.Syllabus.request.TrainingUnitDTOCreate;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusOutlineScreenResponse;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTODetailInformation;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOShowOtherScreen;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
 import com.backend.FAMS.dto.trainingContent.TrainingContentDTOCreateOutlineScreen;
+import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
+import com.backend.FAMS.dto.Syllabus.request.SyllabusOutlineScreen;
+import com.backend.FAMS.dto.Syllabus.response.*;
 import com.backend.FAMS.entity.LearningObjective.LearningObjective;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.entity.Syllabus.SyllabusObjective;
@@ -132,19 +137,7 @@ public class SyllabusServiceImpl implements SyllabusService {
 
         return new PageImpl<>(pageContent, pageable, dto.size());
     }
-
     @Override
-    public Page<SyllabusDTOResponse> searchSyllabusByCreatedDate(Date createdDate, Pageable pageable) {
-        List<Syllabus> syllabusList = syllabusRepository.findByCreatedDate(createdDate);
-        List<SyllabusDTOResponse> dto = syllabusMapper.toDTO(syllabusList);
-        int start = (int) pageable.getOffset();
-        int end = Math.min((start + pageable.getPageSize()), dto.size());
-
-        List<SyllabusDTOResponse> pageContent = dto.subList(start, end);
-
-        return new PageImpl<>(pageContent, pageable, dto.size());
-    }
-
     public Syllabus createSyllabusOtherScreen(SyllabusDTOCreateOtherScreen dto, String topicCode) {
 
         Syllabus syllabus = new Syllabus();
@@ -164,6 +157,17 @@ public class SyllabusServiceImpl implements SyllabusService {
         return updateSyllabus;
     }
 
+    @Override
+    public Page<SyllabusDTOResponse> searchSyllabusByCreatedDate(Date createdDate, Pageable pageable) {
+        List<Syllabus> syllabusList = syllabusRepository.findByCreatedDate(createdDate);
+        List<SyllabusDTOResponse> dto = syllabusMapper.toDTO(syllabusList);
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), dto.size());
+
+        List<SyllabusDTOResponse> pageContent = dto.subList(start, end);
+
+        return new PageImpl<>(pageContent, pageable, dto.size());
+    }
     @Override
     public Syllabus createSyllabusGeneralScreen(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest, BindingResult bindingResult) throws ParseException {
         Syllabus syllabus = syllabusMapper.toEntity(syllabusDTOCreateGeneralRequest);
@@ -277,21 +281,6 @@ public class SyllabusServiceImpl implements SyllabusService {
         SyllabusDTOShowOtherScreen dtoShowOtherScreen = syllabusMapper.mapToDTO(syllabus);
         return dtoShowOtherScreen;
     }
-    public SyllabusDTOResponse createSyllabusOtherScreen(SyllabusDTOResponse syllabusDTO) {
-        Syllabus syllabus = new Syllabus();
-        TrainingContent trainingContent = new TrainingContent();
-
-        trainingContent.setDuration(syllabusDTO.getTrainingProgramDuration());
-        syllabus.setTrainingPrincipal(syllabusDTO.getTrainingPrincipal());
-        syllabus.setTopicCode("A08");
-
-        Syllabus newSyllabus = syllabusRepository.save(syllabus);
-
-        SyllabusDTOResponse responseSyllabus = new SyllabusDTOResponse();
-        responseSyllabus.setTrainingPrincipal(newSyllabus.getTrainingPrincipal());
-//        responseSyllabus.setTrainingProgramDuration(syllabus.get);
-        return responseSyllabus;
-    }
 
     @Override
     public SyllabusOutlineScreenResponse showOutlineScreen(String topicName) {
@@ -306,21 +295,11 @@ public class SyllabusServiceImpl implements SyllabusService {
         int i = 0;
 
         for (TrainingUnit trainingUnit : trainingUnits) {
-//            syllabusOutlineScreenResponse.setUnitCode(trainingUnit.getUnitCode());
-//            syllabusOutlineScreenResponse.setUnitName(trainingUnit.getUnitName());
             integers[i] = new Integer[]{trainingUnit.getDayNumber()};
             i++;
             syllabusOutlineScreenResponse.setDayNumber(integers);
             // Retrieve the day number from the training unit
             int dayNumber = trainingUnit.getDayNumber();
-
-// Find training units by day number using the corrected parameter
-//            Set<TrainingUnit> trainingUnits1 = trainingUnitRepository.findAllByDayNumber(dayNumber);
-////            Set<TrainingUnit> trainingUnits1 = trainingUnitRepository.findAllByDayNumber(syllabusOutlineScreenResponse.getDayNumber());
-//            for (TrainingUnit trainingUnit1: trainingUnits1){
-
-
-
         }
 
         return syllabusOutlineScreenResponse;
@@ -402,7 +381,6 @@ public class SyllabusServiceImpl implements SyllabusService {
 
     @Override
     public TrainingContent createTrainingContentScreen(int dayNumber, String unitCode,String learningObjectCode, TrainingContentDTOCreateOutlineScreen dto) {
-//        TrainingContent trainingContent = syllabusMapper.toEntity(dto);
         TrainingContent trainingContent = new TrainingContent();
         trainingContent.setContent(dto.getContent());
         Set<TrainingContent> trainingContent1 = trainingContentRepository.findByTrainingUnit_UnitCode(unitCode);
@@ -420,26 +398,7 @@ public class SyllabusServiceImpl implements SyllabusService {
         return trainingContent;
     }
 
-
-//    @Override
-//    public SyllabusOutlineScreen createSyllabusOutlineScreen(SyllabusOutlineScreen syllabusOutlineScreen,String topicName){
-//        Syllabus syllabus = syllabusRepository.findSyllabusByTopicName(topicName);
-//        syllabus = syllabusMapper.toEntity(syllabusOutlineScreen);
-//        syllabus.setTopicCode(syllabusOutlineScreen.getTopicCode());
-//        syllabus.setTopicName(syllabusOutlineScreen.getTopicName());
-//        syllabusRepository.save(syllabus);
-//
-//        Set<TrainingUnit> trainingUnit = trainingUnitRepository.findBySyllabusTopicCode(topicName);
-//
-//
-//            TrainingContent trainingContent = trainingContentRepository.findByTrainingUnitUnitCode(trainingUnit1.getUnitCode());
-//            trainingContent.getContent();
-//        }
-//        return syllabusOutlineScreen;
-//
-
-
-
+    @Override
     public Syllabus exportSyllabusToExcelFile(HttpServletResponse response, String topicCode) throws IOException {
         Syllabus exporySyllabus = syllabusRepository.findSyllabusByTopicCodeContainsIgnoreCase(topicCode);
         HSSFWorkbook workbook = new HSSFWorkbook();
@@ -563,11 +522,42 @@ public class SyllabusServiceImpl implements SyllabusService {
             try{
                 syllabus = util.getDataFromExcel(file.getInputStream());
                 syllabusRepository.saveAndFlush(syllabus);
+                syllabusRepository.customSaveSyllabus(syllabus.getTopicCode(),
+                        syllabus.getTopicName(),
+                        syllabus.getTechnicalGroup(),
+                        syllabus.getVersion(),
+                        syllabus.getTrainingAudience(),
+                        syllabus.getTopicOutline(),
+                        syllabus.getTrainingMaterial(),
+                        syllabus.getTrainingPrincipal(),
+                        syllabus.getPriority(),
+                        String.valueOf(syllabus.getSyllabusStatus()),
+                        syllabus.getCreatedBy(), syllabus.getCreatedDate(),
+                        2L,
+                        syllabus.getAssignment(),
+                        syllabus.getFinalTest(),
+                        syllabus.getFinalTheory(),
+                        syllabus.getFinalPractice(),
+                        syllabus.getGpa(),
+                        syllabus.getQuiz(),
+                        String.valueOf(syllabus.getLevel()));
             }catch (Exception ex){
                 throw new IllegalArgumentException ("The file is not a valid excel file");
             }
 //        }
         return syllabus;
     }
-}
 
+    @Override
+    public SyllabusDTOOtherScreen showSyllabusOtherScreenByTopicCode(String topicCode) {
+        Syllabus syllabus = syllabusRepository.findSyllabusByTopicCode(topicCode);
+        SyllabusDTOOtherScreen dtoOtherScreen = syllabusMapper.toDTO(syllabus);
+        return dtoOtherScreen;
+    }
+
+
+    @Override
+    public SyllabusOutlineScreen createSyllabusOutlineScreen(SyllabusOutlineScreen syllabusOutlineScreen) {
+        return syllabusOutlineScreen;
+    }
+}

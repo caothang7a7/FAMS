@@ -14,4 +14,3 @@ public class CORSConfig implements WebMvcConfigurer {
                 .allowCredentials(true);
     }
 }
-

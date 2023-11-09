@@ -25,7 +25,6 @@ public interface SyllabusRepository extends JpaRepository<Syllabus, String> {
                             @Param("finalPractice") int finalPractice, @Param("gpa") int gpa, @Param("userId") long userId);
 
     Syllabus findSyllabusByTopicName(String topicName);
-    Syllabus findSyllabusByTopicCode(String topicCode);
     Syllabus findSyllabusByTopicCodeContainsIgnoreCase(String topicCode);
 
     @Modifying
@@ -46,9 +45,8 @@ public interface SyllabusRepository extends JpaRepository<Syllabus, String> {
                             @Param("finalTheory") int finalTheory, @Param("finalPractice") int finalPractice, @Param("gpa") int gpa, @Param("quiz") int quiz,
                             @Param("level") String level);
     List<Syllabus> findAllByTopicCodeContains(String topicCode);
-
     List<Syllabus> findByTopicCodeOrTopicNameContainsIgnoreCase(String key, String key1);
-
     Syllabus findByTopicName(String topicName);
     List<Syllabus> findByCreatedDate(Date date);
+    Syllabus findSyllabusByTopicCode(String topicCode);
 }
