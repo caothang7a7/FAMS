@@ -10,9 +10,6 @@ import org.springframework.stereotype.Component;
 
 @SpringBootApplication
 public class FamsApplication {
-
-
-
 	public static void main(String[] args) {
 		SpringApplication.run(FamsApplication.class, args);
 	}

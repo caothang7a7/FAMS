@@ -25,17 +25,16 @@ public interface SyllabusRepository extends JpaRepository<Syllabus, String> {
                             @Param("finalPractice") int finalPractice, @Param("gpa") int gpa, @Param("userId") long userId);
 
     Syllabus findSyllabusByTopicName(String topicName);
-    Syllabus findSyllabusByTopicCode(String topicCode);
     Syllabus findSyllabusByTopicCodeContainsIgnoreCase(String topicCode);
 
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO tbl_Syllabus (topic_code, topic_name, technical_group, version, training_audience," +
             " topic_outline, training_material, training_principal, priority," +
-            " public_status, created_by, created_date, user_id, assignment, final, final_theory, final_practice, gpa, quiz) " +
+            " public_status, created_by, created_date, user_id, assignment, final, final_theory, final_practice, gpa, quiz, level) " +
             "VALUES (:topicCode, :topicName, :technicalGroup, :version, :trainingAudience,"+
             ":topicOutline, :trainingMaterial, :trainingPrincipal, :priority, :publicStatus,"+
-            ":createdBy, :createdDate, :userId, :assignment, :finalTest, :finalTheory, :finalPractice, :gpa, :quiz)"
+            ":createdBy, :createdDate, :userId, :assignment, :finalTest, :finalTheory, :finalPractice, :gpa, :quiz, :level)"
             ,nativeQuery = true)
     void customSaveSyllabus(@Param("topicCode") String topicCode, @Param("topicName") String topicName, @Param("technicalGroup") String technicalGroup,
                             @Param("version") String version, @Param("trainingAudience") String trainingAudience, @Param("topicOutline") String topicOutline,
@@ -43,10 +42,11 @@ public interface SyllabusRepository extends JpaRepository<Syllabus, String> {
                             @Param("priority") String priority, @Param("publicStatus") String publicStatus,
                             @Param("createdBy") String createdBy, @Param("createdDate") Date createdDate,
                             @Param("userId") Long userId, @Param("assignment") int assignment, @Param("finalTest") int finalTest,
-                            @Param("finalTheory") int finalTheory, @Param("finalPractice") int finalPractice, @Param("gpa") int gpa, @Param("quiz") int quiz);
+                            @Param("finalTheory") int finalTheory, @Param("finalPractice") int finalPractice, @Param("gpa") int gpa, @Param("quiz") int quiz,
+                            @Param("level") String level);
     List<Syllabus> findAllByTopicCodeContains(String topicCode);
-
-    Set<Syllabus> findByTopicCodeOrTopicNameContainsIgnoreCase(String key, String key1);
-
+    List<Syllabus> findByTopicCodeOrTopicNameContainsIgnoreCase(String key, String key1);
     Syllabus findByTopicName(String topicName);
+    List<Syllabus> findByCreatedDate(Date date);
+    Syllabus findSyllabusByTopicCode(String topicCode);
 }

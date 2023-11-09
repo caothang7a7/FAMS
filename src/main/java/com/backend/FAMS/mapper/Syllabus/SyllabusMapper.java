@@ -4,6 +4,7 @@ import com.backend.FAMS.dto.Syllabus.request.SyllabusOutlineScreen;
 import com.backend.FAMS.dto.Syllabus.request.TrainingUnitDTOCreate;
 import com.backend.FAMS.dto.trainingContent.TrainingContentDTOCreateOutlineScreen;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
+import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOOtherScreen;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOShowOtherScreen;
@@ -12,8 +13,7 @@ import com.backend.FAMS.entity.TrainingUnit.TrainingUnit;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
-
-import java.util.Set;
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 @Component
@@ -52,5 +52,7 @@ public interface SyllabusMapper {
     TrainingUnit toEntity(TrainingUnitDTOCreate trainingUnitDTOCreate);
     TrainingContent toEntity(TrainingContentDTOCreateOutlineScreen trainingContentDTOCreateOutlineScreen) ;
 
-    Set<SyllabusDTOResponse> toDTO(Set<Syllabus> syllabus);
+    List<SyllabusDTOResponse> toDTO(List<Syllabus> syllabus);
+
+    SyllabusDTOOtherScreen toDTO(Syllabus syllabus);
 }
