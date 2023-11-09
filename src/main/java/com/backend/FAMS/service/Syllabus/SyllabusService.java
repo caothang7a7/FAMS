@@ -30,8 +30,11 @@ public interface SyllabusService {
     SyllabusOutlineScreenResponse showOutlineScreen(String topicName);
     TrainingUnit addDay(String topicCode);
 
-    TrainingUnit createTrainingUnitScreen(int dayNumber, TrainingUnitDTOCreate trainingUnitDTOCreate,String topicCode);
+    TrainingUnit createTrainingUnitScreen(int dayNumber, TrainingUnitDTOCreate trainingUnitDTOCreate,String topicCode,String unitCode);
 
     TrainingContent createTrainingContentScreen(int dayNumber, String unitName,String learningObjectCode, TrainingContentDTOCreateOutlineScreen dto);
     Set<SyllabusDTOResponse> searchSyllabus(String key);
+    SyllabusOutlineScreenResponse showeachDayinOutlineScreen(String topicName,int day);
+    SyllabusOutlineScreenResponse showtrainingContentbyDayinOutlineScreen(String topicCode,int day,String unitCode);
+    TrainingUnit addunitCode(int dayNumber, String topicCode);
 }
