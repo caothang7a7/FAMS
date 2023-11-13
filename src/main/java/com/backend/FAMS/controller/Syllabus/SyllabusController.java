@@ -121,7 +121,6 @@ public ResponseEntity<?> getAllSyllabus(@RequestParam(defaultValue = "1") int pa
 }
 
     @GetMapping("/search-syllabus-byCreatedDate/{moreElement}")
-//  @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<?> searchSyllabusByCreatedDate(@RequestParam() Date key, @RequestParam(defaultValue = "1") int page, @PathVariable("moreElement") int moreElement){
         ApiResponse apiResponse = new ApiResponse();
