@@ -23,8 +23,13 @@ public class SyllabusOutlineScreenResponse {
     private String[][] unitName;
     private Integer[][] dayNumber;
     private String learningObject;
-    private TrainingFormat trainingFormat;
-    private DeliveryType deliveryType;
+    private TrainingFormat[][] trainingFormat;
+    private DeliveryType[][] deliveryType;
     private String[][] content;
+    private String[][] type;
+    private String[][] note;
+    private Long[][] trainingContentId;
+    private Integer[][] duration;
+
 
 }
