@@ -40,4 +40,5 @@ public class SyllabusDTOResponse {
      Integer[][] durationArr;
 
      int dayNumber;
+     long count;
 }

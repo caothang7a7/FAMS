@@ -2,6 +2,8 @@ package com.backend.FAMS.repository.Syllabus;
 
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -47,6 +49,8 @@ public interface SyllabusRepository extends JpaRepository<Syllabus, String> {
     List<Syllabus> findAllByTopicCodeContains(String topicCode);
     List<Syllabus> findByTopicCodeOrTopicNameContainsIgnoreCase(String key, String key1);
     Syllabus findByTopicName(String topicName);
-    List<Syllabus> findByCreatedDate(Date date);
     Syllabus findSyllabusByTopicCode(String topicCode);
+    Page<Syllabus> findByTopicCodeOrTopicNameContainsIgnoreCase(String key, String key1, Pageable pageable);
+    List<Syllabus> findByCreatedDate(Date date);
+    Page<Syllabus> findByCreatedDate(Date date, Pageable pageable);
 }
