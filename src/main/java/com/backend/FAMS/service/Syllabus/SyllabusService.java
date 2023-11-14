@@ -10,6 +10,7 @@ import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
 import com.backend.FAMS.dto.trainingContent.TrainingContentDTOCreateOutlineScreen;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
+import com.backend.FAMS.entity.TrainingContent.trainingContent_enum.DeliveryType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import com.backend.FAMS.entity.TrainingContent.TrainingContent;
@@ -37,4 +38,5 @@ public interface SyllabusService {
     SyllabusOutlineScreenResponse showeachDayinOutlineScreen(String topicName,int day);
     SyllabusOutlineScreenResponse showtrainingContentbyDayinOutlineScreen(String topicCode,int day,String unitCode);
     TrainingUnit addunitCode(int dayNumber, String topicCode);
+    List<DeliveryType> getDeliverType();
 }

@@ -112,6 +112,11 @@ public class SyllabusController {
         return new ResponseEntity<>(syllabusService.showtrainingContentbyDayinOutlineScreen(topicCode,day,unitCode), HttpStatus.OK);
     }
 
+    @GetMapping("/OutlineScreen/showDeliverType")
+    public ResponseEntity<?> getDeliveryTypes(){
+        return new ResponseEntity<>(syllabusService.getDeliverType(), HttpStatus.OK);
+    }
+
     @PostMapping("/OutlineScreen/addDay/{topicName}")
     public ResponseEntity<?> addOutlineScreen(@PathVariable("topicName") String topicName){
         return new ResponseEntity<>(syllabusService.addDay(topicName), HttpStatus.OK);

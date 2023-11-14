@@ -419,6 +419,16 @@ public class SyllabusServiceImpl implements SyllabusService {
     }
 
     @Override
+    public List<DeliveryType> getDeliverType() {
+        DeliveryType[] deliveryTypes = DeliveryType.values();
+        List<DeliveryType> list = new ArrayList<>();
+        for(DeliveryType deliveryType: deliveryTypes){
+            list.add(deliveryType);
+        }
+        return list;
+    }
+
+    @Override
     public TrainingUnit createTrainingUnitScreen(int dayNumber, TrainingUnitDTOCreate trainingUnitDTOCreate, String topicCode, String unitCode) {
         Set<TrainingUnit> trainingUnit = trainingUnitRepository.findBySyllabusTopicCode(topicCode);
         TrainingUnitUtil util = new TrainingUnitUtil(trainingContentRepository);
@@ -470,22 +480,6 @@ public class SyllabusServiceImpl implements SyllabusService {
     }
 
 
-//    @Override
-//    public SyllabusOutlineScreen createSyllabusOutlineScreen(SyllabusOutlineScreen syllabusOutlineScreen,String topicName){
-//        Syllabus syllabus = syllabusRepository.findSyllabusByTopicName(topicName);
-//        syllabus = syllabusMapper.toEntity(syllabusOutlineScreen);
-//        syllabus.setTopicCode(syllabusOutlineScreen.getTopicCode());
-//        syllabus.setTopicName(syllabusOutlineScreen.getTopicName());
-//        syllabusRepository.save(syllabus);
-//
-//        Set<TrainingUnit> trainingUnit = trainingUnitRepository.findBySyllabusTopicCode(topicName);
-//
-//
-//            TrainingContent trainingContent = trainingContentRepository.findByTrainingUnitUnitCode(trainingUnit1.getUnitCode());
-//            trainingContent.getContent();
-//        }
-//        return syllabusOutlineScreen;
-//    }
 }
 
 
