@@ -8,6 +8,7 @@ import com.backend.FAMS.dto.ApiResponse;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
 import com.backend.FAMS.dto.trainingContent.TrainingContentDTOCreateOutlineScreen;
+import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.exception.NotFoundException;
 import com.backend.FAMS.service.Syllabus.SyllabusService;
 import com.backend.FAMS.service.sercutity.IJwtService;
@@ -74,14 +75,13 @@ public class SyllabusController {
     public ResponseEntity<?> createSyllabusGeneralScreen(@Valid @RequestBody SyllabusDTOCreateGeneralRequest syllaSyllabusDTOCreateGeneralRequest,
                                                          BindingResult bindingResult) throws ParseException {
         ApiResponse apiResponse = new ApiResponse();
-        syllabusService.createSyllabusGeneralScreen(syllaSyllabusDTOCreateGeneralRequest, bindingResult);
+        Syllabus syllabus = syllabusService.createSyllabusGeneralScreen(syllaSyllabusDTOCreateGeneralRequest, bindingResult);
         if(bindingResult.hasErrors()){
             apiResponse.error(validatorUtil.handleValidationErrors(bindingResult.getFieldErrors()));
             return ResponseEntity.badRequest().body(apiResponse);
         }
         apiResponse.ok(syllaSyllabusDTOCreateGeneralRequest);
-
-        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+        return new ResponseEntity<>(syllabus, HttpStatus.OK);
     }
 
 

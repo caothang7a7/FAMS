@@ -259,32 +259,10 @@ public class SyllabusServiceImpl implements SyllabusService {
     public SyllabusOutlineScreenResponse showOutlineScreen(String topicName) {
         SyllabusOutlineScreenResponse syllabusOutlineScreenResponse = new SyllabusOutlineScreenResponse();
 
-        Syllabus syllabus = syllabusRepository.findSyllabusByTopicName(topicName);
+        Syllabus syllabus = syllabusRepository.findSyllabusByTopicCode(topicName);
         syllabusOutlineScreenResponse.setTopicCode(syllabus.getTopicCode());
         syllabusOutlineScreenResponse.setTopicName(syllabus.getTopicName());
         syllabusOutlineScreenResponse.setVersion(syllabus.getVersion());
-        Set<TrainingUnit> trainingUnits = trainingUnitRepository.findBySyllabusTopicCodeOrderByDayNumber(syllabus.getTopicCode());
-        Integer[][] integers = new Integer[trainingUnits.size()][];
-        int i = 0;
-
-        for (TrainingUnit trainingUnit : trainingUnits) {
-//            syllabusOutlineScreenResponse.setUnitCode(trainingUnit.getUnitCode());
-//            syllabusOutlineScreenResponse.setUnitName(trainingUnit.getUnitName());
-            integers[i] = new Integer[]{trainingUnit.getDayNumber()};
-            i++;
-            syllabusOutlineScreenResponse.setDayNumber(integers);
-            // Retrieve the day number from the training unit
-            int dayNumber = trainingUnit.getDayNumber();
-
-// Find training units by day number using the corrected parameter
-//            Set<TrainingUnit> trainingUnits1 = trainingUnitRepository.findAllByDayNumber(dayNumber);
-////            Set<TrainingUnit> trainingUnits1 = trainingUnitRepository.findAllByDayNumber(syllabusOutlineScreenResponse.getDayNumber());
-//            for (TrainingUnit trainingUnit1: trainingUnits1){
-
-
-
-        }
-
         return syllabusOutlineScreenResponse;
     }
 
