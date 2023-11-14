@@ -16,6 +16,8 @@ import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.entity.Syllabus.SyllabusObjective;
 import com.backend.FAMS.entity.Syllabus.SyllabusObjectiveId;
 import com.backend.FAMS.entity.TrainingContent.TrainingContent;
+import com.backend.FAMS.entity.TrainingContent.trainingContent_enum.DeliveryType;
+import com.backend.FAMS.entity.TrainingContent.trainingContent_enum.TrainingFormat;
 import com.backend.FAMS.entity.TrainingProgram.TrainingProgramSyllabus;
 import com.backend.FAMS.entity.TrainingUnit.TrainingUnit;
 import com.backend.FAMS.entity.User.User;
@@ -344,7 +346,7 @@ public class SyllabusServiceImpl implements SyllabusService {
     public SyllabusOutlineScreenResponse showOutlineScreen(String topicName) {
         SyllabusOutlineScreenResponse syllabusOutlineScreenResponse = new SyllabusOutlineScreenResponse();
 
-        Syllabus syllabus = syllabusRepository.findSyllabusByTopicName(topicName);
+        Syllabus syllabus = syllabusRepository.findSyllabusByTopicCode(topicName);
         syllabusOutlineScreenResponse.setTopicCode(syllabus.getTopicCode());
         syllabusOutlineScreenResponse.setTopicName(syllabus.getTopicName());
         syllabusOutlineScreenResponse.setVersion(syllabus.getVersion());
@@ -359,7 +361,6 @@ public class SyllabusServiceImpl implements SyllabusService {
             // Retrieve the day number from the training unit
             int dayNumber = trainingUnit.getDayNumber();
         }
-
         return syllabusOutlineScreenResponse;
     }
 
@@ -395,14 +396,33 @@ public class SyllabusServiceImpl implements SyllabusService {
 
         for (TrainingUnit trainingUnit:trainingUnits){
             Set<TrainingContent> trainingContents = trainingContentRepository.findByTrainingUnit_UnitCode(trainingUnit.getUnitCode());
+
+            DeliveryType[][] strings = new DeliveryType[trainingContents.size()][];
+            TrainingFormat[][] strings1 = new TrainingFormat[trainingContents.size()][];
             String[][] strings2 = new String[trainingContents.size()][];
+            String[][] strings3 = new String[trainingContents.size()][];
+            String[][] strings4 = new String[trainingContents.size()][];
+            Long[][] strings5 = new Long[trainingContents.size()][];
+            Integer[][] strings6 = new Integer[trainingContents.size()][];
             int y = 0;
             for (TrainingContent trainingContent:trainingContents){
-                dto.setDeliveryType(trainingContent.getDeliveryType());
-                dto.setTrainingFormat(trainingContent.getTrainingFormat());
+                strings[y] = new DeliveryType[]{trainingContent.getDeliveryType()};
+//                dto.setDeliveryType(trainingContent.getDeliveryType());
+//                dto.setTrainingFormat(trainingContent.getTrainingFormat());
+                strings1[y] = new TrainingFormat[]{trainingContent.getTrainingFormat()};
                 strings2[y] = new String[]{trainingContent.getContent()};
+                strings3[y] = new String[]{trainingContent.getType()};
+                strings4[y] = new String[]{trainingContent.getNote()};
+                strings5[y] = new Long[]{trainingContent.getTrainingContentId()};
+                strings6[y] = new Integer[]{trainingContent.getDuration()};
                 y++;
+                dto.setDeliveryType(strings);
+                dto.setTrainingFormat(strings1);
                 dto.setContent(strings2);
+                dto.setType(strings3);
+                dto.setNote(strings4);
+                dto.setTrainingContentId(strings5);
+                dto.setDuration(strings6);
                 dto.setLearningObject(trainingContent.getLearningObjective().getObjectiveCode());
             }
         }
@@ -472,6 +492,16 @@ public class SyllabusServiceImpl implements SyllabusService {
 
         // Handle the case when no units are found
         return null;
+    }
+
+    @Override
+    public List<DeliveryType> getDeliverType() {
+        DeliveryType[] deliveryTypes = DeliveryType.values();
+        List<DeliveryType> list = new ArrayList<>();
+        for(DeliveryType deliveryType: deliveryTypes){
+            list.add(deliveryType);
+        }
+        return list;
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.backend.FAMS.dto.ApiResponse;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
 import com.backend.FAMS.dto.trainingContent.TrainingContentDTOCreateOutlineScreen;
+import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.exception.NotFoundException;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.service.Syllabus.SyllabusService;
@@ -200,14 +201,13 @@ public ResponseEntity<?> getAllSyllabus(@RequestParam(defaultValue = "1") int pa
     public ResponseEntity<?> createSyllabusGeneralScreen(@Valid @RequestBody SyllabusDTOCreateGeneralRequest syllaSyllabusDTOCreateGeneralRequest,
                                                          BindingResult bindingResult) throws ParseException {
         ApiResponse apiResponse = new ApiResponse();
-        syllabusService.createSyllabusGeneralScreen(syllaSyllabusDTOCreateGeneralRequest, bindingResult);
+        Syllabus syllabus = syllabusService.createSyllabusGeneralScreen(syllaSyllabusDTOCreateGeneralRequest, bindingResult);
         if(bindingResult.hasErrors()){
             apiResponse.error(validatorUtil.handleValidationErrors(bindingResult.getFieldErrors()));
             return ResponseEntity.badRequest().body(apiResponse);
         }
         apiResponse.ok(syllaSyllabusDTOCreateGeneralRequest);
-
-        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+        return new ResponseEntity<>(syllabus, HttpStatus.OK);
     }
 
     @GetMapping("/{topicCode}")
@@ -239,6 +239,11 @@ public ResponseEntity<?> getAllSyllabus(@RequestParam(defaultValue = "1") int pa
     @GetMapping("/OutlineScreen/{topicCode}/{day}/{unitCode}")
     public ResponseEntity<SyllabusOutlineScreenResponse> showtrainingContent(@PathVariable("topicCode") String topicCode,@PathVariable("day") int day,@PathVariable ("unitCode") String unitCode){
         return new ResponseEntity<>(syllabusService.showtrainingContentbyDayinOutlineScreen(topicCode,day,unitCode), HttpStatus.OK);
+    }
+
+    @GetMapping("/OutlineScreen/showDeliverType")
+    public ResponseEntity<?> getDeliveryTypes(){
+        return new ResponseEntity<>(syllabusService.getDeliverType(), HttpStatus.OK);
     }
 
     @PostMapping("/OutlineScreen/addDay/{topicName}")
