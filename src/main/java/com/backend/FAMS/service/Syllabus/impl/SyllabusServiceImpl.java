@@ -706,7 +706,7 @@ public class SyllabusServiceImpl implements SyllabusService {
                         syllabus.getFinalPractice(),
                         syllabus.getGpa(),
                         syllabus.getQuiz(),
-                        String.valueOf(SyllabusLevel.ALL_LEVEL));
+                        String.valueOf(syllabus.getLevel()));
             }catch (Exception ex){
                 throw new IllegalArgumentException ("The file is not a valid excel file");
             }
