@@ -15,6 +15,7 @@ import com.backend.FAMS.entity.LearningObjective.LearningObjective;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.entity.Syllabus.SyllabusObjective;
 import com.backend.FAMS.entity.Syllabus.SyllabusObjectiveId;
+import com.backend.FAMS.entity.Syllabus.syllabus_enum.SyllabusLevel;
 import com.backend.FAMS.entity.TrainingContent.TrainingContent;
 import com.backend.FAMS.entity.TrainingContent.trainingContent_enum.DeliveryType;
 import com.backend.FAMS.entity.TrainingContent.trainingContent_enum.TrainingFormat;
@@ -388,6 +389,16 @@ public class SyllabusServiceImpl implements SyllabusService {
     }
 
     @Override
+    public SyllabusDTOShowGeneral showSyllabusGeneralByTopicCode(String topicCode) {
+        Syllabus syllabus =  new Syllabus();
+        SyllabusDTOShowGeneral general = new SyllabusDTOShowGeneral();
+        LearningObjective learningObjective = new LearningObjective();
+        syllabus = syllabusRepository.findSyllabusByTopicCode(topicCode);
+        general = syllabusMapper.toGeneralDTO(syllabus);
+        return general;
+    }
+
+    @Override
     public SyllabusOutlineScreenResponse showtrainingContentbyDayinOutlineScreen(String topicCode, int day, String unitCode) {
         Syllabus syllabus = syllabusRepository.findSyllabusByTopicCode(topicCode);
         SyllabusOutlineScreenResponse dto = new SyllabusOutlineScreenResponse();
@@ -674,10 +685,9 @@ public class SyllabusServiceImpl implements SyllabusService {
     @Override
     public Syllabus importSyllabusFromExcel(MultipartFile file) throws IOException {
         Syllabus syllabus = new Syllabus();
-//        if(util.isValidExcelFile(file)){
+        if(util.isValidExcelFile(file)){
             try{
                 syllabus = util.getDataFromExcel(file.getInputStream());
-                syllabusRepository.saveAndFlush(syllabus);
                 syllabusRepository.customSaveSyllabus(syllabus.getTopicCode(),
                         syllabus.getTopicName(),
                         syllabus.getTechnicalGroup(),
@@ -696,11 +706,11 @@ public class SyllabusServiceImpl implements SyllabusService {
                         syllabus.getFinalPractice(),
                         syllabus.getGpa(),
                         syllabus.getQuiz(),
-                        String.valueOf(syllabus.getLevel()));
+                        String.valueOf(SyllabusLevel.ALL_LEVEL));
             }catch (Exception ex){
                 throw new IllegalArgumentException ("The file is not a valid excel file");
             }
-//        }
+        }
         return syllabus;
     }
 

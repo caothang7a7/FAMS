@@ -29,7 +29,6 @@ public interface SyllabusService {
     SyllabusDTOShowOtherScreen showSyllabusOtherScreen(String topicName);
     Page<SyllabusDTOResponse> getListSyllabus(Pageable pageable) throws ParseException;
     Syllabus createSyllabusGeneralScreen(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest, BindingResult result) throws ParseException;
-
     TrainingUnit addDay(String topicCode);
     SyllabusOutlineScreen createSyllabusOutlineScreen(SyllabusOutlineScreen syllabusOutlineScreen);
     SyllabusOutlineScreenResponse showOutlineScreen(String topicName);
@@ -37,17 +36,15 @@ public interface SyllabusService {
     Syllabus exportSyllabusToCSVFile(HttpServletResponse response, String topicCode) throws Exception;
     Syllabus importSyllabusFromExcel(MultipartFile file) throws IOException;
     SyllabusDTOOtherScreen showSyllabusOtherScreenByTopicCode(String topicCode);
-
     TrainingUnit createTrainingUnitScreen(int dayNumber, TrainingUnitDTOCreate trainingUnitDTOCreate,String topicCode,String unitCode);
-
     TrainingContent createTrainingContentScreen(int dayNumber, String unitName,String learningObjectCode, TrainingContentDTOCreateOutlineScreen dto);
-
     SyllabusOutlineScreenResponse showtrainingContentbyDayinOutlineScreen(String topicCode,int day,String unitCode);
     TrainingUnit addunitCode(int dayNumber, String topicCode);
-
     Page<SyllabusDTOResponse> searchSyllabus(String key, Pageable pageable);
     Page<SyllabusDTOResponse> searchSyllabusByCreatedDate(Date createdDate, Pageable pageable);
     SyllabusOutlineScreenResponse showeachDayinOutlineScreen(String topicCode, int day);
+    SyllabusDTOShowGeneral showSyllabusGeneralByTopicCode(String topicCode);
+
 
     List<DeliveryType> getDeliverType();
 }

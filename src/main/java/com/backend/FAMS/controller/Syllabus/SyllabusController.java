@@ -56,6 +56,10 @@ public class SyllabusController {
             return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
         }
     }
+    @GetMapping("/getGeneralScreen/{topicCode}")
+    public ResponseEntity<SyllabusDTOShowGeneral> getGeneralScreen(@PathVariable("topicCode") String topicCode){
+        return new ResponseEntity<>(syllabusService.showSyllabusGeneralByTopicCode(topicCode), HttpStatus.OK);
+    }
     @GetMapping("/exportExcel/{topicCode}")
     public ResponseEntity<Syllabus> exportSyllabusExcel(HttpServletResponse response, @PathVariable("topicCode") String topicCode) throws  Exception{
         response.setContentType("application/octet-stream");

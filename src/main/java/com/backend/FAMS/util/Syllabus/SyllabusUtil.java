@@ -8,6 +8,8 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -52,27 +54,31 @@ public class SyllabusUtil {
         return topicCode;
     }
 
-    public boolean isValidExcelFile(MultipartFile file){
-        return Objects.equals(file.getContentType(),  "application/vnd. openxmIformats-officedocument spreadsheetml. sheet" );
+    public boolean isValidExcelFile(MultipartFile file) {
+        String contentType = file.getContentType();
+        return contentType.equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") ||
+                contentType.equals("application/vnd.ms-excel");
     }
 
     public Syllabus getDataFromExcel(InputStream inputStream) throws IOException {
         Syllabus syllabus = new Syllabus();
+        DataFormatter dataFormatter = new DataFormatter();
+        String formattedCellStr ;
         try {
             XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
             XSSFSheet sheet = workbook.getSheet("Syllabus Info");
 
             int rowIndex = 0;
-            for(Row row : sheet){
-                if(rowIndex == 0){
+            for (Row row : sheet) {
+                if (rowIndex == 0) {
                     rowIndex++;
                     continue;
                 }
                 Iterator<Cell> cellIterator = row.iterator();
                 int cellIndex = 0;
-                while (cellIterator.hasNext()){
+                while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
-                    switch (cellIndex){
+                    switch (cellIndex) {
                         case 0 -> syllabus.setTopicCode(cell.getStringCellValue());
                         case 1 -> syllabus.setTopicName(cell.getStringCellValue());
                         case 2 -> syllabus.setTechnicalGroup(cell.getStringCellValue());
@@ -87,12 +93,12 @@ public class SyllabusUtil {
                         case 11 -> syllabus.setCreatedDate(cell.getDateCellValue());
                         case 12 -> syllabus.setModifiedBy(cell.getStringCellValue());
                         case 13 -> syllabus.setModifiedDate(cell.getDateCellValue());
-                        case 14 -> syllabus.setQuiz(Integer.valueOf(cell.getStringCellValue()));
-                        case 15 -> syllabus.setAssignment(Integer.valueOf(cell.getStringCellValue()));
-                        case 16 -> syllabus.setFinalTest(Integer.valueOf(cell.getStringCellValue()));
-                        case 17 -> syllabus.setFinalTheory(Integer.valueOf(cell.getStringCellValue()));
-                        case 18 -> syllabus.setFinalPractice(Integer.valueOf(cell.getStringCellValue()));
-                        case 19 -> syllabus.setGpa(Integer.valueOf(cell.getStringCellValue()));
+                        case 14 -> syllabus.setQuiz(Integer.parseInt(dataFormatter.formatCellValue(cell)));
+                        case 15 -> syllabus.setAssignment(Integer.parseInt(dataFormatter.formatCellValue(cell)));
+                        case 16 -> syllabus.setFinalTest(Integer.parseInt(dataFormatter.formatCellValue(cell)));
+                        case 17 -> syllabus.setFinalTheory(Integer.parseInt(dataFormatter.formatCellValue(cell)));
+                        case 18 -> syllabus.setFinalPractice(Integer.parseInt(dataFormatter.formatCellValue(cell)));
+                        case 19 -> syllabus.setGpa(Integer.parseInt(dataFormatter.formatCellValue(cell)));
                         case 20 -> syllabus.setLevel(SyllabusLevel.valueOf(cell.getStringCellValue()));
                         default -> {
 
@@ -100,12 +106,12 @@ public class SyllabusUtil {
                     }
                     cellIndex++;
                 }
-
             }
         } catch (Exception ex) {
 
         }
         return syllabus;
     }
+
 
  }
