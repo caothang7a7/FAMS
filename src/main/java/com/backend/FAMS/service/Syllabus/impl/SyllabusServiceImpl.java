@@ -514,6 +514,7 @@ public class SyllabusServiceImpl implements SyllabusService {
         learningObjective = learningObjectiveRepository.findByObjectiveCode(topicCode);
         general.setTopicCode(syllabus.getTopicCode());
         general.setTopicName(syllabus.getTopicName());
+        general.setVersion(syllabus.getVersion());
         general.setLevel(syllabus.getLevel());
         general.setTrainingAudience(syllabus.getTrainingAudience());
         general.setTechnicalGroup(syllabus.getTechnicalGroup());
