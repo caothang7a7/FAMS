@@ -57,6 +57,5 @@ public interface SyllabusMapper {
 
     SyllabusDTOOtherScreen toDTO(Syllabus syllabus);
 
-    SyllabusDTOShowGeneral toGeneralDTO(Syllabus syllabus);
-
+    SyllabusDTOShowGeneral toDtoShowGeneral(Syllabus syllabus);
 }
