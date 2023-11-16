@@ -7,6 +7,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Set;
 
 @Component
@@ -21,7 +22,7 @@ public class TrainingUnitUtil {
     public int generateDay(Set<TrainingUnit> trainingUnit){
         int dayNumeber = 0;
         for(TrainingUnit trainingUnit1: trainingUnit){
-            for(int i = 0; i < trainingUnit.size() - 1; i++){
+            for(int i = 0; i < trainingUnit.size(); i++){
                     if(trainingUnit1.getDayNumber() > dayNumeber){
                         dayNumeber = trainingUnit1.getDayNumber();
                     }
@@ -47,7 +48,7 @@ public class TrainingUnitUtil {
 //        unitCode = preUnitCode + suffixStr;
 //        return unitCode;
 //    }
-public String getMaxUnitCode(Set<TrainingUnit> trainingUnits) {
+public String getMaxUnitCode(List<TrainingUnit> trainingUnits) {
     String preUnitCode = "TU-";
     int largestSuffix = 0;
 
@@ -70,7 +71,7 @@ public String getMaxUnitCode(Set<TrainingUnit> trainingUnits) {
     return preUnitCode + suffixStr;
 }
 
-    public String generateUnitCode(Set<TrainingUnit> trainingUnits) {
+    public String generateUnitCode(List<TrainingUnit> trainingUnits) {
         String maxUnitCode = getMaxUnitCode(trainingUnits);
 
         if (maxUnitCode != null) {

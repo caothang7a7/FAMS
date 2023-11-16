@@ -31,7 +31,8 @@ public interface SyllabusService {
     Syllabus createSyllabusGeneralScreen(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest, BindingResult result) throws ParseException;
     TrainingUnit addDay(String topicCode);
     SyllabusOutlineScreen createSyllabusOutlineScreen(SyllabusOutlineScreen syllabusOutlineScreen);
-    SyllabusOutlineScreenResponse showOutlineScreen(String topicName);
+    SyllabusOutlineScreenResponse showSyllabusOutlineScreen(String topicCode);
+    SyllabusOutlineScreenResponse showOutlineScreen(String topicCode);
     Syllabus exportSyllabusToExcelFile(HttpServletResponse response, String topicCode) throws IOException;
     Syllabus exportSyllabusToCSVFile(HttpServletResponse response, String topicCode) throws Exception;
     Syllabus importSyllabusFromExcel(MultipartFile file) throws IOException;
