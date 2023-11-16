@@ -4,7 +4,18 @@ VALUES (1, 'SUPER_ADMIN', 'FULL_ACCESS', 'FULL_ACCESS','FULL_ACCESS','FULL_ACCES
        (3, 'TRAINER', 'VIEW','VIEW','VIEW','CREATE','VIEW' );
 
 INSERT INTO tbl_learning_objective(code, name, type, description)
-VALUES ('A01', 'Demonstrate a positive', 'Attitude', 'The learner will demonstrate a positive and enthusiastic attitude towards learning Java.'),
+VALUES ('A01', 'Demonstrate a positive', 'Attitude', 'By the end of this photography course, students will be able to:
+
+Understand the fundamental principles of photography, including composition, lighting, and exposure.
+Use different types of cameras, lenses, and accessories effectively to capture high-quality photographs.
+Apply various composition techniques to create visually compelling images.
+Demonstrate mastery in manual shooting mode to have full control over camera settings.
+Develop a keen eye for capturing unique perspectives and moments.
+Utilize post-processing techniques to enhance and edit photographs using digital editing software.
+Explore different genres of photography, such as landscape, portrait, street, and still life.
+Understand legal and ethical considerations in photography, including copyright and model releases.
+Critically analyze and provide constructive feedback on photography, both their own and others''.
+Develop a portfolio of their best work, showcasing their growth and skills as a photographer.'),
        ('A02', 'Demonstrate responsibility', 'Attitude', 'The learner will demonstrate responsibility and complete assigned tasks.'),
        ('S01', 'Write basic PythonCode code', 'Skill', 'The learner will be able to write basic Java code, including control statements, loops, and methods.'),
        ('K01', 'Basic concepts of C# programming.', 'Knowledge', 'The learner will understand the basic concepts of Java programming, including variables, data types, operators, and expressions.'),
@@ -77,8 +88,8 @@ VALUES (1,'JLB','Java Basic', 2 , '2023-9-29','ACTIVE','Quách Gia','2023-9-29',
        (7,'FJW','Fullstack JavaWeb Develop', 8 , '2023-9-29','ACTIVE','Cypher','2023-9-29', NULL,NULL,'H03');
 
 INSERT INTO tbl_syllabus(topic_code, topic_name, technical_group, version, training_audience, topic_outline, training_material, training_principal, priority, public_status, created_by, created_date, modified_by, modified_date,user_id, quiz, assignment, final, final_theory, final_practice, gpa, level)
-VALUES ('A01', 'Java Language Basic','Trainer PC need to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0',10, 'outline', 'learning material', 'principles','priority','ACTIVE','Quách Gia','2023-9-28', NULL,NULL,2, 10, 20, 30 ,20 ,20 , 70, 'BEGINNER'),
-       ('A02', 'C# Language Basic','Trainer PC need to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 10, 'outline', 'learning material', 'principles','priority','INACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 50, 'BEGINNER'),
+VALUES ('A01', 'Java Language Basic','Trainer PC need to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0',10, 'outline', 'learning material', 'principles','priority','ACTIVE','Quách Gia','2023-9-28', 'NVQ','2023-11-16',2, 15, 15, 30 ,20 ,20 , 70, 'BEGINNER'),
+       ('A02', 'C# Language Basic','Trainer PC need to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 10, 'outline', 'learning material', 'principles','priority','INACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 10, 40 ,10 ,30 , 50, 'BEGINNER'),
        ('S01', 'Python Language Basic','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 12, 'outline', 'learning material', 'principles','priority','DRAFT','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'ADVANCED'),
        ('S02', 'C# language Programing','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 9, 'outline', 'learning material', 'principles','priority','INACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 80, 'ALL_LEVEL'),
        ('K01', 'DevOps Foundation','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 12, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 50, 'ADVANCED'),
