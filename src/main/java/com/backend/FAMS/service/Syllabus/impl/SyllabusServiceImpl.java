@@ -430,6 +430,7 @@ public class SyllabusServiceImpl implements SyllabusService {
     }
 
 
+
     @Override
     public TrainingUnit addDay(String topicCode) {
         Set<TrainingUnit> trainingUnit = trainingUnitRepository.findBySyllabusTopicCode(topicCode);
@@ -502,6 +503,23 @@ public class SyllabusServiceImpl implements SyllabusService {
             list.add(deliveryType);
         }
         return list;
+    }
+
+    @Override
+    public SyllabusDTOShowGeneral showSyllabusGeneralByTopicCode(String topicCode) {
+        Syllabus syllabus =  new Syllabus();
+        SyllabusDTOShowGeneral general = new SyllabusDTOShowGeneral();
+        LearningObjective learningObjective = new LearningObjective();
+        syllabus = syllabusRepository.findSyllabusByTopicCode(topicCode);
+        learningObjective = learningObjectiveRepository.findByObjectiveCode(topicCode);
+        general.setTopicCode(syllabus.getTopicCode());
+        general.setTopicName(syllabus.getTopicName());
+        general.setLevel(syllabus.getLevel());
+        general.setTrainingAudience(syllabus.getTrainingAudience());
+        general.setTechnicalGroup(syllabus.getTechnicalGroup());
+        general.setObjectiveName(learningObjective.getObjectiveName());
+        general.setDescription(learningObjective.getDescription());
+        return general;
     }
 
     @Override

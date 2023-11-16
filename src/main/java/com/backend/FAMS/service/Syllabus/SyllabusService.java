@@ -50,4 +50,5 @@ public interface SyllabusService {
     SyllabusOutlineScreenResponse showeachDayinOutlineScreen(String topicCode, int day);
 
     List<DeliveryType> getDeliverType();
+    SyllabusDTOShowGeneral showSyllabusGeneralByTopicCode(String topicCode);
 }
