@@ -333,7 +333,18 @@ public class SyllabusServiceImpl implements SyllabusService {
         syllabusDTO.setTrainingAudience(syllabus.getTrainingAudience());
 //        syllabusDTO.setOutputStandard(trainingProgram1.getTrainingProgramCode());
         syllabusDTO.setTechnicalGroup(syllabus.getTechnicalGroup());
-        syllabusDTO.setCourseObjective(learningObjective.getType());
+        syllabusDTO.setCourseObjective(learningObjective.getDescription());
+
+        Set<TrainingProgramSyllabus> trainingProgramSyllabi = trainingProgramSyllabusRepository.findAllBySyllabus_TopicCode(syllabus.getTopicCode());
+
+        String[][] arr = new String[trainingProgramSyllabi.size()][];
+        int t = 0;
+        for (TrainingProgramSyllabus trainingProgram1 : trainingProgramSyllabi) {
+            arr[t] = new String[]{trainingProgram1.getTrainingProgram().getTrainingProgramCode()};
+            t++;
+        }
+        syllabusDTO.setOutputStandardArr(arr);
+
         return syllabusDTO;
     }
 
