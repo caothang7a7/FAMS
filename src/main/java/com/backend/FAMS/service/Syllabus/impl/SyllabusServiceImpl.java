@@ -400,7 +400,9 @@ public class SyllabusServiceImpl implements SyllabusService {
         SyllabusDTOShowGeneral general = new SyllabusDTOShowGeneral();
         LearningObjective learningObjective = new LearningObjective();
         syllabus = syllabusRepository.findSyllabusByTopicCode(topicCode);
-        general = syllabusMapper.toGeneralDTO(syllabus);
+        general = syllabusMapper.toDtoShowGeneral(syllabus);
+        Set<TrainingContent> trainingContent = trainingContentRepository.findByTrainingUnit_UnitCode(syllabus.getTopicCode());
+//        general.setDuration(trainingContent.getDuration());
         return general;
     }
 
