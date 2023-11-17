@@ -88,9 +88,31 @@ VALUES (1,'JLB','Java Basic', 2 , '2023-9-29','ACTIVE','Quách Gia','2023-9-29',
        (7,'FJW','Fullstack JavaWeb Develop', 8 , '2023-9-29','ACTIVE','Cypher','2023-9-29', NULL,NULL,'H03');
 
 INSERT INTO tbl_syllabus(topic_code, topic_name, technical_group, version, training_audience, topic_outline, training_material, training_principal, priority, public_status, created_by, created_date, modified_by, modified_date,user_id, quiz, assignment, final, final_theory, final_practice, gpa, level)
-VALUES ('A01', 'Java Language Basic','Trainer PC need to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0',10, 'outline', 'learning material', 'principles','priority','ACTIVE','Quách Gia','2023-9-28', 'NVQ','2023-11-16',2, 15, 15, 30 ,20 ,20 , 70, 'BEGINNER'),
-       ('A02', 'C# Language Basic','Trainer PC need to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 10, 'outline', 'learning material', 'principles','priority','INACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 10, 40 ,10 ,30 , 50, 'BEGINNER'),
-       ('S01', 'Python Language Basic','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 12, 'outline', 'learning material', 'principles','priority','DRAFT','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'ADVANCED'),
+VALUES ('A01', 'Java Language Basic','Trainer PC need to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0',10, 'outline', 'learning material', '🤓 Welcome to our school! As the training principal, my 🎯 top priority is to create a positive and inclusive learning environment for all students and staff. Here''s an example of how I would approach a training session:
+
+🗓️ Before the session:
+I would carefully plan the training, ensuring it aligns with the school''s goals and addresses the specific needs of our staff. I''d send out invitations along with a 😊 friendly reminder to build excitement.
+
+📣 Opening the session:
+To set the tone, I''d start with an energetic welcome, encouraging everyone to participate actively. Maybe I would use a 🌟 metaphor of a journey to highlight our collective growth and remind everyone of the importance of continuous learning.
+
+🌐 Icebreaker activities:
+To foster a sense of camaraderie and break the ice, I might begin with a fun icebreaker activity that promotes teamwork and collaboration. This could involve a game like "Two Truths and a Lie" or a collaborative puzzle-solving exercise.','priority','ACTIVE','Quách Gia','2023-9-28', 'NVQ','2023-11-16',2, 15, 15, 30 ,20 ,20 , 70, 'BEGINNER'),
+       ('A02', 'C# Language Basic','Trainer PC need to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 10, 'outline', 'learning material', '📚 Engaging presentation:
+My aim would be to make the training session interactive and engaging. I would rely on visual aids like charts, videos, and infographics to convey information effectively. Throughout the presentation, I would encourage questions and discussions to ensure everyone feels involved.
+
+🤝 Group work and discussions:
+To encourage active participation, I would divide the staff into small groups for discussions and reflection. This would allow them to share their experiences and exchange ideas. I''d provide guiding questions and facilitate these group discussions to promote meaningful dialogue.
+
+🎉 Recognition and celebration:
+Throughout the session, I would recognize and acknowledge the achievements and contributions of the staff. I might use 🏆 emojis or small tokens of appreciation to show gratitude and motivate everyone to strive for excellence.','priority','INACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 10, 40 ,10 ,30 , 50, 'BEGINNER'),
+       ('S01', 'Python Language Basic','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 12, 'outline', 'learning material', '🔍 Closing reflection:
+To wrap up the training, I would allocate time for individuals to reflect on what they have learned and how they plan to implement it in their daily practices. Their key takeaways and action plans would be shared in a collaborative document or through an online platform.
+
+🙌 Closing remarks:
+In my closing remarks, I would express my gratitude for their active participation and reaffirm my commitment to supporting their professional growth. I would encourage ongoing communication and invite feedback to continuously improve future training sessions.
+
+','priority','DRAFT','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'ADVANCED'),
        ('S02', 'C# language Programing','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 9, 'outline', 'learning material', 'principles','priority','INACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 80, 'ALL_LEVEL'),
        ('K01', 'DevOps Foundation','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 12, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 50, 'ADVANCED'),
        ('H01', 'Azure DevOps Foundation','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'ALL_LEVEL'),
