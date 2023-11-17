@@ -44,7 +44,7 @@ public class Syllabus {
     @Column(name = "training_material", nullable = true)
     private String trainingMaterial;
 
-    @Column(name = "training_principal", nullable = true)
+    @Column(name = "training_principal", nullable = true, length = 10000)
     private String trainingPrincipal;
 
     @Column(name = "priority", nullable = true)
