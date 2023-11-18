@@ -2,6 +2,7 @@ package com.backend.FAMS.mapper.Syllabus;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusOutlineScreen;
 import com.backend.FAMS.dto.Syllabus.request.TrainingUnitDTOCreate;
+import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOShowGeneral;
 import com.backend.FAMS.dto.trainingContent.TrainingContentDTOCreateOutlineScreen;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOOtherScreen;
@@ -55,4 +56,7 @@ public interface SyllabusMapper {
     List<SyllabusDTOResponse> toDTO(List<Syllabus> syllabus);
 
     SyllabusDTOOtherScreen toDTO(Syllabus syllabus);
+
+    SyllabusDTOShowGeneral toGeneralDTO(Syllabus syllabus);
+
 }

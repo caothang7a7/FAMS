@@ -228,13 +228,24 @@ public ResponseEntity<?> getAllSyllabus(@RequestParam(defaultValue = "1") int pa
     public ResponseEntity<SyllabusDTOOtherScreen> showSyllabusOtherScreenByTopicCode(@PathVariable("topicCode") String topicCode) {
         return new ResponseEntity<>(syllabusService.showSyllabusOtherScreenByTopicCode(topicCode), HttpStatus.OK);
     }
+
     @GetMapping("/getGeneralScreen/{topicCode}")
     public ResponseEntity<SyllabusDTOShowGeneral> showSyllabusGeneralByTopicCode(@PathVariable("topicCode") String topicCode) {
         return new ResponseEntity<>(syllabusService.showSyllabusGeneralByTopicCode(topicCode), HttpStatus.OK);
     }
-    @GetMapping("/OutlineScreen/{topicName}")
-    public ResponseEntity<SyllabusOutlineScreenResponse> showOutlineScreen(@PathVariable("topicName") String topicName){
-        return new ResponseEntity<>(syllabusService.showOutlineScreen(topicName), HttpStatus.OK);
+//    @GetMapping("/OutlineScreen/{topicName}")
+//    public ResponseEntity<SyllabusOutlineScreenResponse> showOutlineScreen(@PathVariable("topicName") String topicName) {
+//        return new ResponseEntity<>(syllabusService.showOutlineScreen(topicName), HttpStatus.OK);
+//    }
+
+    @GetMapping("/OutlineScreen/syllabus/{topicCode}")
+    public ResponseEntity<?> showSyllabusOutlineScreen(@PathVariable("topicCode") String topicCode){
+        return new ResponseEntity<>(syllabusService.showSyllabusOutlineScreen(topicCode), HttpStatus.OK);
+    }
+
+    @GetMapping("/OutlineScreen/{topicCode}")
+    public ResponseEntity<?> showOutlineScreen(@PathVariable("topicCode") String topicCode){
+        return new ResponseEntity<>(syllabusService.showOutlineScreen(topicCode), HttpStatus.OK);
     }
     @GetMapping("/OutlineScreen/{topicCode}/{day}")
     public ResponseEntity<SyllabusOutlineScreenResponse> showeachDayinOutlineScreen(@PathVariable("topicCode") String topicCode,@PathVariable("day") int day){
