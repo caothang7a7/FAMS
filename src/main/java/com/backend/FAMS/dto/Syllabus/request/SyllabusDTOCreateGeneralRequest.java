@@ -20,6 +20,7 @@ import java.util.Date;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SyllabusDTOCreateGeneralRequest {
+    String topicCode;
     @NotEmpty(message = "Syllabus name is required")
     String topicName;
     @NotEmpty(message = "Version is required")
