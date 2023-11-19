@@ -44,7 +44,6 @@ public interface SyllabusService {
     Page<SyllabusDTOResponse> searchSyllabusByCreatedDate(Date createdDate, Pageable pageable);
     SyllabusOutlineScreenResponse showeachDayinOutlineScreen(String topicCode, int day);
     SyllabusDTOShowGeneral showSyllabusGeneralByTopicCode(String topicCode);
-
-
+    Syllabus duplicateSyllabusByTopicCode(String topicCode) throws CloneNotSupportedException;
     List<DeliveryType> getDeliverType();
 }

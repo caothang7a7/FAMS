@@ -56,6 +56,11 @@ public class SyllabusController {
             return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/duplicate/{topicCode}")
+    public ResponseEntity<Syllabus> duplicateSyllabus(@PathVariable("topicCode") String topicCode) throws CloneNotSupportedException {
+        return new ResponseEntity<>(syllabusService.duplicateSyllabusByTopicCode(topicCode), HttpStatus.OK);
+    }
     @GetMapping("/getGeneralScreen/{topicCode}")
     public ResponseEntity<SyllabusDTOShowGeneral> getGeneralScreen(@PathVariable("topicCode") String topicCode){
         return new ResponseEntity<>(syllabusService.showSyllabusGeneralByTopicCode(topicCode), HttpStatus.OK);

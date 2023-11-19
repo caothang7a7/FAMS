@@ -55,6 +55,7 @@ import org.supercsv.prefs.CsvPreference;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.validation.BindingResult;
 
@@ -409,6 +410,63 @@ public class SyllabusServiceImpl implements SyllabusService {
         Set<TrainingContent> trainingContent = trainingContentRepository.findByTrainingUnit_UnitCode(syllabus.getTopicCode());
 //        general.setDuration(trainingContent.getDuration());
         return general;
+    }
+
+    @Override
+    public Syllabus duplicateSyllabusByTopicCode(String topicCode) throws CloneNotSupportedException {
+        Syllabus syllabus = new Syllabus();
+        syllabus = syllabusRepository.findSyllabusByTopicCode(topicCode);
+        Syllabus duplicate = (Syllabus) syllabus.clone();
+        duplicate.setTopicName(duplicate.getTopicName()+" (copied)");
+        String newTopicCode = "";
+        String preTopicCode = "";
+        int min = 1;
+        int max = 4;
+        Random random = new Random();
+        int number = random.nextInt((max - min) + 1) + min;
+        switch (number) {
+            case 1:
+                preTopicCode = "A";
+                break;
+            case 2:
+                preTopicCode = "S";
+                break;
+            case 3:
+                preTopicCode = "K";
+                break;
+            case 4:
+                preTopicCode = "H";
+                break;
+        }
+        SyllabusUtil utils = new SyllabusUtil(syllabusRepository);
+        newTopicCode = utils.generateTopicCode(preTopicCode);
+        duplicate.setTopicCode(newTopicCode);
+        Date currentDate = new Date();
+        try{
+            syllabusRepository.customSaveSyllabus(duplicate.getTopicCode(),
+                    duplicate.getTopicName(),
+                    duplicate.getTechnicalGroup(),
+                    duplicate.getVersion(),
+                    duplicate.getTrainingAudience(),
+                    duplicate.getTopicOutline(),
+                    duplicate.getTrainingMaterial(),
+                    duplicate.getTrainingPrincipal(),
+                    duplicate.getPriority(),
+                    String.valueOf(duplicate.getSyllabusStatus()),
+                    duplicate.getCreatedBy(),
+                    currentDate,
+                    duplicate.getUser().getUserId(),
+                    duplicate.getAssignment(),
+                    duplicate.getFinalTest(),
+                    duplicate.getFinalTheory(),
+                    duplicate.getFinalPractice(),
+                    duplicate.getGpa(),
+                    duplicate.getQuiz(),
+                    String.valueOf(duplicate.getLevel()));
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return duplicate;
     }
 
     @Override
