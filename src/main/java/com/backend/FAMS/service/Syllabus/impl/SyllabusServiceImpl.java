@@ -12,6 +12,7 @@ import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusOutlineScreen;
 import com.backend.FAMS.dto.Syllabus.response.*;
 import com.backend.FAMS.entity.LearningObjective.LearningObjective;
+import com.backend.FAMS.entity.LearningObjective.learningObjective_enum.Type;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.entity.Syllabus.SyllabusObjective;
 import com.backend.FAMS.entity.Syllabus.SyllabusObjectiveId;
@@ -545,38 +546,27 @@ public class SyllabusServiceImpl implements SyllabusService {
     }
 
     @Override
+    public List<Type> getTypeofLearningObject() {
+        Type[] types = Type.values();
+        List<Type> list = new ArrayList<>();
+        for(Type type: types){
+            list.add(type);
+        }
+        return list;
+    }
+
+    @Override
     public TrainingUnit createTrainingUnitScreen(int dayNumber, TrainingUnitDTOCreate trainingUnitDTOCreate, String topicCode, String unitCode) {
-        Set<TrainingUnit> trainingUnit = trainingUnitRepository.findBySyllabusTopicCode(topicCode);
-        TrainingUnitUtil util = new TrainingUnitUtil(trainingContentRepository);
-        Set<TrainingUnit> trainingUnit1 = trainingUnitRepository.findTrainingUnitByDayNumberAndSyllabusTopicCode(dayNumber,topicCode);
-            for (TrainingUnit trainingUnit3 : trainingUnit1) {
-//                if (trainingUnit3.getUnitName().isEmpty() && !trainingUnit3.getUnitCode().isEmpty()) {
-//                    trainingUnit3.setUnitName(trainingUnitDTOCreate.getUnitName());
-//                    trainingUnitRepository.save(trainingUnit3);
-//                    return trainingUnit3;
-//                } else {
-////                    TrainingUnit trainingUnit2 = new TrainingUnit();
-//                    TrainingUnit trainingUnit2 = trainingUnitRepository.findById(unitCode).orElseThrow();
-//                    trainingUnit2.setSyllabus(syllabusRepository.findSyllabusByTopicCode(topicCode));
-////                    String unitCode = util.generateUnitCode(trainingUnit);
-////                    trainingUnit2.setUnitCode(unitCode);
-//                    trainingUnit2.setUnitName(trainingUnitDTOCreate.getUnitName());
-//                    trainingUnit2.setDayNumber(dayNumber);
-//                    trainingUnitRepository.save(trainingUnit2);
-//                    return trainingUnit2;
-//                }
                 TrainingUnit trainingUnit2 = trainingUnitRepository.findById(unitCode).orElseThrow();
                 trainingUnit2.setSyllabus(syllabusRepository.findSyllabusByTopicCode(topicCode));
                 trainingUnit2.setUnitName(trainingUnitDTOCreate.getUnitName());
                 trainingUnit2.setDayNumber(dayNumber);
                 trainingUnitRepository.save(trainingUnit2);
                 return trainingUnit2;
-            }
-            return null;
     }
 
     @Override
-    public TrainingContent createTrainingContentScreen(int dayNumber, String unitCode,String learningObjectCode, TrainingContentDTOCreateOutlineScreen dto) {
+    public TrainingContent createTrainingContentScreen(String topicCode ,int dayNumber, String unitCode, TrainingContentDTOCreateOutlineScreen dto) {
         TrainingContent trainingContent = new TrainingContent();
         trainingContent.setContent(dto.getContent());
         Set<TrainingContent> trainingContent1 = trainingContentRepository.findByTrainingUnit_UnitCode(unitCode);
@@ -584,14 +574,21 @@ public class SyllabusServiceImpl implements SyllabusService {
         long id = util.generateid(trainingContent1);
         trainingContent.setTrainingContentId(id);
         trainingContent.setTrainingUnit(trainingUnitRepository.findById(unitCode).orElseThrow());
-        trainingContent.setLearningObjective(learningObjectiveRepository.findById(learningObjectCode).orElseThrow());
+//        trainingContent.setLearningObjective(learningObjectiveRepository.findById(learningObjectCode).orElseThrow());
         trainingContent.setDuration(dto.getDuration());
         trainingContent.setDeliveryType(dto.getDeliveryType());
         trainingContent.setTrainingFormat(dto.getTrainingFormat());
-        trainingContent.setType("ad");
-        trainingContent.setNote("sad");
+//        trainingContent.setLearningObjective(syllabusObjectiveRepository.findBySyllabusTopicCodeAndLearningObjectiveType(topicCode,dto.getType()));
+        trainingContent.setNote("dsvsdvsdvsd");
+        trainingContent.setType("sdvsdvsdv");
         trainingContentRepository.save(trainingContent);
         return trainingContent;
+    }
+    @Override
+    public List<LearningObjective> L(String topicCode, Type type){
+        List<LearningObjective> learningObjective = syllabusObjectiveRepository.findBySyllabusTopicCodeAndLearningObjectiveType(topicCode,type);
+            return learningObjective;
+
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.backend.FAMS.dto.Syllabus.request;
 
+import com.backend.FAMS.entity.LearningObjective.learningObjective_enum.Type;
 import com.backend.FAMS.entity.Syllabus.syllabus_enum.SyllabusLevel;
 import com.backend.FAMS.entity.User.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -41,5 +42,5 @@ public class SyllabusDTOCreateGeneralRequest {
 
     @NotEmpty(message = "Learning Objective name is required")
     String learningObjectiveName;
-    String learningObjectiveType;
+    Type learningObjectiveType;
 }

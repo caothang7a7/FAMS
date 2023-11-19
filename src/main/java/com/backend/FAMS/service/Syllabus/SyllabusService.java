@@ -8,6 +8,8 @@ import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
 import com.backend.FAMS.dto.trainingContent.TrainingContentDTOCreateOutlineScreen;
+import com.backend.FAMS.entity.LearningObjective.LearningObjective;
+import com.backend.FAMS.entity.LearningObjective.learningObjective_enum.Type;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.entity.TrainingContent.trainingContent_enum.DeliveryType;
 import org.springframework.data.domain.Page;
@@ -38,7 +40,7 @@ public interface SyllabusService {
     Syllabus importSyllabusFromExcel(MultipartFile file) throws IOException;
     SyllabusDTOOtherScreen showSyllabusOtherScreenByTopicCode(String topicCode);
     TrainingUnit createTrainingUnitScreen(int dayNumber, TrainingUnitDTOCreate trainingUnitDTOCreate,String topicCode,String unitCode);
-    TrainingContent createTrainingContentScreen(int dayNumber, String unitName,String learningObjectCode, TrainingContentDTOCreateOutlineScreen dto);
+    TrainingContent createTrainingContentScreen(String topicCode, int dayNumber, String unitName, TrainingContentDTOCreateOutlineScreen dto);
     SyllabusOutlineScreenResponse showtrainingContentbyDayinOutlineScreen(String topicCode,int day,String unitCode);
     TrainingUnit addunitCode(int dayNumber, String topicCode);
     Page<SyllabusDTOResponse> searchSyllabus(String key, Pageable pageable);
@@ -48,4 +50,6 @@ public interface SyllabusService {
 
 
     List<DeliveryType> getDeliverType();
+    List<Type> getTypeofLearningObject();
+    List<LearningObjective> L(String topicCode, Type type);
 }

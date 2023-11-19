@@ -1,5 +1,6 @@
 package com.backend.FAMS.dto.Syllabus.response;
 
+import com.backend.FAMS.entity.LearningObjective.learningObjective_enum.Type;
 import com.backend.FAMS.entity.Syllabus.syllabus_enum.SyllabusStatus;
 import lombok.Data;
 
@@ -15,7 +16,7 @@ public class SyllabusDTODetailInformation {
     private String userLevel;
     private String trainingAudience;
     private String technicalGroup;
-    private String courseObjective;
+    private Type courseObjective;
     private String outputStandard;
     private Integer[][] durationArr;
 }

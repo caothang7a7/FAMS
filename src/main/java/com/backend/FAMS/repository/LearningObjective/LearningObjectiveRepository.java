@@ -10,5 +10,4 @@ import java.util.Set;
 
 @Repository
 public interface LearningObjectiveRepository extends JpaRepository<LearningObjective, String> {
-
 }

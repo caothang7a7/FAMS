@@ -1,5 +1,6 @@
 package com.backend.FAMS.entity.LearningObjective;
 
+import com.backend.FAMS.entity.LearningObjective.learningObjective_enum.Type;
 import com.backend.FAMS.entity.Syllabus.SyllabusObjective;
 import com.backend.FAMS.entity.TrainingContent.TrainingContent;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,7 +25,8 @@ public class LearningObjective {
     private String objectiveName;
 
     @Column(name = "type", nullable = true)
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private Type type;
 
     @Column(name = "description", nullable = false)
     private String description;
