@@ -42,7 +42,7 @@ public interface SyllabusService {
     SyllabusOutlineScreenResponse showtrainingContentbyDayinOutlineScreen(String topicCode,int day,String unitCode);
     TrainingUnit addunitCode(int dayNumber, String topicCode);
     Page<SyllabusDTOResponse> searchSyllabus(String key, Pageable pageable);
-    Page<SyllabusDTOResponse> searchSyllabusByCreatedDate(Date createdDate, Pageable pageable);
+    Page<SyllabusDTOResponse> searchSyllabusByCreatedDate(String key, Pageable pageable, Date createdDate);
     SyllabusOutlineScreenResponse showeachDayinOutlineScreen(String topicCode, int day);
     SyllabusDTOShowGeneral showSyllabusGeneralByTopicCode(String topicCode);
     List<DeliveryType> getDeliverType();

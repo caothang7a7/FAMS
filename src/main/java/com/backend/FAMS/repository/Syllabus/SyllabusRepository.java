@@ -83,12 +83,29 @@ void customUpdateSyllabus(@Param("topicCode") String topicCode, @Param("topicNam
         "AND LOWER(s.topic_name) LIKE %:topicName4% ", nativeQuery = true)
 List<Syllabus> findSyllabusByTopicNameContaining(@Param("topicName1") String keyword1, @Param("topicName2") String keyword2,
                                                  @Param("topicName3") String keyword3, @Param("topicName4") String keyword4);
-
-
     @Query(value = "SELECT * FROM tbl_syllabus s WHERE LOWER(s.topic_name) LIKE %:topicName1% " +
             "AND LOWER(s.topic_name) LIKE %:topicName2% " +
             "AND LOWER(s.topic_name) LIKE %:topicName3% " +
             "AND LOWER(s.topic_name) LIKE %:topicName4% ", nativeQuery = true)
     Page<Syllabus> findSyllabusByTopicNameContaining(@Param("topicName1") String keyword1, @Param("topicName2") String keyword2,
                                                      @Param("topicName3") String keyword3, @Param("topicName4") String keyword4, Pageable pageable);
+
+@Query(value = "SELECT * FROM tbl_syllabus s WHERE LOWER(s.topic_name) LIKE %:topicName1% " +
+        "AND LOWER(s.topic_name) LIKE %:topicName2% " +
+        "AND LOWER(s.topic_name) LIKE %:topicName3% " +
+        "AND LOWER(s.topic_name) LIKE %:topicName4% " +
+        "AND s.created_date = :createDate ", nativeQuery = true)
+List<Syllabus> findSyllabusByTopicNameContaining(@Param("topicName1") String keyword1, @Param("topicName2") String keyword2,
+                                                 @Param("topicName3") String keyword3, @Param("topicName4") String keyword4,
+                                                 @Param("createDate") Date date);
+
+
+    @Query(value = "SELECT * FROM tbl_syllabus s WHERE LOWER(s.topic_name) LIKE %:topicName1% " +
+            "AND LOWER(s.topic_name) LIKE %:topicName2% " +
+            "AND LOWER(s.topic_name) LIKE %:topicName3% " +
+            "AND LOWER(s.topic_name) LIKE %:topicName4% " +
+            "AND s.created_date = :createDate ", nativeQuery = true)
+    Page<Syllabus> findSyllabusByTopicNameContaining(@Param("topicName1") String keyword1, @Param("topicName2") String keyword2,
+                                                     @Param("topicName3") String keyword3, @Param("topicName4") String keyword4,
+                                                     @Param("createDate") Date date, Pageable pageable);
 }

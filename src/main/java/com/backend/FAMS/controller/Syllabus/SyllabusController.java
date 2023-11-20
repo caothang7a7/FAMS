@@ -121,7 +121,7 @@ public ResponseEntity<?> getAllSyllabus(@RequestParam(defaultValue = "1") int pa
 
     @GetMapping("/search-syllabus-byCreatedDate/{moreElement}")
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<?> searchSyllabusByCreatedDate(@RequestParam() Date key, @RequestParam(defaultValue = "1") int page, @PathVariable("moreElement") int moreElement){
+    public ResponseEntity<?> searchSyllabusByCreatedDate(@RequestParam() String key ,@RequestParam() Date date, @RequestParam(defaultValue = "1") int page, @PathVariable("moreElement") int moreElement){
         ApiResponse apiResponse = new ApiResponse();
         int pageSize = 5;
 
@@ -133,7 +133,7 @@ public ResponseEntity<?> getAllSyllabus(@RequestParam(defaultValue = "1") int pa
                 pageSize = moreElement;
                 // Kiểm tra xem trang sau trang hiện tại có đủ 10 phần tử không
                 PageRequest currentPageRequest = PageRequest.of(page - 1, pageSize);
-                Page<SyllabusDTOResponse> currentPage = syllabusService.searchSyllabusByCreatedDate(key, currentPageRequest);
+                Page<SyllabusDTOResponse> currentPage = syllabusService.searchSyllabusByCreatedDate(key, currentPageRequest, date);
                 List<SyllabusDTOResponse> currentPageList = currentPage.getContent();
 
                 if (currentPageList.size() < 10) {
@@ -142,7 +142,7 @@ public ResponseEntity<?> getAllSyllabus(@RequestParam(defaultValue = "1") int pa
                 }
                 // Trang hiện tại có đủ 10 phần tử, nhưng kiểm tra trang tiếp theo
                 PageRequest nextPageRequest = PageRequest.of(page, pageSize); // Trang tiếp theo
-                Page<SyllabusDTOResponse> nextPage = syllabusService.searchSyllabusByCreatedDate(key, nextPageRequest);
+                Page<SyllabusDTOResponse> nextPage = syllabusService.searchSyllabusByCreatedDate(key, nextPageRequest, date);
                 List<SyllabusDTOResponse> nextPageList = nextPage.getContent();
 
                 if (nextPageList.size() < 10) {
@@ -152,7 +152,7 @@ public ResponseEntity<?> getAllSyllabus(@RequestParam(defaultValue = "1") int pa
             }
         }
         PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
-        Page<SyllabusDTOResponse> syllabusDTOResponsePage = syllabusService.searchSyllabusByCreatedDate(key, pageRequest);
+        Page<SyllabusDTOResponse> syllabusDTOResponsePage = syllabusService.searchSyllabusByCreatedDate(key, pageRequest, date);
         List<SyllabusDTOResponse> syllabusList = syllabusDTOResponsePage.getContent();
         apiResponse.ok(syllabusDTOResponsePage);
         return new ResponseEntity<>(syllabusList, HttpStatus.OK);
