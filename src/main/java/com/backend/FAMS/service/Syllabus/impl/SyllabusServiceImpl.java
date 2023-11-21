@@ -667,7 +667,9 @@ public class SyllabusServiceImpl implements SyllabusService {
         general.setLevel(syllabus.getLevel());
         general.setTrainingAudience(syllabus.getTrainingAudience());
         general.setTechnicalGroup(syllabus.getTechnicalGroup());
-        general.setObjectiveName(learningObjective.getObjectiveName());
+        if(learningObjective.getObjectiveName() != null){
+            general.setObjectiveName(learningObjective.getObjectiveName());
+        }
         general.setDescription(learningObjective.getDescription());
         return general;
     }
