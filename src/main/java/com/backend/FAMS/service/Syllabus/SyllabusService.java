@@ -26,7 +26,6 @@ import java.util.Set;
 public interface SyllabusService {
     Syllabus createSyllabusOtherScreen(SyllabusDTOCreateOtherScreen syllabusDTO, String topicCode);
     SyllabusDTODetailInformation getSyllabusById(String topicCode);
-    SyllabusDTOShowOtherScreen showSyllabusOtherScreen(String topicName);
     Page<SyllabusDTOResponse> getListSyllabus(Pageable pageable) throws ParseException;
     Syllabus createSyllabusGeneralScreen(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest, BindingResult result) throws ParseException;
     TrainingUnit addDay(String topicCode);
@@ -44,6 +43,7 @@ public interface SyllabusService {
     Page<SyllabusDTOResponse> searchSyllabusByCreatedDate(Date createdDate, Pageable pageable);
     SyllabusOutlineScreenResponse showeachDayinOutlineScreen(String topicCode, int day);
     SyllabusDTOShowGeneral showSyllabusGeneralByTopicCode(String topicCode);
+    SyllabusDTOOutline showSyllabusOutlineByTopicCode(String topicCode);
     Syllabus duplicateSyllabusByTopicCode(String topicCode) throws CloneNotSupportedException;
     List<DeliveryType> getDeliverType();
 }

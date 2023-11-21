@@ -224,14 +224,13 @@ public ResponseEntity<?> getAllSyllabus(@RequestParam(defaultValue = "1") int pa
         return new ResponseEntity<SyllabusDTODetailInformation>(syllabusService.getSyllabusById(topicCode), HttpStatus.OK);
     }
 
+    @GetMapping("/showOutlineById/{topicCode}")
+    public ResponseEntity<SyllabusDTOOutline> showSyllabusOutlineScreenByTopicCode(@PathVariable("topicCode") String topicCode){
+        return new ResponseEntity<>(syllabusService.showSyllabusOutlineByTopicCode(topicCode), HttpStatus.OK);
+    }
     @PostMapping("/createSyllabusOtherScreen/{topicCode}")
     public ResponseEntity<Syllabus  > createSyllabusOtherScreen(@RequestBody SyllabusDTOCreateOtherScreen syllabusDTO, @PathVariable("topicCode") String topicCode){
         return new ResponseEntity<>(syllabusService.createSyllabusOtherScreen(syllabusDTO, topicCode), HttpStatus.CREATED);
-    }
-
-    @GetMapping("/showOtherScreen/{topicName}")
-    public ResponseEntity<SyllabusDTOShowOtherScreen> showSyllabusOtherScreen(@PathVariable("topicName") String topicName) {
-        return new ResponseEntity<SyllabusDTOShowOtherScreen>(syllabusService.showSyllabusOtherScreen(topicName), HttpStatus.OK);
     }
     @GetMapping("/showOtherScreenById/{topicCode}")
     public ResponseEntity<SyllabusDTOOtherScreen> showSyllabusOtherScreenByTopicCode(@PathVariable("topicCode") String topicCode) {

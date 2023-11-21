@@ -4,7 +4,6 @@ package com.backend.FAMS.service.Syllabus.impl;
 import com.backend.FAMS.dto.Syllabus.request.TrainingUnitDTOCreate;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusOutlineScreenResponse;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTODetailInformation;
-import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOShowOtherScreen;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
 import com.backend.FAMS.dto.trainingContent.TrainingContentDTOCreateOutlineScreen;
@@ -15,7 +14,7 @@ import com.backend.FAMS.entity.LearningObjective.LearningObjective;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.entity.Syllabus.SyllabusObjective;
 import com.backend.FAMS.entity.Syllabus.SyllabusObjectiveId;
-import com.backend.FAMS.entity.Syllabus.syllabus_enum.SyllabusLevel;
+import com.backend.FAMS.entity.Syllabus.syllabus_enum.SyllabusStatus;
 import com.backend.FAMS.entity.TrainingContent.TrainingContent;
 import com.backend.FAMS.entity.TrainingContent.trainingContent_enum.DeliveryType;
 import com.backend.FAMS.entity.TrainingContent.trainingContent_enum.TrainingFormat;
@@ -55,7 +54,6 @@ import org.supercsv.prefs.CsvPreference;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.validation.BindingResult;
 
@@ -349,13 +347,6 @@ public class SyllabusServiceImpl implements SyllabusService {
     }
 
     @Override
-    public SyllabusDTOShowOtherScreen showSyllabusOtherScreen(String topicName) {
-        Syllabus syllabus = syllabusRepository.findSyllabusByTopicName(topicName);
-        SyllabusDTOShowOtherScreen dtoShowOtherScreen = syllabusMapper.mapToDTO(syllabus);
-        return dtoShowOtherScreen;
-    }
-
-    @Override
     public SyllabusOutlineScreenResponse showOutlineScreen(String topicName) {
         SyllabusOutlineScreenResponse syllabusOutlineScreenResponse = new SyllabusOutlineScreenResponse();
 
@@ -413,6 +404,20 @@ public class SyllabusServiceImpl implements SyllabusService {
     }
 
     @Override
+    public SyllabusDTOOutline showSyllabusOutlineByTopicCode(String topicCode) {
+        Syllabus syllabus = new Syllabus();
+        SyllabusDTOOutline dtoOutline = new SyllabusDTOOutline();
+        try{
+            syllabus = syllabusRepository.findSyllabusByTopicCode(topicCode);
+           dtoOutline = syllabusMapper.toDTOOutline(syllabus);
+
+        }catch (Exception ex){
+            ex.getMessage();
+        }
+        return dtoOutline;
+    }
+
+    @Override
     public Syllabus duplicateSyllabusByTopicCode(String topicCode) throws CloneNotSupportedException {
         Syllabus syllabus = new Syllabus();
         syllabus = syllabusRepository.findSyllabusByTopicCode(topicCode);
@@ -441,6 +446,7 @@ public class SyllabusServiceImpl implements SyllabusService {
         SyllabusUtil utils = new SyllabusUtil(syllabusRepository);
         newTopicCode = utils.generateTopicCode(preTopicCode);
         duplicate.setTopicCode(newTopicCode);
+        duplicate.setSyllabusStatus(SyllabusStatus.DRAFT);
         Date currentDate = new Date();
         try{
             syllabusRepository.customSaveSyllabus(duplicate.getTopicCode(),
