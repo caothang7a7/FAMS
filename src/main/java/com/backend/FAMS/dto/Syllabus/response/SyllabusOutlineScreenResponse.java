@@ -18,6 +18,7 @@ public class SyllabusOutlineScreenResponse {
     private String topicName;
     private String version;
     private List<TrainingUnit> trainingUnits;
+    private String unitCode1;
     private String[][] unitCode;
     private String[][] unitName;
     private Integer[][] dayNumber;

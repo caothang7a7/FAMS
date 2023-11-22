@@ -41,13 +41,13 @@ public interface SyllabusService {
     SyllabusDTOOtherScreen showSyllabusOtherScreenByTopicCode(String topicCode);
     TrainingUnit createTrainingUnitScreen(int dayNumber, TrainingUnitDTOCreate trainingUnitDTOCreate,String topicCode,String unitCode);
     TrainingContent createTrainingContentScreen(String topicCode, int dayNumber, String unitName, TrainingContentDTOCreateOutlineScreen dto);
-    SyllabusOutlineScreenResponse showtrainingContentbyDayinOutlineScreen(String topicCode,int day,String unitCode);
+    SyllabusOutlineScreenResponse showtrainingContentbyDayinOutlineScreen(int day,String unitCode);
     TrainingUnit addunitCode(int dayNumber, String topicCode);
     Page<SyllabusDTOResponse> searchSyllabus(String key, Pageable pageable);
     Page<SyllabusDTOResponse> searchSyllabusByCreatedDate(Date createdDate, Pageable pageable);
     SyllabusOutlineScreenResponse showeachDayinOutlineScreen(String topicCode, int day);
     SyllabusDTOShowGeneral showSyllabusGeneralByTopicCode(String topicCode);
-
+    SyllabusOutlineScreenResponse showtrainingUnit(String topicCode, int day);
 
     List<DeliveryType> getDeliverType();
     List<Type> getTypeofLearningObject();

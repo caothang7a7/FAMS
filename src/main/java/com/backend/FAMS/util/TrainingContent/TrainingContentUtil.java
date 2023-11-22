@@ -8,6 +8,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Set;
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -17,7 +18,7 @@ public class TrainingContentUtil {
     public  TrainingContentUtil(TrainingContentRepository trainingContentRepository){
         this.trainingContentRepository = trainingContentRepository;
     }
-    public long generateid(Set<TrainingContent> trainingContents){
+    public long generateid(List<TrainingContent> trainingContents){
         long id = 0;
         for(TrainingContent trainingContent: trainingContents){
             for(int i = 0; i < trainingContents.size() ; i++){
