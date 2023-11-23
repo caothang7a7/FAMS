@@ -1,5 +1,6 @@
 package com.backend.FAMS.repository.Syllabus;
 
+import com.backend.FAMS.entity.LearningObjective.LearningObjective;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;

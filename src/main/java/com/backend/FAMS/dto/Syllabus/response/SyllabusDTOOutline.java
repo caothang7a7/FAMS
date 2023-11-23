@@ -2,8 +2,6 @@ package com.backend.FAMS.dto.Syllabus.response;
 
 import com.backend.FAMS.entity.Syllabus.syllabus_enum.SyllabusStatus;
 import lombok.Data;
-
-import javax.management.ConstructorParameters;
 import java.util.Date;
 
 @Data
@@ -21,5 +19,4 @@ public class SyllabusDTOOutline {
     private int finalTheory;
     private int finalPractice;
     private int gpa;
-
 }
