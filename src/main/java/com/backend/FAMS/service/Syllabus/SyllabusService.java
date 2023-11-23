@@ -44,12 +44,14 @@ public interface SyllabusService {
     SyllabusOutlineScreenResponse showtrainingContentbyDayinOutlineScreen(int day,String unitCode);
     TrainingUnit addunitCode(int dayNumber, String topicCode);
     Page<SyllabusDTOResponse> searchSyllabus(String key, Pageable pageable);
-    Page<SyllabusDTOResponse> searchSyllabusByCreatedDate(Date createdDate, Pageable pageable);
+    Page<SyllabusDTOResponse> searchSyllabusByCreatedDate(String key, Pageable pageable, Date createdDate);
     SyllabusOutlineScreenResponse showeachDayinOutlineScreen(String topicCode, int day);
     SyllabusDTOShowGeneral showSyllabusGeneralByTopicCode(String topicCode);
+
     SyllabusOutlineScreenResponse showtrainingUnit(String topicCode, int day);
+    Syllabus duplicateSyllabusByTopicCode(String topicCode) throws CloneNotSupportedException;
 
     List<DeliveryType> getDeliverType();
     List<Type> getTypeofLearningObject();
-    List<LearningObjective> L(String topicCode, Type type);
+    SyllabusDTOOutline showSyllabusOutlineByTopicCode(String topicCode);
 }

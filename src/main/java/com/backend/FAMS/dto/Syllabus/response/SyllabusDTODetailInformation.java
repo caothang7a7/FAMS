@@ -19,4 +19,5 @@ public class SyllabusDTODetailInformation {
     private Type courseObjective;
     private String outputStandard;
     private Integer[][] durationArr;
+    private String[][] OutputStandardArr;
 }

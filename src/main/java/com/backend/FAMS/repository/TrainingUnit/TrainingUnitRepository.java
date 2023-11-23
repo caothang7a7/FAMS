@@ -14,7 +14,7 @@ public interface TrainingUnitRepository extends JpaRepository<TrainingUnit, Stri
     Set<TrainingUnit> findBySyllabusTopicCode(String topicCode);
     Set<TrainingUnit> findBySyllabusTopicCodeAndDayNumber(String topicCode, int dayNumber);
     Set<TrainingUnit> findTrainingUnitByDayNumberAndSyllabusTopicCode(int dayNumber,String topicCode);
-    Set<TrainingUnit> findTrainingUnitBySyllabusTopicCodeAndUnitCode(String topicCode,String unitCode);
+    Set<TrainingUnit> findBySyllabus_TopicCodeAndUnitCode(String topicCode,String unitCode);
     Set<TrainingUnit> findAllByDayNumber(int dayNumber);
-    TrainingUnit findByDayNumberAndSyllabus_TopicCodeAndUnitCode(int dayNumber,String topicCode,String unitCode);
+    TrainingUnit findTrainingUnitBySyllabusTopicCodeAndUnitCode(String topicCode,String unitCode);
 }

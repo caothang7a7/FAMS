@@ -20,7 +20,12 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Syllabus {
+@With
+public class Syllabus implements Cloneable{
+    @Override
+    public Object clone() throws CloneNotSupportedException{
+        return super.clone();
+    }
     @Id
     @Column(name = "topic_code", nullable = true, unique = true)
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -44,7 +49,7 @@ public class Syllabus {
     @Column(name = "training_material", nullable = true)
     private String trainingMaterial;
 
-    @Column(name = "training_principal", nullable = true)
+    @Column(name = "training_principal", nullable = true, length = 10000)
     private String trainingPrincipal;
 
     @Column(name = "priority", nullable = true)
