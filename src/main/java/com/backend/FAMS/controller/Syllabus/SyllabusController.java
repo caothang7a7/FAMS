@@ -168,13 +168,13 @@ public class SyllabusController {
         apiResponse.ok(syllabusDTOResponsePage);
         return new ResponseEntity<>(syllabusList, HttpStatus.OK);
     }
+
     @GetMapping("/search-syllabus/{moreElement}")
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<?> searchSyllabus(@RequestParam() String key, @PathVariable("moreElement") int moreElement, @RequestParam(defaultValue = "1") int page){
         ApiResponse apiResponse = new ApiResponse();
         int pageSize = 5;
-        page = 1;
         if (moreElement == moreElement) {
             if (page == 1){
                 pageSize = moreElement;
