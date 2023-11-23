@@ -6,6 +6,7 @@ import com.backend.FAMS.entity.TrainingContent.TrainingContent;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.apache.commons.math3.stat.descriptive.rank.Max;
 
 import java.util.Set;
 
@@ -28,7 +29,7 @@ public class LearningObjective {
     @Enumerated(EnumType.STRING)
     private Type type;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, length = 100000)
     private String description;
 
     // --- relationship----

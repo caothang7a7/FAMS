@@ -16,7 +16,8 @@ public class SyllabusDTODetailInformation {
     private String userLevel;
     private String trainingAudience;
     private String technicalGroup;
-    private Type courseObjective;
+    private String courseObjective;
     private String outputStandard;
     private Integer[][] durationArr;
+    private String[][] OutputStandardArr;
 }

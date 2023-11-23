@@ -26,7 +26,6 @@ import java.util.Objects;
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class SyllabusUtil {
-
     SyllabusRepository syllabusRepository;
     @Autowired
     public SyllabusUtil(SyllabusRepository syllabusRepository) {
