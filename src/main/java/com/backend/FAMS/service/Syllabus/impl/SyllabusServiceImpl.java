@@ -497,12 +497,11 @@ public class SyllabusServiceImpl implements SyllabusService {
     public TrainingUnit addunitCode(int dayNumber, String topicCode) {
         TrainingUnit newTrainingUnit = new TrainingUnit();
         try {
-            Set<TrainingUnit> trainingUnit = trainingUnitRepository.findBySyllabusTopicCodeAndDayNumber(topicCode, dayNumber);
             TrainingUnitUtil util = new TrainingUnitUtil(trainingContentRepository);
             List<TrainingUnit> trainingUnits = trainingUnitRepository.findAll();
             String maxUnitCode = util.getMaxUnitCode(trainingUnits);
 
-            Set<TrainingUnit> trainingUnit1 = trainingUnitRepository.findTrainingUnitByDayNumberAndSyllabusTopicCodeAndUnitCode(dayNumber, topicCode, maxUnitCode);
+            Set<TrainingUnit> trainingUnit1 = trainingUnitRepository.findTrainingUnitBySyllabusTopicCodeAndUnitCode(topicCode, maxUnitCode);
             for (TrainingUnit trainingUnit3 : trainingUnit1) {
                 if (!trainingUnit3.getUnitName().isEmpty()) {
 //                    TrainingContent trainingContents = trainingContentRepository.findByTrainingUnitUnitCode(trainingUnit3.getUnitCode());{
@@ -516,8 +515,6 @@ public class SyllabusServiceImpl implements SyllabusService {
                             newTrainingUnit.setDayNumber(dayNumber);
                             trainingUnitRepository.save(newTrainingUnit);
                             return newTrainingUnit;
-//                        }
-//                      }
                 }
             }
         } catch(Exception e){
