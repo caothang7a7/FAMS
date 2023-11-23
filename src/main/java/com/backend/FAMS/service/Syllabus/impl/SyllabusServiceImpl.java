@@ -467,8 +467,9 @@ public class SyllabusServiceImpl implements SyllabusService {
         TrainingUnitUtil util = new TrainingUnitUtil(trainingContentRepository);
         TrainingUnit trainingUnit1 = new TrainingUnit();
         String generateUnitCode = util.generateUnitCode(trainingUnits);
-            int day = util.generateDay(trainingUnit);
-        TrainingUnit trainingUnit2 = trainingUnitRepository.findByDayNumberAndSyllabus_TopicCode(day - 1,topicCode);
+        String maxUnitCode = util.getMaxUnitCode(trainingUnits);
+        int day = util.generateDay(trainingUnit);
+        TrainingUnit trainingUnit2 = trainingUnitRepository.findByDayNumberAndSyllabus_TopicCodeAndUnitCode(day - 1,topicCode,maxUnitCode);
 
         if (day == 1){
             trainingUnit1.setSyllabus(syllabusRepository.findSyllabusByTopicCode(topicCode));
