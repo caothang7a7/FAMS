@@ -134,82 +134,195 @@ public class SyllabusServiceImpl implements SyllabusService {
 
     @Override
     public Page<SyllabusDTOResponse> searchSyllabus(String key, Pageable pageable) {
-        List<Syllabus> syllabusList = syllabusRepository.findByTopicCodeOrTopicNameContainsIgnoreCase(key, key);
+        String key1 = "";
+        String key2 = "";
+        String key3 = "";
+        String key4 = "";
         List<SyllabusDTOResponse> dtoList = new ArrayList<>();
-        Page<Syllabus> syllabusPage = syllabusRepository.findByTopicCodeOrTopicNameContainsIgnoreCase(key, key, pageable);
-        for (Syllabus syllabus : syllabusList) {
-            SyllabusDTOResponse dto = new SyllabusDTOResponse();
-            dto.setCount(syllabusPage.getTotalPages());
-            dto.setTopicCode(syllabus.getTopicCode());
-            dto.setTopicName(syllabus.getTopicName());
-            dto.setSyllabusStatus(syllabus.getSyllabusStatus());
-            dto.setCreatedBy(syllabus.getCreatedBy());
-            dto.setSyllabusStatus(syllabus.getSyllabusStatus());
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            String formattedDate = dateFormat.format(syllabus.getCreatedDate());
-            dto.setCreatedDate(formattedDate);
-            Set<TrainingContent> trainingContentList = trainingContentRepository.findByTrainingUnit_UnitCode(syllabus.getTopicCode());
-            int duration = 0;
-            for(TrainingContent trainingContent: trainingContentList){
-                duration += trainingContent.getDuration();
-                dto.setDuration(duration);
+        System.out.println("Array "+key);
+        String[] elemet = key.split(",");
+        for(int i = 0; i < elemet.length; i++) {
+            if(i == 0){
+                key1 = elemet[i].toLowerCase();
+                System.out.println(key1);
+            } else if(i == 1){
+                key2 = elemet[i].toLowerCase();
+            } else if(i == 2){
+                key3 = elemet[i].toLowerCase();
+            } else if(i == 3){
+                key4 = elemet[i].toLowerCase();
             }
-            Set<TrainingProgramSyllabus> trainingProgramSyllabi = trainingProgramSyllabusRepository.findAllBySyllabus_TopicCode(syllabus.getTopicCode());
-
-            String[][] arr = new String[trainingProgramSyllabi.size()][];
-            int i = 0;
-            for (TrainingProgramSyllabus trainingProgram : trainingProgramSyllabi) {
-                arr[i] = new String[]{trainingProgram.getTrainingProgram().getTrainingProgramCode()};
-                i++;
-            }
-            dto.setOutputStandardArr(arr);
-            dtoList.add(dto);
         }
-        int start = (int) pageable.getOffset();
-        int end = Math.min((start + pageable.getPageSize()), dtoList.size());
+            List<Syllabus> syllabusList = syllabusRepository.findSyllabusByTopicNameContaining(key1, key2, key3, key4);
+            Page<Syllabus> syllabusPage = syllabusRepository.findSyllabusByTopicNameContaining(key1, key2, key3, key4, pageable);
+            for (Syllabus syllabus : syllabusList) {
+                SyllabusDTOResponse dto = new SyllabusDTOResponse();
+                dto.setCount(syllabusPage.getTotalPages());
+                dto.setTopicCode(syllabus.getTopicCode());
+                dto.setTopicName(syllabus.getTopicName());
+                dto.setSyllabusStatus(syllabus.getSyllabusStatus());
+                dto.setCreatedBy(syllabus.getCreatedBy());
+                dto.setSyllabusStatus(syllabus.getSyllabusStatus());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                String formattedDate = dateFormat.format(syllabus.getCreatedDate());
+                dto.setCreatedDate(formattedDate);
+                Set<TrainingContent> trainingContentList = trainingContentRepository.findByTrainingUnit_UnitCode(syllabus.getTopicCode());
+                int duration = 0;
+                for (TrainingContent trainingContent : trainingContentList) {
+                    duration += trainingContent.getDuration();
+                    dto.setDuration(duration);
+                }
+                Set<TrainingProgramSyllabus> trainingProgramSyllabi = trainingProgramSyllabusRepository.findAllBySyllabus_TopicCode(syllabus.getTopicCode());
 
-        List<SyllabusDTOResponse> pageContent = dtoList.subList(start, end);
-        return new PageImpl<>(pageContent, pageable, dtoList.size());
+                String[][] arr = new String[trainingProgramSyllabi.size()][];
+                int i = 0;
+                for (TrainingProgramSyllabus trainingProgram : trainingProgramSyllabi) {
+                    arr[i] = new String[]{trainingProgram.getTrainingProgram().getTrainingProgramCode()};
+                    i++;
+                }
+                dto.setOutputStandardArr(arr);
+                dtoList.add(dto);
+        }
+
+            int start = (int) pageable.getOffset();
+            int end = Math.min((start + pageable.getPageSize()), dtoList.size());
+
+            List<SyllabusDTOResponse> pageContent = dtoList.subList(start, end);
+            return new PageImpl<>(pageContent, pageable, dtoList.size());
     }
+
+    //OLD VERSION
+//    @Override
+//    public Page<SyllabusDTOResponse> searchSyllabusByCreatedDate(Date createdDate, Pageable pageable) {
+//        List<Syllabus> syllabusList = syllabusRepository.findByCreatedDate(createdDate);
+//        List<SyllabusDTOResponse> dtoList = new ArrayList<>();
+//        Page<Syllabus> syllabusPage = syllabusRepository.findByCreatedDate(createdDate, pageable);
+//        for (Syllabus syllabus : syllabusList) {
+//            SyllabusDTOResponse dto = new SyllabusDTOResponse();
+//            dto.setCount(syllabusPage.getTotalPages());
+//            dto.setTopicCode(syllabus.getTopicCode());
+//            dto.setTopicName(syllabus.getTopicName());
+//            dto.setSyllabusStatus(syllabus.getSyllabusStatus());
+//            dto.setCreatedBy(syllabus.getCreatedBy());
+//            dto.setSyllabusStatus(syllabus.getSyllabusStatus());
+//            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+//            String formattedDate = dateFormat.format(syllabus.getCreatedDate());
+//            dto.setCreatedDate(formattedDate);
+//            Set<TrainingContent> trainingContentList = trainingContentRepository.findByTrainingUnit_UnitCode(syllabus.getTopicCode());
+//            int duration = 0;
+//            for(TrainingContent trainingContent: trainingContentList){
+//                duration += trainingContent.getDuration();
+//                dto.setDuration(duration);
+//            }
+//            Set<TrainingProgramSyllabus> trainingProgramSyllabi = trainingProgramSyllabusRepository.findAllBySyllabus_TopicCode(syllabus.getTopicCode());
+//
+//            String[][] arr = new String[trainingProgramSyllabi.size()][];
+//            int i = 0;
+//            for (TrainingProgramSyllabus trainingProgram : trainingProgramSyllabi) {
+//                arr[i] = new String[]{trainingProgram.getTrainingProgram().getTrainingProgramCode()};
+//                i++;
+//            }
+//            dto.setOutputStandardArr(arr);
+//            dtoList.add(dto);
+//        }
+//        int start = (int) pageable.getOffset();
+//        int end = Math.min((start + pageable.getPageSize()), dtoList.size());
+//
+//        List<SyllabusDTOResponse> pageContent = dtoList.subList(start, end);
+//        return new PageImpl<>(pageContent, pageable, dtoList.size());
+//    }
     @Override
-    public Page<SyllabusDTOResponse> searchSyllabusByCreatedDate(Date createdDate, Pageable pageable) {
-        List<Syllabus> syllabusList = syllabusRepository.findByCreatedDate(createdDate);
+    public Page<SyllabusDTOResponse> searchSyllabusByCreatedDate(String key, Pageable pageable, Date createdDate) {
+        String key1 = "";
+        String key2 = "";
+        String key3 = "";
+        String key4 = "";
         List<SyllabusDTOResponse> dtoList = new ArrayList<>();
-        Page<Syllabus> syllabusPage = syllabusRepository.findByCreatedDate(createdDate, pageable);
-        for (Syllabus syllabus : syllabusList) {
-            SyllabusDTOResponse dto = new SyllabusDTOResponse();
-            dto.setCount(syllabusPage.getTotalPages());
-            dto.setTopicCode(syllabus.getTopicCode());
-            dto.setTopicName(syllabus.getTopicName());
-            dto.setSyllabusStatus(syllabus.getSyllabusStatus());
-            dto.setCreatedBy(syllabus.getCreatedBy());
-            dto.setSyllabusStatus(syllabus.getSyllabusStatus());
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            String formattedDate = dateFormat.format(syllabus.getCreatedDate());
-            dto.setCreatedDate(formattedDate);
-            Set<TrainingContent> trainingContentList = trainingContentRepository.findByTrainingUnit_UnitCode(syllabus.getTopicCode());
-            int duration = 0;
-            for(TrainingContent trainingContent: trainingContentList){
-                duration += trainingContent.getDuration();
-                dto.setDuration(duration);
+        System.out.println("Array "+key);
+        String[] elemet = key.split(",");
+        for(int i = 0; i < elemet.length; i++) {
+            if(i == 0){
+                key1 = elemet[i].toLowerCase();
+                System.out.println(key1);
+            } else if(i == 1){
+                key2 = elemet[i].toLowerCase();
+            } else if(i == 2){
+                key3 = elemet[i].toLowerCase();
+            } else if(i == 3){
+                key4 = elemet[i].toLowerCase();
             }
-            Set<TrainingProgramSyllabus> trainingProgramSyllabi = trainingProgramSyllabusRepository.findAllBySyllabus_TopicCode(syllabus.getTopicCode());
-
-            String[][] arr = new String[trainingProgramSyllabi.size()][];
-            int i = 0;
-            for (TrainingProgramSyllabus trainingProgram : trainingProgramSyllabi) {
-                arr[i] = new String[]{trainingProgram.getTrainingProgram().getTrainingProgramCode()};
-                i++;
-            }
-            dto.setOutputStandardArr(arr);
-            dtoList.add(dto);
         }
+        if(createdDate != null) {
+            List<Syllabus> syllabusList = syllabusRepository.findSyllabusByTopicNameContaining(key1, key2, key3, key4, createdDate);
+            Page<Syllabus> syllabusPage = syllabusRepository.findSyllabusByTopicNameContaining(key1, key2, key3, key4, createdDate, pageable);
+            for (Syllabus syllabus : syllabusList) {
+                SyllabusDTOResponse dto = new SyllabusDTOResponse();
+                dto.setCount(syllabusPage.getTotalPages());
+                dto.setTopicCode(syllabus.getTopicCode());
+                dto.setTopicName(syllabus.getTopicName());
+                dto.setSyllabusStatus(syllabus.getSyllabusStatus());
+                dto.setCreatedBy(syllabus.getCreatedBy());
+                dto.setSyllabusStatus(syllabus.getSyllabusStatus());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                String formattedDate = dateFormat.format(syllabus.getCreatedDate());
+                dto.setCreatedDate(formattedDate);
+                Set<TrainingContent> trainingContentList = trainingContentRepository.findByTrainingUnit_UnitCode(syllabus.getTopicCode());
+                int duration = 0;
+                for (TrainingContent trainingContent : trainingContentList) {
+                    duration += trainingContent.getDuration();
+                    dto.setDuration(duration);
+                }
+                Set<TrainingProgramSyllabus> trainingProgramSyllabi = trainingProgramSyllabusRepository.findAllBySyllabus_TopicCode(syllabus.getTopicCode());
+
+                String[][] arr = new String[trainingProgramSyllabi.size()][];
+                int i = 0;
+                for (TrainingProgramSyllabus trainingProgram : trainingProgramSyllabi) {
+                    arr[i] = new String[]{trainingProgram.getTrainingProgram().getTrainingProgramCode()};
+                    i++;
+                }
+                dto.setOutputStandardArr(arr);
+                dtoList.add(dto);
+            }
+        } else {
+            List<Syllabus> syllabusList = syllabusRepository.findSyllabusByTopicNameContaining(key1, key2, key3, key4);
+            Page<Syllabus> syllabusPage = syllabusRepository.findSyllabusByTopicNameContaining(key1, key2, key3, key4, pageable);
+            for (Syllabus syllabus : syllabusList) {
+                SyllabusDTOResponse dto = new SyllabusDTOResponse();
+                dto.setCount(syllabusPage.getTotalPages());
+                dto.setTopicCode(syllabus.getTopicCode());
+                dto.setTopicName(syllabus.getTopicName());
+                dto.setSyllabusStatus(syllabus.getSyllabusStatus());
+                dto.setCreatedBy(syllabus.getCreatedBy());
+                dto.setSyllabusStatus(syllabus.getSyllabusStatus());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                String formattedDate = dateFormat.format(syllabus.getCreatedDate());
+                dto.setCreatedDate(formattedDate);
+                Set<TrainingContent> trainingContentList = trainingContentRepository.findByTrainingUnit_UnitCode(syllabus.getTopicCode());
+                int duration = 0;
+                for (TrainingContent trainingContent : trainingContentList) {
+                    duration += trainingContent.getDuration();
+                    dto.setDuration(duration);
+                }
+                Set<TrainingProgramSyllabus> trainingProgramSyllabi = trainingProgramSyllabusRepository.findAllBySyllabus_TopicCode(syllabus.getTopicCode());
+
+                String[][] arr = new String[trainingProgramSyllabi.size()][];
+                int i = 0;
+                for (TrainingProgramSyllabus trainingProgram : trainingProgramSyllabi) {
+                    arr[i] = new String[]{trainingProgram.getTrainingProgram().getTrainingProgramCode()};
+                    i++;
+                }
+                dto.setOutputStandardArr(arr);
+                dtoList.add(dto);
+            }
+        }
+
         int start = (int) pageable.getOffset();
         int end = Math.min((start + pageable.getPageSize()), dtoList.size());
 
         List<SyllabusDTOResponse> pageContent = dtoList.subList(start, end);
         return new PageImpl<>(pageContent, pageable, dtoList.size());
     }
+
 
     public Syllabus createSyllabusOtherScreen(SyllabusDTOCreateOtherScreen dto, String topicCode) {
 
@@ -252,30 +365,38 @@ public class SyllabusServiceImpl implements SyllabusService {
             Date date = dateFormat.parse(dateFormat.format(timenow));
 
             // Auto-generated topicCode
-            String topicCode = "";
-            String preTopicCode = "";
-            int min = 1;
-            int max = 4;
-            Random random = new Random();
-            int number = random.nextInt((max - min) + 1) + min;
-            switch (number) {
-                case 1:
-                    preTopicCode = "A";
-                    break;
-                case 2:
-                    preTopicCode = "S";
-                    break;
-                case 3:
-                    preTopicCode = "K";
-                    break;
-                case 4:
-                    preTopicCode = "H";
-                    break;
+            String topicCode = syllabusDTOCreateGeneralRequest.getTopicCode();
+            if(topicCode == null) {
+                String preTopicCode = "";
+                int min = 1;
+                int max = 4;
+                Random random = new Random();
+                int number = random.nextInt((max - min) + 1) + min;
+                switch (number) {
+                    case 1:
+                        preTopicCode = "A";
+                        break;
+                    case 2:
+                        preTopicCode = "S";
+                        break;
+                    case 3:
+                        preTopicCode = "K";
+                        break;
+                    case 4:
+                        preTopicCode = "H";
+                        break;
+                }
+                SyllabusUtil utils = new SyllabusUtil(syllabusRepository);
+                topicCode = utils.generateTopicCode(preTopicCode);
+                syllabus.setTopicCode(topicCode);
+            } else {
+                syllabus.setTopicCode(topicCode);
+                // THÊM HÀM UPDATE VÀ KO CHO CHẠY HÀM INSERT Ở DƯỚI
+                syllabusRepository.customUpdateSyllabus(topicCode, syllabusDTOCreateGeneralRequest.getTopicName(), syllabusDTOCreateGeneralRequest.getTechnicalGroup(), syllabusDTOCreateGeneralRequest.getVersion(), syllabusDTOCreateGeneralRequest.getTrainingAudience(), "outline",
+                        "learning material", "principles", "priority", "INACTIVE", "Quách Gia", date, syllabusDTOCreateGeneralRequest.getUserID(), 0, 0, 0, 0, 0,  syllabusDTOCreateGeneralRequest.getLevel());
             }
-            SyllabusUtil utils = new SyllabusUtil(syllabusRepository);
-            topicCode = utils.generateTopicCode(preTopicCode);
-            syllabus.setTopicCode(topicCode);
-            syllabusRepository.customSaveSyllabus(topicCode, syllabusDTOCreateGeneralRequest.getTopicName(), syllabusDTOCreateGeneralRequest.getTechnicalGroup(), syllabusDTOCreateGeneralRequest.getVersion(), syllabusDTOCreateGeneralRequest.getTrainingAudience(), "outline",
+//              syllabusRepository.save(syllabus);
+                syllabusRepository.customSaveSyllabus(topicCode, syllabusDTOCreateGeneralRequest.getTopicName(), syllabusDTOCreateGeneralRequest.getTechnicalGroup(), syllabusDTOCreateGeneralRequest.getVersion(), syllabusDTOCreateGeneralRequest.getTrainingAudience(), "outline",
                     "learning material", "principles", "priority", "INACTIVE", "Quách Gia", date, syllabusDTOCreateGeneralRequest.getUserID(), 0, 0, 0, 0, 0, 0, String.valueOf(syllabusDTOCreateGeneralRequest.getLevel()));
 
             LearningObjective learningObjective1 = learningObjectiveMapper.toEntity(syllabusDTOCreateGeneralRequest);
@@ -406,18 +527,6 @@ public class SyllabusServiceImpl implements SyllabusService {
     }
 
     @Override
-    public SyllabusDTOShowGeneral showSyllabusGeneralByTopicCode(String topicCode) {
-        Syllabus syllabus =  new Syllabus();
-        SyllabusDTOShowGeneral general = new SyllabusDTOShowGeneral();
-        LearningObjective learningObjective = new LearningObjective();
-        syllabus = syllabusRepository.findSyllabusByTopicCode(topicCode);
-        general = syllabusMapper.toDtoShowGeneral(syllabus);
-        Set<TrainingContent> trainingContent = trainingContentRepository.findByTrainingUnit_UnitCode(syllabus.getTopicCode());
-//        general.setDuration(trainingContent.getDuration());
-        return general;
-    }
-
-    @Override
     public SyllabusOutlineScreenResponse showtrainingUnit(String topicCode, int day){
         Syllabus syllabus = syllabusRepository.findSyllabusByTopicCode(topicCode);
         SyllabusOutlineScreenResponse dto = new SyllabusOutlineScreenResponse();
@@ -529,7 +638,6 @@ public class SyllabusServiceImpl implements SyllabusService {
         return dto;
     }
 
-
     @Override
     public TrainingUnit addDay(String topicCode) {
         Set<TrainingUnit> trainingUnit = trainingUnitRepository.findBySyllabusTopicCode(topicCode);
@@ -611,12 +719,29 @@ public class SyllabusServiceImpl implements SyllabusService {
     public List<Type> getTypeofLearningObject() {
         Type[] types = Type.values();
         List<Type> list = new ArrayList<>();
-        for(Type type: types){
+        for (Type type : types) {
             list.add(type);
         }
         return list;
     }
-
+    public SyllabusDTOShowGeneral showSyllabusGeneralByTopicCode(String topicCode) {
+        Syllabus syllabus =  new Syllabus();
+        SyllabusDTOShowGeneral general = new SyllabusDTOShowGeneral();
+        LearningObjective learningObjective = new LearningObjective();
+        syllabus = syllabusRepository.findSyllabusByTopicCode(topicCode);
+        learningObjective = learningObjectiveRepository.findByObjectiveCode(topicCode);
+        general.setTopicCode(syllabus.getTopicCode());
+        general.setTopicName(syllabus.getTopicName());
+        general.setVersion(syllabus.getVersion());
+        general.setLevel(syllabus.getLevel());
+        general.setTrainingAudience(syllabus.getTrainingAudience());
+        general.setTechnicalGroup(syllabus.getTechnicalGroup());
+        if(learningObjective.getObjectiveName() != null){
+            general.setObjectiveName(learningObjective.getObjectiveName());
+        }
+        general.setDescription(learningObjective.getDescription());
+        return general;
+    }
     @Override
     public SyllabusDTOOutline showSyllabusOutlineByTopicCode(String topicCode) {
         Syllabus syllabus = new Syllabus();

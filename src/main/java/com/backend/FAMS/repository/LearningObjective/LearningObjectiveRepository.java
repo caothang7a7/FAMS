@@ -10,4 +10,5 @@ import java.util.Set;
 
 @Repository
 public interface LearningObjectiveRepository extends JpaRepository<LearningObjective, String> {
+   LearningObjective findByObjectiveCode(String topicCode);
 }
