@@ -48,8 +48,8 @@ public interface SyllabusService {
     SyllabusOutlineScreenResponse showeachDayinOutlineScreen(String topicCode, int day);
     SyllabusDTOShowGeneral showSyllabusGeneralByTopicCode(String topicCode);
     SyllabusOutlineScreenResponse showtrainingUnit(String topicCode, int day);
-
+    Syllabus duplicateSyllabusByTopicCode(String topicCode) throws CloneNotSupportedException;
     List<DeliveryType> getDeliverType();
     List<Type> getTypeofLearningObject();
-    List<LearningObjective> L(String topicCode, Type type);
+    SyllabusDTOOutline showSyllabusOutlineByTopicCode(String topicCode);
 }

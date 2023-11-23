@@ -57,6 +57,11 @@ public class SyllabusController {
             return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/duplicate/{topicCode}")
+    public ResponseEntity<Syllabus> duplicateSyllabus(@PathVariable("topicCode") String topicCode) throws CloneNotSupportedException {
+        return new ResponseEntity<>(syllabusService.duplicateSyllabusByTopicCode(topicCode), HttpStatus.OK);
+    }
     @GetMapping("/getGeneralScreen/{topicCode}")
     public ResponseEntity<SyllabusDTOShowGeneral> getGeneralScreen(@PathVariable("topicCode") String topicCode){
         return new ResponseEntity<>(syllabusService.showSyllabusGeneralByTopicCode(topicCode), HttpStatus.OK);
@@ -241,6 +246,10 @@ public ResponseEntity<?> getAllSyllabus(@RequestParam(defaultValue = "1") int pa
     public ResponseEntity<?> showOutlineScreen(@PathVariable("topicCode") String topicCode){
         return new ResponseEntity<>(syllabusService.showOutlineScreen(topicCode), HttpStatus.OK);
     }
+    @GetMapping("/showOutlineById/{topicCode}")
+    public ResponseEntity<SyllabusDTOOutline> showSyllabusOutlineScreenByTopicCode(@PathVariable("topicCode") String topicCode){
+        return new ResponseEntity<>(syllabusService.showSyllabusOutlineByTopicCode(topicCode), HttpStatus.OK);
+    }
     @GetMapping("/OutlineScreen/{topicCode}/{day}")
     public ResponseEntity<SyllabusOutlineScreenResponse> showeachDayinOutlineScreen(@PathVariable("topicCode") String topicCode,@PathVariable("day") int day){
         return new ResponseEntity<>(syllabusService.showeachDayinOutlineScreen(topicCode,day), HttpStatus.OK);
@@ -281,8 +290,8 @@ public ResponseEntity<?> getAllSyllabus(@RequestParam(defaultValue = "1") int pa
     public ResponseEntity<?> createTrainingContent(@PathVariable("topicCode") String topicCode,@PathVariable("dayNumber") int dayNumber,@PathVariable("unitCode") String unitCode, @RequestBody TrainingContentDTOCreateOutlineScreen dto){
         return new ResponseEntity<>(syllabusService.createTrainingContentScreen(topicCode, dayNumber,unitCode,dto), HttpStatus.OK);
     }
-    @GetMapping("/OutlineScreen/listlearningObject/{topicCode}/{type}")
-    public ResponseEntity<?> createTrainingContent(@PathVariable("topicCode") String topicCode,@PathVariable("type") Type type){
-        return new ResponseEntity<>(syllabusService.L(topicCode,type),HttpStatus.OK);
-    }
+//    @GetMapping("/OutlineScreen/listlearningObject/{topicCode}/{type}")
+//    public ResponseEntity<?> createTrainingContent(@PathVariable("topicCode") String topicCode,@PathVariable("type") Type type){
+//        return new ResponseEntity<>(syllabusService.L(topicCode,type),HttpStatus.OK);
+//    }
 }
