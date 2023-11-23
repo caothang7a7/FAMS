@@ -2,12 +2,9 @@ package com.backend.FAMS.mapper.Syllabus;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusOutlineScreen;
 import com.backend.FAMS.dto.Syllabus.request.TrainingUnitDTOCreate;
-<<<<<<< HEAD
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOOutline;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOShowGeneral;
-=======
 import com.backend.FAMS.dto.Syllabus.response.*;
->>>>>>> main
 import com.backend.FAMS.dto.trainingContent.TrainingContentDTOCreateOutlineScreen;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
