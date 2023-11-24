@@ -742,6 +742,12 @@ public class SyllabusServiceImpl implements SyllabusService {
             general.setObjectiveName(learningObjective.getObjectiveName());
         }
         general.setDescription(learningObjective.getDescription());
+        general.setAssignment(syllabus.getAssignment());
+        general.setQuiz(syllabus.getQuiz());
+        general.setFinalTest(syllabus.getFinalTest());
+        general.setFinalTheory(syllabus.getFinalTheory());
+        general.setFinalPractice(syllabus.getFinalPractice());
+        general.setGpa(syllabus.getGpa());
         return general;
     }
     @Override
