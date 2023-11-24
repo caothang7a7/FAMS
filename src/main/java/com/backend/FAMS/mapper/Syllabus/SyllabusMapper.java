@@ -53,7 +53,6 @@ public interface SyllabusMapper {
     List<SyllabusDTOResponse> toDTO(List<Syllabus> syllabus);
 
     SyllabusDTOOtherScreen toDTO(Syllabus syllabus);
-
     SyllabusDTOShowGeneral toDtoShowGeneral(Syllabus syllabus);
 
     SyllabusDTOOutline toDTOOutline(Syllabus syllabus);

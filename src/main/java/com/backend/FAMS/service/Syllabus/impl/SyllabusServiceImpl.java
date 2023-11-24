@@ -335,6 +335,8 @@ public class SyllabusServiceImpl implements SyllabusService {
         syllabus.setFinalTheory(dto.getFinalTheory());
         syllabus.setFinalPractice(dto.getFinalPractice());
         syllabus.setGpa(dto.getGpa());
+        Date modifield = new Date();
+        syllabus.setModifiedDate(modifield);
 
         Syllabus updateSyllabus = syllabusRepository.save(syllabus);
 
@@ -410,7 +412,7 @@ public class SyllabusServiceImpl implements SyllabusService {
             syllabus.setTopicCode(topicCode);
             // THÊM HÀM UPDATE VÀ KO CHO CHẠY HÀM INSERT Ở DƯỚI
             syllabusRepository.customUpdateSyllabus(topicCode, syllabusDTOCreateGeneralRequest.getTopicName(), syllabusDTOCreateGeneralRequest.getTechnicalGroup(), syllabusDTOCreateGeneralRequest.getVersion(), syllabusDTOCreateGeneralRequest.getTrainingAudience(), "outline",
-                    "learning material", "principles", "priority", "INACTIVE", "Quách Gia", date, syllabusDTOCreateGeneralRequest.getUserID(), 0, 0, 0, 0, 0, syllabusDTOCreateGeneralRequest.getLevel());
+                    existingTopicName.getTrainingMaterial(), existingTopicName.getTrainingPrincipal(), existingTopicName.getPriority(), existingTopicName.getSyllabusStatus().toString(), existingTopicName.getCreatedBy(), date, syllabusDTOCreateGeneralRequest.getUserID(), existingTopicName.getAssignment(), existingTopicName.getFinalTheory(), existingTopicName.getFinalPractice(), existingTopicName.getGpa(), existingTopicName.getQuiz(), syllabusDTOCreateGeneralRequest.getLevel());
             LearningObjective learningObjective1 = learningObjectiveMapper.toEntity(syllabusDTOCreateGeneralRequest);
             learningObjective1.setObjectiveCode(topicCode);
             learningObjective1.setDescription(syllabusDTOCreateGeneralRequest.getDescription());
