@@ -41,7 +41,9 @@ public class SecurityConfiguration  {
             "/api/v1/auth/**",
             "/refreshToken",
             "/login-by-fe",
-            "/swagger-ui/**"
+            "/swagger-ui/**",
+            "api/v1/syllabus/exportExcel/**",
+            "api/v1/syllabus/exportCSV/**"
     };
 
     public static final String LOGIN_URL = "/login";
