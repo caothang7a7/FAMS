@@ -339,7 +339,6 @@ public class UserServiceImpl implements IUserService {
             apiResponse.setError(error);
             return new ResponseEntity<>(apiResponse,HttpStatus.UNAUTHORIZED);
         }
-
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 

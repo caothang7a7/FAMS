@@ -24,8 +24,9 @@ public class LearningObjective {
     @Column(name = "name", nullable = false)
     private String objectiveName;
 
-    @Column(name = "type", nullable = false)
-    private String type;
+    @Column(name = "type", nullable = true)
+    @Enumerated(EnumType.STRING)
+    private Type type;
 
     @Column(name = "description", nullable = false)
     private String description;

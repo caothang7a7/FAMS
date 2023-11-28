@@ -38,5 +38,5 @@ public class SyllabusDTOCreateGeneralRequest {
 
     @NotEmpty(message = "Learning Objective name is required")
     String learningObjectiveName;
-    String learningObjectiveType;
+    Type learningObjectiveType;
 }

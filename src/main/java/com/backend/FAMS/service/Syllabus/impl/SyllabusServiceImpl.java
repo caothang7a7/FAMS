@@ -646,7 +646,7 @@ public class SyllabusServiceImpl implements SyllabusService {
             dto.setNote(strings4);
             dto.setTrainingContentId(strings5);
             dto.setDuration(strings6);
-            dto.setLearningObject(trainingContent.getLearningObjective().getObjectiveCode());
+            dto.setLearningObject(trainingContent.getLearningObjective().getType().toString());
         }
         return dto;
     }
