@@ -11,6 +11,7 @@ import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.entity.Syllabus.SyllabusObjective;
 import com.backend.FAMS.entity.learning_objective.LearningObjective;
 import com.backend.FAMS.entity.learning_objective.learningObjective_enum.Type;
+import com.backend.FAMS.entity.refreshtoken.RefreshToken;
 import com.backend.FAMS.entity.syllabus.SyllabusObjectiveId;
 import com.backend.FAMS.entity.training_content.TrainingContent;
 import com.backend.FAMS.entity.training_content.trainingContent_enum.DeliveryType;
@@ -31,6 +32,8 @@ import com.backend.FAMS.repository.training_program_repo.TrainingProgramSyllabus
 import com.backend.FAMS.repository.training_unit_repo.TrainingUnitRepository;
 import com.backend.FAMS.repository.user_repo.UserRepository;
 import com.backend.FAMS.service.Syllabus.SyllabusService;
+import com.backend.FAMS.service.jwt_service.IJwtService;
+import com.backend.FAMS.service.refreshtoken_service.RefreshTokenService;
 import com.backend.FAMS.util.Syllabus.SyllabusUtil;
 import com.backend.FAMS.util.TrainingContent.TrainingContentUtil;
 import com.backend.FAMS.util.TrainingUnit.TrainingUnitUtil;
@@ -43,6 +46,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
@@ -83,11 +88,20 @@ public class SyllabusServiceImpl implements SyllabusService {
     TrainingContentMapper trainingContentMapper;
     @Autowired
     SyllabusUtil util;
+    @Autowired
+    IJwtService jwtService;
+    @Autowired
+    RefreshTokenService refreshTokenService;
+    @Autowired
+    UserDetailsService userDetailsService;
 
     @Override
-    public Page<SyllabusDTOResponse> getListSyllabus(Pageable pageable) throws ParseException {
+    public Page<SyllabusDTOResponse> getListSyllabus(Authentication authentication, Pageable pageable) throws ParseException {
+        User owner = null;
+        if (authentication != null) {
+            owner = (User) authentication.getPrincipal();
+        }
         List<SyllabusDTOResponse> dtoList = new ArrayList<>();
-
         List<Syllabus> syllabusList = syllabusRepository.findAll();
         Page<Syllabus> syllabusPage = syllabusRepository.findAll(pageable);
         for (Syllabus syllabus : syllabusList) {
@@ -121,7 +135,6 @@ public class SyllabusServiceImpl implements SyllabusService {
         int end = Math.min((start + pageable.getPageSize()), dtoList.size());
 
         List<SyllabusDTOResponse> pageContent = dtoList.subList(start, end);
-
         return new PageImpl<>(pageContent, pageable, dtoList.size());
     }
 
@@ -337,7 +350,11 @@ public class SyllabusServiceImpl implements SyllabusService {
     }
 
     @Override
-    public Syllabus createSyllabusGeneralScreen(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest, BindingResult bindingResult) throws ParseException {
+    public Syllabus createSyllabusGeneralScreen(Authentication authentication, SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest, BindingResult bindingResult) throws ParseException {
+        User owner = null;
+        if (authentication != null) {
+            owner = (User) authentication.getPrincipal();
+        }
         Syllabus syllabus = syllabusMapper.toEntity(syllabusDTOCreateGeneralRequest);
         Syllabus existingTopicName = syllabusRepository.findByTopicName(syllabusDTOCreateGeneralRequest.getTopicName());
 
