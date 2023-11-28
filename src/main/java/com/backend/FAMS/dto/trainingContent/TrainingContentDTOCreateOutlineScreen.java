@@ -17,5 +17,5 @@ public class TrainingContentDTOCreateOutlineScreen {
     int duration;
     DeliveryType deliveryType;
     TrainingFormat trainingFormat;
-    String type;
+    Type type;
 }

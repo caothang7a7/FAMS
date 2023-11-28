@@ -1,11 +1,15 @@
 package com.backend.FAMS.service.Syllabus.impl;
 
 
-import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
+
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusOutlineScreen;
 import com.backend.FAMS.dto.Syllabus.request.TrainingUnitDTOCreate;
 import com.backend.FAMS.dto.Syllabus.response.*;
+
+
+import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
+
 import com.backend.FAMS.dto.trainingContent.TrainingContentDTOCreateOutlineScreen;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.entity.Syllabus.SyllabusObjective;
@@ -55,9 +59,12 @@ import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
+
 import java.util.*;
 
 @Service
@@ -348,7 +355,7 @@ public class SyllabusServiceImpl implements SyllabusService {
 
         return updateSyllabus;
     }
-
+    
     @Override
     public Syllabus createSyllabusGeneralScreen(Authentication authentication, SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest, BindingResult bindingResult) throws ParseException {
         User owner = null;
@@ -368,12 +375,14 @@ public class SyllabusServiceImpl implements SyllabusService {
         );
         syllabus.setUser(user);
 
+            // Auto-generated topicCode
+            String topicCode = "";
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date timenow = new Date();
         Date date = dateFormat.parse(dateFormat.format(timenow));
 
         // Auto-generated topicCode
-        String topicCode = syllabusDTOCreateGeneralRequest.getTopicCode();
+        topicCode = syllabusDTOCreateGeneralRequest.getTopicCode();
         if (topicCode == null && existingTopicName == null) {
             String preTopicCode = "";
             int min = 1;
@@ -445,8 +454,9 @@ public class SyllabusServiceImpl implements SyllabusService {
         } else if(existingTopicName != null) {
             bindingResult.rejectValue("topicName", "duplicate.topicName", "Topic name already exists.");
         }
-        return syllabus;
-    }
+            return syllabus;
+        }
+
     @Override
     public SyllabusDTODetailInformation getSyllabusById(String topicCode) {
         SyllabusDTODetailInformation syllabusDTO = new SyllabusDTODetailInformation();
@@ -479,7 +489,7 @@ public class SyllabusServiceImpl implements SyllabusService {
         syllabusDTO.setTrainingAudience(syllabus.getTrainingAudience());
 //        syllabusDTO.setOutputStandard(trainingProgram1.getTrainingProgramCode());
         syllabusDTO.setTechnicalGroup(syllabus.getTechnicalGroup());
-        syllabusDTO.setCourseObjective(String.valueOf(learningObjective.getType()));
+        syllabusDTO.setCourseObjective(learningObjective.getType());
         return syllabusDTO;
     }
 
