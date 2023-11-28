@@ -3,9 +3,9 @@ package com.backend.FAMS.entity.Syllabus;
 
 import com.backend.FAMS.entity.Syllabus.syllabus_enum.SyllabusLevel;
 import com.backend.FAMS.entity.Syllabus.syllabus_enum.SyllabusStatus;
-import com.backend.FAMS.entity.TrainingProgram.TrainingProgramSyllabus;
-import com.backend.FAMS.entity.TrainingUnit.TrainingUnit;
-import com.backend.FAMS.entity.User.User;
+import com.backend.FAMS.entity.training_program.TrainingProgramSyllabus;
+import com.backend.FAMS.entity.training_unit.TrainingUnit;
+import com.backend.FAMS.entity.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,8 +20,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@With
-public class Syllabus implements Cloneable{
+public class Syllabus implements Cloneable {
     @Override
     public Object clone() throws CloneNotSupportedException{
         return super.clone();
@@ -116,5 +115,4 @@ public class Syllabus implements Cloneable{
     @JoinColumn(nullable = true,insertable = false,name = "userId")
     @JsonIgnore
     private User user;
-
 }

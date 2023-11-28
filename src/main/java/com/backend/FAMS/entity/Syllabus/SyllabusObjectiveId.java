@@ -1,4 +1,4 @@
-package com.backend.FAMS.entity.Syllabus;
+package com.backend.FAMS.entity.syllabus;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

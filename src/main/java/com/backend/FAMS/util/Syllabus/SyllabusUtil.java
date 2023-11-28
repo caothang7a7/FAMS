@@ -3,12 +3,10 @@ package com.backend.FAMS.util.Syllabus;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.entity.Syllabus.syllabus_enum.SyllabusLevel;
 import com.backend.FAMS.entity.Syllabus.syllabus_enum.SyllabusStatus;
-import com.backend.FAMS.repository.Syllabus.SyllabusRepository;
+import com.backend.FAMS.repository.syllabus_repo.SyllabusRepository;
 import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -21,12 +19,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class SyllabusUtil {
-
     SyllabusRepository syllabusRepository;
     @Autowired
     public SyllabusUtil(SyllabusRepository syllabusRepository) {
