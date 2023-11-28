@@ -24,16 +24,10 @@ import java.util.Date;
 import java.util.List;
 
 public interface SyllabusService {
-    Syllabus createSyllabusOtherScreen(SyllabusDTOCreateOtherScreen syllabusDTO, String topicCode);
+    Syllabus createSyllabusOtherScreen(Authentication authentication ,SyllabusDTOCreateOtherScreen syllabusDTO, String topicCode);
     SyllabusDTODetailInformation getSyllabusById(String topicCode);
-<<<<<<< HEAD
-    Page<SyllabusDTOResponse> getListSyllabus(Pageable pageable) throws ParseException;
-    Syllabus createSyllabusGeneralScreen(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest, BindingResult result) throws ParseException;
-=======
-    SyllabusDTOShowOtherScreen showSyllabusOtherScreen(String topicName);
     Page<SyllabusDTOResponse> getListSyllabus(Authentication authentication, Pageable pageable) throws ParseException;
     Syllabus createSyllabusGeneralScreen(Authentication authentication, SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest, BindingResult result) throws ParseException;
->>>>>>> main
     TrainingUnit addDay(String topicCode);
     SyllabusOutlineScreen createSyllabusOutlineScreen(SyllabusOutlineScreen syllabusOutlineScreen);
     SyllabusOutlineScreenResponse showSyllabusOutlineScreen(String topicCode);

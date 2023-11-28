@@ -55,7 +55,7 @@ public interface SyllabusRepository extends JpaRepository<Syllabus, String> {
     @Query(value = "UPDATE tbl_Syllabus SET topic_name = :topicName, technical_group = :technicalGroup, version = :version, " +
             "training_audience = :trainingAudience, topic_outline = :topicOutline, training_material = :trainingMaterial, " +
             "training_principal = :trainingPrincipal, priority = :priority, public_status = :publicStatus, " +
-            "created_by = :createdBy, created_date = :createdDate, user_id = :userId, assignment = :assignment, " +
+            "modified_by = :modifiedBy, modified_date = :modifiedDate, user_id = :userId, assignment = :assignment, " +
             "final_theory = :finalTheory, final_practice = :finalPractice, gpa = :gpa, quiz = :quiz, level = :#{#syllabusDTOCreateGeneralRequestLevel.name()} " +
             "WHERE topic_code = :topicCode", nativeQuery = true)
     @Transactional
@@ -64,7 +64,7 @@ public interface SyllabusRepository extends JpaRepository<Syllabus, String> {
                               @Param("trainingAudience") String trainingAudience, @Param("topicOutline") String topicOutline,
                               @Param("trainingMaterial") String trainingMaterial, @Param("trainingPrincipal") String trainingPrincipal,
                               @Param("priority") String priority, @Param("publicStatus") String publicStatus,
-                              @Param("createdBy") String createdBy, @Param("createdDate") Date createdDate,
+                              @Param("modifiedBy") String modifiedBy, @Param("modifiedDate") Date modifiedDate,
                               @Param("userId") Long userId, @Param("assignment") int assignment,
                               @Param("finalTheory") int finalTheory, @Param("finalPractice") int finalPractice,
                               @Param("gpa") int gpa, @Param("quiz") int quiz,
