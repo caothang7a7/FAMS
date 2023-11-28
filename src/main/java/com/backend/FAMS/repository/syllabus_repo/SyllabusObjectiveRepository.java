@@ -16,7 +16,7 @@ public interface SyllabusObjectiveRepository extends JpaRepository<SyllabusObjec
             "WHERE s.topicCode = :topicCode AND lo.type = :type")
     LearningObjective findBySyllabusTopicCodeAndLearningObjectiveType(
             @Param("topicCode") String topicCode,
-            @Param("type") String type);
+            @Param("type") Type type);
     @Query("SELECT lo FROM LearningObjective lo " +
             "JOIN lo.syllabusObjectives so " +
             "JOIN so.syllabus s " +

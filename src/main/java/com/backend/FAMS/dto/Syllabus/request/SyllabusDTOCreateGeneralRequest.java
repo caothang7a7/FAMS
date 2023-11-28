@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.apache.poi.ss.formula.functions.T;
 
 import java.util.Date;
 
@@ -38,5 +39,5 @@ public class SyllabusDTOCreateGeneralRequest {
 
     @NotEmpty(message = "Learning Objective name is required")
     String learningObjectiveName;
-    String learningObjectiveType;
+    Type learningObjectiveType;
 }

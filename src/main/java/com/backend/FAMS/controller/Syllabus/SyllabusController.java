@@ -21,6 +21,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -87,8 +89,10 @@ public class SyllabusController {
         }
         return new ResponseEntity<>(syllabusService.exportSyllabusToCSVFile(response, topicCode), HttpStatus.OK);
     }
+
+    @PostAuthorize("hasAnyAuthority('VIEW_SYLLABUS')")
     @GetMapping("/list-syllabus/{moreElement}")
-    public ResponseEntity<?> getAllSyllabus(@RequestParam(defaultValue = "1") int page, @PathVariable("moreElement") int moreElement) throws ParseException {
+    public ResponseEntity<?> getAllSyllabus(Authentication authentication, @RequestParam(defaultValue = "1") int page, @PathVariable("moreElement") int moreElement) throws ParseException {
         ApiResponse apiResponse = new ApiResponse();
         int pageSize = 5;
 
@@ -100,7 +104,7 @@ public class SyllabusController {
                 pageSize = moreElement;
                 // Kiểm tra xem trang sau trang hiện tại có đủ 10 phần tử không
                 PageRequest currentPageRequest = PageRequest.of(page - 1, pageSize);
-                Page<SyllabusDTOResponse> currentPage = syllabusService.getListSyllabus(currentPageRequest);
+                Page<SyllabusDTOResponse> currentPage = syllabusService.getListSyllabus(authentication, currentPageRequest);
                 List<SyllabusDTOResponse> currentPageList = currentPage.getContent();
 
                 if (currentPageList.size() < moreElement) {
@@ -109,7 +113,7 @@ public class SyllabusController {
                 }
                 // Trang hiện tại có đủ 10 phần tử, nhưng kiểm tra trang tiếp theo
                 PageRequest nextPageRequest = PageRequest.of(page, pageSize); // Trang tiếp theo
-                Page<SyllabusDTOResponse> nextPage = syllabusService.getListSyllabus(nextPageRequest);
+                Page<SyllabusDTOResponse> nextPage = syllabusService.getListSyllabus(authentication, nextPageRequest);
                 List<SyllabusDTOResponse> nextPageList = nextPage.getContent();
 
                 if (nextPageList.size() < moreElement) {
@@ -119,7 +123,7 @@ public class SyllabusController {
             }
         }
         PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
-        Page<SyllabusDTOResponse> syllabusDTOResponsePage = syllabusService.getListSyllabus(pageRequest);
+        Page<SyllabusDTOResponse> syllabusDTOResponsePage = syllabusService.getListSyllabus(authentication,pageRequest);
         List<SyllabusDTOResponse> syllabusList = syllabusDTOResponsePage.getContent();
         apiResponse.ok(syllabusDTOResponsePage);
         return new ResponseEntity<>(syllabusList, HttpStatus.OK);
@@ -203,11 +207,12 @@ public class SyllabusController {
         return new ResponseEntity<>(syllabusList, HttpStatus.OK);
     }
 
+    @PostAuthorize("hasAnyAuthority('CREATE_SYLLABUS', 'MODIFYS_SYLLABUS')")
     @PostMapping("/create-general-syllabus")
-    public ResponseEntity<?> createSyllabusGeneralScreen(@Valid @RequestBody SyllabusDTOCreateGeneralRequest syllaSyllabusDTOCreateGeneralRequest,
+    public ResponseEntity<?> createSyllabusGeneralScreen(Authentication authentication, @Valid @RequestBody SyllabusDTOCreateGeneralRequest syllaSyllabusDTOCreateGeneralRequest,
                                                          BindingResult bindingResult) throws ParseException {
         ApiResponse apiResponse = new ApiResponse();
-        Syllabus syllabus = syllabusService.createSyllabusGeneralScreen(syllaSyllabusDTOCreateGeneralRequest, bindingResult);
+        Syllabus syllabus = syllabusService.createSyllabusGeneralScreen(authentication, syllaSyllabusDTOCreateGeneralRequest, bindingResult);
         if(bindingResult.hasErrors()){
             apiResponse.error(validatorUtil.handleValidationErrors(bindingResult.getFieldErrors()));
             return ResponseEntity.badRequest().body(apiResponse);

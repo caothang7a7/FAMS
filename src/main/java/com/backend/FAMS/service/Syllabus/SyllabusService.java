@@ -14,6 +14,7 @@ import com.backend.FAMS.entity.training_unit.TrainingUnit;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,8 +26,14 @@ import java.util.List;
 public interface SyllabusService {
     Syllabus createSyllabusOtherScreen(SyllabusDTOCreateOtherScreen syllabusDTO, String topicCode);
     SyllabusDTODetailInformation getSyllabusById(String topicCode);
+<<<<<<< HEAD
     Page<SyllabusDTOResponse> getListSyllabus(Pageable pageable) throws ParseException;
     Syllabus createSyllabusGeneralScreen(SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest, BindingResult result) throws ParseException;
+=======
+    SyllabusDTOShowOtherScreen showSyllabusOtherScreen(String topicName);
+    Page<SyllabusDTOResponse> getListSyllabus(Authentication authentication, Pageable pageable) throws ParseException;
+    Syllabus createSyllabusGeneralScreen(Authentication authentication, SyllabusDTOCreateGeneralRequest syllabusDTOCreateGeneralRequest, BindingResult result) throws ParseException;
+>>>>>>> main
     TrainingUnit addDay(String topicCode);
     SyllabusOutlineScreen createSyllabusOutlineScreen(SyllabusOutlineScreen syllabusOutlineScreen);
     SyllabusOutlineScreenResponse showSyllabusOutlineScreen(String topicCode);

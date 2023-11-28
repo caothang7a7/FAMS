@@ -86,7 +86,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public ResponseEntity<?> createUser(Authentication authentication, UserDTOCreateRequest userDTOCreateRequest, BindingResult bindingResult) {
-        User owner = null;
+            User owner = null;
         if (authentication != null) {
             owner = (User) authentication.getPrincipal();
         }
