@@ -1,15 +1,10 @@
 package com.backend.FAMS.dto.Syllabus.request;
 
-import com.backend.FAMS.entity.LearningObjective.learningObjective_enum.Type;
 import com.backend.FAMS.entity.Syllabus.syllabus_enum.SyllabusLevel;
-import com.backend.FAMS.entity.User.User;
+import com.backend.FAMS.entity.learning_objective.learningObjective_enum.Type;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -43,5 +38,5 @@ public class SyllabusDTOCreateGeneralRequest {
 
     @NotEmpty(message = "Learning Objective name is required")
     String learningObjectiveName;
-    Type learningObjectiveType;
+    String learningObjectiveType;
 }

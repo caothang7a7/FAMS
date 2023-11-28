@@ -1,16 +1,18 @@
 package com.backend.FAMS.mapper.Syllabus;
+
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
+import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusOutlineScreen;
 import com.backend.FAMS.dto.Syllabus.request.TrainingUnitDTOCreate;
 import com.backend.FAMS.dto.Syllabus.response.*;
 import com.backend.FAMS.dto.trainingContent.TrainingContentDTOCreateOutlineScreen;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
-import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
-import com.backend.FAMS.entity.TrainingContent.TrainingContent;
-import com.backend.FAMS.entity.TrainingUnit.TrainingUnit;
-import org.mapstruct.Mapping;
+import com.backend.FAMS.entity.training_content.TrainingContent;
+import com.backend.FAMS.entity.training_unit.TrainingUnit;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
+
 import java.util.List;
 
 @Mapper(componentModel = "spring")

@@ -1,9 +1,8 @@
 package com.backend.FAMS.dto.trainingContent;
 
-import com.backend.FAMS.entity.LearningObjective.LearningObjective;
-import com.backend.FAMS.entity.LearningObjective.learningObjective_enum.Type;
-import com.backend.FAMS.entity.TrainingContent.trainingContent_enum.DeliveryType;
-import com.backend.FAMS.entity.TrainingContent.trainingContent_enum.TrainingFormat;
+import com.backend.FAMS.entity.learning_objective.learningObjective_enum.Type;
+import com.backend.FAMS.entity.training_content.trainingContent_enum.DeliveryType;
+import com.backend.FAMS.entity.training_content.trainingContent_enum.TrainingFormat;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -18,5 +17,5 @@ public class TrainingContentDTOCreateOutlineScreen {
     int duration;
     DeliveryType deliveryType;
     TrainingFormat trainingFormat;
-    Type type;
+    String type;
 }

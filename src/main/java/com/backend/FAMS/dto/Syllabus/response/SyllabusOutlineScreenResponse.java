@@ -1,9 +1,9 @@
 package com.backend.FAMS.dto.Syllabus.response;
 
-import com.backend.FAMS.entity.LearningObjective.LearningObjective;
-import com.backend.FAMS.entity.TrainingContent.trainingContent_enum.DeliveryType;
-import com.backend.FAMS.entity.TrainingContent.trainingContent_enum.TrainingFormat;
-import com.backend.FAMS.entity.TrainingUnit.TrainingUnit;
+
+import com.backend.FAMS.entity.training_content.trainingContent_enum.DeliveryType;
+import com.backend.FAMS.entity.training_content.trainingContent_enum.TrainingFormat;
+import com.backend.FAMS.entity.training_unit.TrainingUnit;
 import lombok.*;
 
 import java.util.List;

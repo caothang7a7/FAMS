@@ -1,4 +1,4 @@
-package com.backend.FAMS.entity.User.user_enum;
+package com.backend.FAMS.entity.user.user_enum;
 
 public enum Gender {
     MALE,

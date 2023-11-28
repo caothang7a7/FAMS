@@ -1,7 +1,7 @@
 package com.backend.FAMS.util.TrainingUnit;
 
-import com.backend.FAMS.entity.TrainingUnit.TrainingUnit;
-import com.backend.FAMS.repository.TrainingContent.TrainingContentRepository;
+import com.backend.FAMS.entity.training_unit.TrainingUnit;
+import com.backend.FAMS.repository.training_content_repo.TrainingContentRepository;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;

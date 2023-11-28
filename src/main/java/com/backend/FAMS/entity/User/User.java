@@ -1,14 +1,12 @@
-package com.backend.FAMS.entity.User;
+package com.backend.FAMS.entity.user;
 
-import com.backend.FAMS.entity.Class.ClassUser;
-import com.backend.FAMS.entity.Security.RefreshToken;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
-import com.backend.FAMS.entity.TrainingProgram.TrainingProgram;
-import com.backend.FAMS.entity.User.user_enum.Gender;
+import com.backend.FAMS.entity.classroom.ClassUser;
+import com.backend.FAMS.entity.refreshtoken.RefreshToken;
+import com.backend.FAMS.entity.training_program.TrainingProgram;
+import com.backend.FAMS.entity.user.user_enum.Gender;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -32,7 +30,6 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
-
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -70,9 +67,13 @@ public class User implements UserDetails {
     @Column(name = "modified_date", nullable = true)
     private Date modifiedDate;
 
+    @Version
+    @Column(name = "modified_version", nullable = true)
+    private  Integer version = 0;
+
     // --- relationship----
 
-    // 1-n to TrainingProgram
+    // 1-n to file_upload_dto
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private Set<TrainingProgram> trainingPrograms;
@@ -82,7 +83,7 @@ public class User implements UserDetails {
     @JsonIgnore
     private Set<ClassUser> classUsers;
 
-    // 1-n to Syllabus
+    // 1-n to syllabus
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private Set<Syllabus> syllabusSet;
@@ -97,7 +98,7 @@ public class User implements UserDetails {
     @OneToOne
     RefreshToken refreshToken;
 
-    // security
+    // auth_controller
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<>();

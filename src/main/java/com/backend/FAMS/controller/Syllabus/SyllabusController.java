@@ -1,20 +1,18 @@
 package com.backend.FAMS.controller.Syllabus;
-import com.backend.FAMS.dto.Syllabus.request.TrainingUnitDTOCreate;
-import com.backend.FAMS.dto.Syllabus.response.SyllabusOutlineScreenResponse;
-import com.backend.FAMS.dto.Syllabus.response.*;
-import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
+
 import com.backend.FAMS.dto.ApiResponse;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
-import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
+import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
+import com.backend.FAMS.dto.Syllabus.request.TrainingUnitDTOCreate;
+import com.backend.FAMS.dto.Syllabus.response.*;
 import com.backend.FAMS.dto.trainingContent.TrainingContentDTOCreateOutlineScreen;
-import com.backend.FAMS.entity.LearningObjective.learningObjective_enum.Type;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
+
 import com.backend.FAMS.exception.NotFoundException;
-import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.service.Syllabus.SyllabusService;
-import com.backend.FAMS.service.sercutity.IJwtService;
-import com.backend.FAMS.service.sercutity.RefreshTokenService;
-import com.backend.FAMS.util.User.ValidatorUtil;
+import com.backend.FAMS.service.jwt_service.IJwtService;
+import com.backend.FAMS.service.refreshtoken_service.RefreshTokenService;
+import com.backend.FAMS.util.ValidatorUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,12 +22,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;

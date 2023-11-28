@@ -1,40 +1,35 @@
 package com.backend.FAMS.service.Syllabus.impl;
 
 
-import com.backend.FAMS.dto.Syllabus.request.TrainingUnitDTOCreate;
-import com.backend.FAMS.dto.Syllabus.response.SyllabusOutlineScreenResponse;
-import com.backend.FAMS.dto.Syllabus.response.SyllabusDTODetailInformation;
-import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOShowOtherScreen;
-import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
-import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
-import com.backend.FAMS.dto.trainingContent.TrainingContentDTOCreateOutlineScreen;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
+import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusOutlineScreen;
+import com.backend.FAMS.dto.Syllabus.request.TrainingUnitDTOCreate;
 import com.backend.FAMS.dto.Syllabus.response.*;
-import com.backend.FAMS.entity.LearningObjective.LearningObjective;
-import com.backend.FAMS.entity.LearningObjective.learningObjective_enum.Type;
+import com.backend.FAMS.dto.trainingContent.TrainingContentDTOCreateOutlineScreen;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.entity.Syllabus.SyllabusObjective;
-import com.backend.FAMS.entity.Syllabus.SyllabusObjectiveId;
-import com.backend.FAMS.entity.Syllabus.syllabus_enum.SyllabusLevel;
-import com.backend.FAMS.entity.TrainingContent.TrainingContent;
-import com.backend.FAMS.entity.TrainingContent.trainingContent_enum.DeliveryType;
-import com.backend.FAMS.entity.TrainingContent.trainingContent_enum.TrainingFormat;
-import com.backend.FAMS.entity.TrainingProgram.TrainingProgramSyllabus;
-import com.backend.FAMS.entity.TrainingUnit.TrainingUnit;
-import com.backend.FAMS.entity.User.User;
+import com.backend.FAMS.entity.learning_objective.LearningObjective;
+import com.backend.FAMS.entity.learning_objective.learningObjective_enum.Type;
+import com.backend.FAMS.entity.syllabus.SyllabusObjectiveId;
+import com.backend.FAMS.entity.training_content.TrainingContent;
+import com.backend.FAMS.entity.training_content.trainingContent_enum.DeliveryType;
+import com.backend.FAMS.entity.training_content.trainingContent_enum.TrainingFormat;
+import com.backend.FAMS.entity.training_program.TrainingProgramSyllabus;
+import com.backend.FAMS.entity.training_unit.TrainingUnit;
+import com.backend.FAMS.entity.user.User;
 import com.backend.FAMS.exception.NotFoundException;
 import com.backend.FAMS.mapper.LearningObjectiveMapper;
 import com.backend.FAMS.mapper.Syllabus.SyllabusMapper;
 import com.backend.FAMS.mapper.TrainingContent.TrainingContentMapper;
-import com.backend.FAMS.mapper.User.UserMapper;
-import com.backend.FAMS.repository.LearningObjective.LearningObjectiveRepository;
-import com.backend.FAMS.repository.Syllabus.SyllabusObjectiveRepository;
-import com.backend.FAMS.repository.Syllabus.SyllabusRepository;
-import com.backend.FAMS.repository.TrainingContent.TrainingContentRepository;
-import com.backend.FAMS.repository.TrainingProgram.TrainingProgramSyllabusRepository;
-import com.backend.FAMS.repository.TrainingUnit.TrainingUnitRepository;
-import com.backend.FAMS.repository.User.UserRepository;
+import com.backend.FAMS.mapper.user_mapper.UserMapper;
+import com.backend.FAMS.repository.learning_objective_repo.LearningObjectiveRepository;
+import com.backend.FAMS.repository.syllabus_repo.SyllabusObjectiveRepository;
+import com.backend.FAMS.repository.syllabus_repo.SyllabusRepository;
+import com.backend.FAMS.repository.training_content_repo.TrainingContentRepository;
+import com.backend.FAMS.repository.training_program_repo.TrainingProgramSyllabusRepository;
+import com.backend.FAMS.repository.training_unit_repo.TrainingUnitRepository;
+import com.backend.FAMS.repository.user_repo.UserRepository;
 import com.backend.FAMS.service.Syllabus.SyllabusService;
 import com.backend.FAMS.util.Syllabus.SyllabusUtil;
 import com.backend.FAMS.util.TrainingContent.TrainingContentUtil;
@@ -49,16 +44,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
-import org.springframework.validation.BindingResult;
-
 import java.util.*;
 
 @Service
@@ -103,7 +97,6 @@ public class SyllabusServiceImpl implements SyllabusService {
             dto.setTopicName(syllabus.getTopicName());
             dto.setSyllabusStatus(syllabus.getSyllabusStatus());
             dto.setCreatedBy(syllabus.getCreatedBy());
-            dto.setSyllabusStatus(syllabus.getSyllabusStatus());
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             String formattedDate = dateFormat.format(syllabus.getCreatedDate());
             dto.setCreatedDate(formattedDate);
