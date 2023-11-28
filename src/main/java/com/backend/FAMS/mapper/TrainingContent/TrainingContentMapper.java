@@ -2,12 +2,7 @@ package com.backend.FAMS.mapper.TrainingContent;
 
 import com.backend.FAMS.dto.Syllabus.request.SyllabusOutlineScreen;
 import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
-import com.backend.FAMS.entity.LearningObjective.LearningObjective;
-import com.backend.FAMS.entity.TrainingContent.TrainingContent;
-import com.backend.FAMS.entity.TrainingUnit.TrainingUnit;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import lombok.*;
+import com.backend.FAMS.entity.training_content.TrainingContent;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;

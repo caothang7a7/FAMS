@@ -1,29 +1,26 @@
 package com.backend.FAMS.service.Syllabus;
 
+import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
+import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusOutlineScreen;
 import com.backend.FAMS.dto.Syllabus.request.TrainingUnitDTOCreate;
-import com.backend.FAMS.dto.Syllabus.response.SyllabusOutlineScreenResponse;
 import com.backend.FAMS.dto.Syllabus.response.*;
-import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
-import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
-import com.backend.FAMS.dto.Syllabus.response.SyllabusDTOResponse;
 import com.backend.FAMS.dto.trainingContent.TrainingContentDTOCreateOutlineScreen;
-import com.backend.FAMS.entity.LearningObjective.LearningObjective;
-import com.backend.FAMS.entity.LearningObjective.learningObjective_enum.Type;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
-import com.backend.FAMS.entity.TrainingContent.trainingContent_enum.DeliveryType;
+import com.backend.FAMS.entity.learning_objective.learningObjective_enum.Type;
+import com.backend.FAMS.entity.training_content.TrainingContent;
+import com.backend.FAMS.entity.training_content.trainingContent_enum.DeliveryType;
+import com.backend.FAMS.entity.training_unit.TrainingUnit;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import com.backend.FAMS.entity.TrainingContent.TrainingContent;
-import com.backend.FAMS.entity.TrainingUnit.TrainingUnit;
 import org.springframework.validation.BindingResult;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 public interface SyllabusService {
     Syllabus createSyllabusOtherScreen(SyllabusDTOCreateOtherScreen syllabusDTO, String topicCode);

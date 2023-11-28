@@ -1,8 +1,8 @@
 package com.backend.FAMS.dto.Syllabus.request;
 
-import com.backend.FAMS.entity.LearningObjective.LearningObjective;
-import com.backend.FAMS.entity.TrainingContent.trainingContent_enum.DeliveryType;
-import com.backend.FAMS.entity.TrainingContent.trainingContent_enum.TrainingFormat;
+import com.backend.FAMS.entity.learning_objective.LearningObjective;
+import com.backend.FAMS.entity.training_content.trainingContent_enum.DeliveryType;
+import com.backend.FAMS.entity.training_content.trainingContent_enum.TrainingFormat;
 import lombok.*;
 
 @Getter

@@ -1,6 +1,6 @@
 package com.backend.FAMS.mapper.TrainingUnit;
 import com.backend.FAMS.dto.Syllabus.request.SyllabusOutlineScreen;
-import com.backend.FAMS.entity.TrainingUnit.TrainingUnit;
+import com.backend.FAMS.entity.training_unit.TrainingUnit;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 

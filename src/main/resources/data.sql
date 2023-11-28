@@ -4,18 +4,7 @@ VALUES (1, 'SUPER_ADMIN', 'FULL_ACCESS', 'FULL_ACCESS','FULL_ACCESS','FULL_ACCES
        (3, 'TRAINER', 'VIEW','VIEW','VIEW','CREATE','VIEW' );
 
 INSERT INTO tbl_learning_objective(code, name, type, description)
-VALUES ('A01', 'Demonstrate a positive', 'Attitude', 'By the end of this photography course, students will be able to:
-
-Understand the fundamental principles of photography, including composition, lighting, and exposure.
-Use different types of cameras, lenses, and accessories effectively to capture high-quality photographs.
-Apply various composition techniques to create visually compelling images.
-Demonstrate mastery in manual shooting mode to have full control over camera settings.
-Develop a keen eye for capturing unique perspectives and moments.
-Utilize post-processing techniques to enhance and edit photographs using digital editing software.
-Explore different genres of photography, such as landscape, portrait, street, and still life.
-Understand legal and ethical considerations in photography, including copyright and model releases.
-Critically analyze and provide constructive feedback on photography, both their own and others''.
-Develop a portfolio of their best work, showcasing their growth and skills as a photographer.'),
+VALUES ('A01', 'Demonstrate a positive', 'Attitude', 'The learner will demonstrate a positive and enthusiastic attitude towards learning Java.'),
        ('A02', 'Demonstrate responsibility', 'Attitude', 'The learner will demonstrate responsibility and complete assigned tasks.'),
        ('S01', 'Write basic PythonCode code', 'Skill', 'The learner will be able to write basic Java code, including control statements, loops, and methods.'),
        ('K01', 'Basic concepts of C# programming.', 'Knowledge', 'The learner will understand the basic concepts of Java programming, including variables, data types, operators, and expressions.'),
@@ -26,57 +15,58 @@ Develop a portfolio of their best work, showcasing their growth and skills as a 
        ('K05', 'Java database access', 'Knowledge', 'The learner will understand Java database access, including JDBC and ORM.'),
        ('S05', 'Use threads and concurrency', 'Skill', 'The learner will be able to use threads and concurrency in Java.');
 
-INSERT INTO tbl_user ( name, email, phone, dob, gender,permission_id, status, created_by, created_date, modified_by, modified_date,password)
-VALUES  ( 'Trương Xuân Hoa', 'xh.demo@gmail.com', '0125634701', '2002-12-15', 'FEMALE', 1, True, 'admin' ,'2023-9-29', NULL,NULL,'123456'),
-        ( 'Quách Gia', 'qg.demo@gmail.com', '0125634702', '2002-12-16', 'MALE', 2, True, 'admin' ,'2023-9-29', NULL,NULL,'123456'),
-        ( 'Chu Thái', 'ct.demo@gmail.com', '0365892147', '2002-12-17', 'MALE', 3, True, 'admin' ,'2023-9-29', NULL,NULL,'123456'),
-        ( 'John Doe', 'john.doe@example.com', '0254369803', '1980-01-01', 'MALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Jane Doe', 'jane.doe@example.com', '0254369804', '1985-02-02', 'FEMALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Peter Smith', 'peter.smith@example.com', '025436905', '1990-03-03', 'MALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Mary Johnson', 'mary.johnson@example.com', '0254369806', '1995-04-04', 'FEMALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'David Jones', 'david.jones@example.com', '0254369807', '2000-05-05', 'MALE', 2, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Susan Brown', 'susan.brown@example.com', '0254369808', '2005-06-06', 'FEMALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Michael Williams', 'michael.williams@example.com', '0254369809', '2010-07-07', 'MALE', 2, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Thomas Anderson', 'thomas.anderson@example.com', '0912345610', '1980-01-01', 'MALE', 2, true, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Neo', 'neo@example.com', '0923456711', '1985-02-02', 'FEMALE', 3, true, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Morpheus', 'morpheus@example.com', '0934567812', '1990-03-03', 'MALE', 2, true, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Trinity', 'trinity@example.com', '0945678913', '1995-04-04', 'FEMALE', 3, true, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Cypher', 'cypher@example.com', '0956789014', '2000-05-05', 'MALE', 2, true, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Agent Smith', 'agent.smith@example.com', '0967890115', '2005-06-06', 'FEMALE', 3, true, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Oracle', 'oracle@example.com', '0978901216', '2010-07-07', 'MALE', 3, true, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Merovingian', 'merovingian@example.com', '0989012317', '2015-08-08', 'FEMALE', 2, true, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Nicodemus', 'nicodemus@example.com', '0999012318', '2020-09-09', 'MALE', 3, true, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Trinity 2', 'trinity2@example.com', '0901234519', '2025-10-10', 'FEMALE', 2, true, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Ari Gold', 'ari.gold@example.com', '0254369820', '1970-01-01', 'MALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Entourage', 'entourage@example.com', '0254369821', '1975-02-02', 'FEMALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Vincent Chase', 'vincent.chase@example.com', '0254369822', '1980-03-03', 'MALE', 2, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Eric Murphy', 'eric.murphy@example.com', '0254369823', '1985-04-04', 'MALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Turtle', 'turtle@example.com', '0254369824', '1990-05-05', 'MALE', 2, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Johnny Drama', 'johnny.drama@example.com', '0254369825', '2005-06-06', 'MALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Mrs. Ari Gold', 'mrs.ari.gold@example.com', '0254369826', '2010-07-07', 'FEMALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Lloyd Lee', 'lloyd.lee@example.com', '0254369827', '2015-08-08', 'MALE', 2, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Scott Lavin', 'scott.lavin@example.com', '02543698728', '2020-09-09', 'MALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Billy Walsh', 'billy.walsh@example.com', '0254369829', '2025-10-10', 'MALE', 2, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Don Draper', 'don.draper@example.com', '0254369830', '1960-01-01', 'MALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Peggy Olson', 'peggy.olson@example.com', '0254369831', '1965-02-02', 'FEMALE', 2, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Joan Holloway', 'joan.holloway@example.com', '0254369832', '1970-03-03', 'FEMALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Roger Sterling', 'roger.sterling@example.com', '0254369833', '1975-04-04', 'MALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Bert Cooper', 'bert.cooper@example.com', '0254369834', '1980-05-05', 'MALE', 2, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Pete Campbell', 'pete.campbell@example.com', '0254369835', '2005-06-06', 'MALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Midge Daniels', 'midge.daniels@example.com', '0254369436', '2010-07-07', 'FEMALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Harry Crane', 'harry.crane@example.com', '0254369837', '2015-08-08', 'MALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Lane Pryce', 'lane.pryce@example.com', '0254369838', '2020-09-09', 'MALE', 2, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Sal Romano', 'sal.romano@example.com', '0254369839', '2025-10-10', 'MALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Walter White', 'walter.white@example.com', '0254369840', '1950-01-01', 'MALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Skyler White', 'skyler.white@example.com', '0254369841', '1955-02-02', 'FEMALE', 2, False, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Jesse Pinkman', 'jesse.pinkman@example.com', '0254369842', '1960-03-03', 'MALE', 3, False, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Hank Schrader', 'hank.schrader@example.com', '0254369843', '1965-04-04', 'MALE', 3, False, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Marie Schrader', 'marie.schrader@example.com', '0254369844', '1970-05-05', 'FEMALE', 2, False, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Gus Fring', 'gus.fring@example.com', '0254369855', '1975-06-06', 'MALE', 3, False, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Mike Ehrmantraut', 'mike.ehrmantraut@example.com', '0254369854', '1980-07-07', 'MALE', 2, False, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Tuco Salamanca', 'tuco.salamanca@example.com', '0254369865', '1985-08-08', 'MALE', 2, False, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Todd Alquist', 'todd.alquist@example.com', '025439834', '1990-09-09', 'MALE', 3, False, 'admin', '2023-09-30', NULL, NULL,'123456'),
-        ( 'Jane Margolis', 'jane.margolis@example.com', '0254368345', '1995-10-10', 'FEMALE', 2, False, 'admin', '2023-09-30', NULL, NULL,'123456');
+
+INSERT INTO tbl_user (modified_version, name, email, phone, dob, gender,permission_id, status, created_by, created_date, modified_by, modified_date,password)
+VALUES  ( 0,'Trương Xuân Hoa', 'xh.demo@gmail.com', '0125634701', '2002-12-15', 'FEMALE', 1, True, 'admin' ,'2023-9-29', NULL,NULL,'123456'),
+        ( 0,'Quách Gia', 'qg.demo@gmail.com', '0125634702', '2002-12-16', 'MALE', 2, True, 'admin' ,'2023-9-29', NULL,NULL,'123456'),
+        ( 0,'Chu Thái', 'ct.demo@gmail.com', '0365892147', '2002-12-17', 'MALE', 3, True, 'admin' ,'2023-9-29', NULL,NULL,'123456'),
+        ( 0,'John Doe', 'john.doe@example.com', '0254369803', '1980-01-01', 'MALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Jane Doe', 'jane.doe@example.com', '0254369804', '1985-02-02', 'FEMALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Peter Smith', 'peter.smith@example.com', '025436905', '1990-03-03', 'MALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Mary Johnson', 'mary.johnson@example.com', '0254369806', '1995-04-04', 'FEMALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'David Jones', 'david.jones@example.com', '0254369807', '2000-05-05', 'MALE', 2, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Susan Brown', 'susan.brown@example.com', '0254369808', '2005-06-06', 'FEMALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Michael Williams', 'michael.williams@example.com', '0254369809', '2010-07-07', 'MALE', 2, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Thomas Anderson', 'thomas.anderson@example.com', '0912345610', '1980-01-01', 'MALE', 2, true, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Neo', 'neo@example.com', '0923456711', '1985-02-02', 'FEMALE', 3, true, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Morpheus', 'morpheus@example.com', '0934567812', '1990-03-03', 'MALE', 2, true, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Trinity', 'trinity@example.com', '0945678913', '1995-04-04', 'FEMALE', 3, true, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Cypher', 'cypher@example.com', '0956789014', '2000-05-05', 'MALE', 2, true, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Agent Smith', 'agent.smith@example.com', '0967890115', '2005-06-06', 'FEMALE', 3, true, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Oracle', 'oracle@example.com', '0978901216', '2010-07-07', 'MALE', 3, true, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Merovingian', 'merovingian@example.com', '0989012317', '2015-08-08', 'FEMALE', 2, true, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Nicodemus', 'nicodemus@example.com', '0999012318', '2020-09-09', 'MALE', 3, true, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Trinity 2', 'trinity2@example.com', '0901234519', '2025-10-10', 'FEMALE', 2, true, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Ari Gold', 'ari.gold@example.com', '0254369820', '1970-01-01', 'MALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Entourage', 'entourage@example.com', '0254369821', '1975-02-02', 'FEMALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Vincent Chase', 'vincent.chase@example.com', '0254369822', '1980-03-03', 'MALE', 2, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Eric Murphy', 'eric.murphy@example.com', '0254369823', '1985-04-04', 'MALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Turtle', 'turtle@example.com', '0254369824', '1990-05-05', 'MALE', 2, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Johnny Drama', 'johnny.drama@example.com', '0254369825', '2005-06-06', 'MALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Mrs. Ari Gold', 'mrs.ari.gold@example.com', '0254369826', '2010-07-07', 'FEMALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Lloyd Lee', 'lloyd.lee@example.com', '0254369827', '2015-08-08', 'MALE', 2, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Scott Lavin', 'scott.lavin@example.com', '02543698728', '2020-09-09', 'MALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Billy Walsh', 'billy.walsh@example.com', '0254369829', '2025-10-10', 'MALE', 2, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Don Draper', 'don.draper@example.com', '0254369830', '1960-01-01', 'MALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Peggy Olson', 'peggy.olson@example.com', '0254369831', '1965-02-02', 'FEMALE', 2, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Joan Holloway', 'joan.holloway@example.com', '0254369832', '1970-03-03', 'FEMALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Roger Sterling', 'roger.sterling@example.com', '0254369833', '1975-04-04', 'MALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Bert Cooper', 'bert.cooper@example.com', '0254369834', '1980-05-05', 'MALE', 2, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Pete Campbell', 'pete.campbell@example.com', '0254369835', '2005-06-06', 'MALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Midge Daniels', 'midge.daniels@example.com', '0254369436', '2010-07-07', 'FEMALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Harry Crane', 'harry.crane@example.com', '0254369837', '2015-08-08', 'MALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Lane Pryce', 'lane.pryce@example.com', '0254369838', '2020-09-09', 'MALE', 2, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Sal Romano', 'sal.romano@example.com', '0254369839', '2025-10-10', 'MALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Walter White', 'walter.white@example.com', '0254369840', '1950-01-01', 'MALE', 3, True, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Skyler White', 'skyler.white@example.com', '0254369841', '1955-02-02', 'FEMALE', 2, False, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Jesse Pinkman', 'jesse.pinkman@example.com', '0254369842', '1960-03-03', 'MALE', 3, False, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Hank Schrader', 'hank.schrader@example.com', '0254369843', '1965-04-04', 'MALE', 3, False, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Marie Schrader', 'marie.schrader@example.com', '0254369844', '1970-05-05', 'FEMALE', 2, False, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Gus Fring', 'gus.fring@example.com', '0254369855', '1975-06-06', 'MALE', 3, False, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Mike Ehrmantraut', 'mike.ehrmantraut@example.com', '0254369854', '1980-07-07', 'MALE', 2, False, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Tuco Salamanca', 'tuco.salamanca@example.com', '0254369865', '1985-08-08', 'MALE', 2, False, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Todd Alquist', 'todd.alquist@example.com', '025439834', '1990-09-09', 'MALE', 3, False, 'admin', '2023-09-30', NULL, NULL,'123456'),
+        ( 0,'Jane Margolis', 'jane.margolis@example.com', '0254368345', '1995-10-10', 'FEMALE', 2, False, 'admin', '2023-09-30', NULL, NULL,'123456');
 
 INSERT INTO tbl_training_program(duration,training_program_code, name, user_id, start_time , status, created_by, created_date, modified_by, modified_date,learning_objective_code)
 VALUES (1,'JLB','Java Basic', 2 , '2023-9-29','ACTIVE','Quách Gia','2023-9-29', NULL,NULL,'A01'),
@@ -119,19 +109,20 @@ In my closing remarks, I would express my gratitude for their active participati
        ('H03', 'C# DevOps Foundation','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'ALL_LEVEL'),
        ('H02', 'Java DevOps Foundation','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'BEGINNER'),
        ('H04', 'C++ DevOps Foundation','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'ALL_LEVEL'),
-        ('H05', 'Java Advanced Language','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'ADVANCED'),
+       ('H05', 'Java Advanced Language','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'ADVANCED'),
        ('H06', 'Testing Subject','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'ALL_LEVEL'),
-        ('S03', 'Testing By Selenium','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40,'BEGINNER'),
+       ('S03', 'Testing By Selenium','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40,'BEGINNER'),
        ('S04', 'Testing By Selenium 1','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'ALL_LEVEL'),
-('S05', 'Testing By Selenium 2','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'BEGINNER'),
-('S06', 'Testing By Selenium 3','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40,'ALL_LEVEL'),
-('S07', 'Testing By Selenium 4','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'ADVANCED'),
-('S08', 'Testing By Selenium 5','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'ALL_LEVEL'),
-('S09', 'Testing By Selenium 6','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'BEGINNER'),
-('S10', 'Testing By Selenium 7','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'ALL_LEVEL'),
-('S011', 'Testing By Selenium 8','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'BEGINNER'),
-('S012', 'Testing By Selenium 9','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'ALL_LEVEL'),
-('S013', 'Testing By Selenium 10','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'ADVANCED');
+       ('S05', 'Testing By Selenium 2','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'BEGINNER'),
+       ('S06', 'Testing By Selenium 3','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40,'ALL_LEVEL'),
+       ('S07', 'Testing By Selenium 4','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'ADVANCED'),
+       ('S08', 'Testing By Selenium 5','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'ALL_LEVEL'),
+       ('S09', 'Testing By Selenium 6','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'BEGINNER'),
+       ('S10', 'Testing By Selenium 7','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'ALL_LEVEL'),
+       ('S011', 'Testing By Selenium 8','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'BEGINNER'),
+       ('S012', 'Testing By Selenium 9','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'ALL_LEVEL'),
+       ('S013', 'Testing By Selenium 10','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', 'principles','priority','ACTIVE','David Jones','2023-9-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'ADVANCED');
+
 
 INSERT INTO tbl_cLass(training_program_code, class_name, class_code, duration, status, location, fsu, start_date, end_date, created_by, created_date, modified_by, modified_date)
 VALUES ( 'JLB','Java Basic_01','HCM23_JLB01', 31, 'OPENING', 'Ho Chi Minh',1, '2023-10-1','2023-11-1','Quách Gia','2023-9-29', NULL, NULL),
@@ -178,6 +169,7 @@ VALUES ('Java Language Basic 1','A01','Assignment',7,'This training content will
        ('Azure DevOps Foundation','H03','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',11,'TU-08','ONLINE','Assignment_Lab'),
        ('Azure DevOps Foundation','K05','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',12,'TU-09','ONLINE','Assignment_Lab'),
        ('Azure DevOps Foundation','S05','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',13,'TU-12','ONLINE','Assignment_Lab');
+
 
 INSERT INTO tbl_class_user(user_id, class_id,user_type)
 VALUES (3,1,'Trainer'),
@@ -251,18 +243,18 @@ VALUES (3,1,'Trainer'),
        (14,12,'Trainer'),
        (16,12,'Trainer'),
        (17,12,'Trainer'),
-       (2,1,'Class Admin'),
-       (8,2,'Class Admin'),
-       (10,3,'Class Admin'),
-       (11,4,'Class Admin'),
-       (13,5,'Class Admin'),
-       (13,6,'Class Admin'),
-       (15,7,'Class Admin'),
-       (18,8,'Class Admin'),
-       (20,9,'Class Admin'),
-       (23,10,'Class Admin'),
-       (23,11,'Class Admin'),
-       (25,12,'Class Admin');
+       (2,1,'classroom_controller Admin'),
+       (8,2,'classroom_controller Admin'),
+       (10,3,'classroom_controller Admin'),
+       (11,4,'classroom_controller Admin'),
+       (13,5,'classroom_controller Admin'),
+       (13,6,'classroom_controller Admin'),
+       (15,7,'classroom_controller Admin'),
+       (18,8,'classroom_controller Admin'),
+       (20,9,'classroom_controller Admin'),
+       (23,10,'classroom_controller Admin'),
+       (23,11,'classroom_controller Admin'),
+       (25,12,'classroom_controller Admin');
 
 INSERT INTO tbl_training_program_syllabus(topic_code, training_program_code)
 VALUES ('A01','JLB'),

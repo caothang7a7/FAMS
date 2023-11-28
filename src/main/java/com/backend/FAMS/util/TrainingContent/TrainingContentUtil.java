@@ -1,15 +1,13 @@
 package com.backend.FAMS.util.TrainingContent;
 
-import com.backend.FAMS.entity.TrainingContent.TrainingContent;
-import com.backend.FAMS.entity.TrainingUnit.TrainingUnit;
-import com.backend.FAMS.repository.TrainingContent.TrainingContentRepository;
+import com.backend.FAMS.entity.training_content.TrainingContent;
+import com.backend.FAMS.repository.training_content_repo.TrainingContentRepository;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Set;
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TrainingContentUtil {
