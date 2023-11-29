@@ -943,6 +943,7 @@ public class SyllabusServiceImpl implements SyllabusService {
         if(util.isValidExcelFile(file)){
             try{
                 syllabus = util.getDataFromExcel(file.getInputStream());
+
                 syllabusRepository.customSaveSyllabus(syllabus.getTopicCode(),
                         syllabus.getTopicName(),
                         syllabus.getTechnicalGroup(),
@@ -962,6 +963,27 @@ public class SyllabusServiceImpl implements SyllabusService {
                         syllabus.getGpa(),
                         syllabus.getQuiz(),
                         String.valueOf(syllabus.getLevel()));
+
+                LearningObjective learningObjective1 = new LearningObjective();
+                learningObjective1.setObjectiveCode(syllabus.getTopicCode());
+                learningObjective1.setDescription(syllabus.getTrainingPrincipal());
+                learningObjective1.setObjectiveName(syllabus.getTopicName());
+                learningObjective1.setType(Type.Knowledge);
+
+                learningObjectiveRepository.save(learningObjective1);
+
+                // Tạo SyllabusObjectiveId cho quan hệ
+                SyllabusObjectiveId syllabusObjectiveId = new SyllabusObjectiveId();
+                syllabusObjectiveId.setTopicCode(syllabus.getTopicCode());
+                syllabusObjectiveId.setObjectiveCode(learningObjective1.getObjectiveCode());
+
+                // Tạo một SyllabusObjective và thiết lập mối quan hệ
+                SyllabusObjective syllabusObjective = new SyllabusObjective();
+                syllabusObjective.setSyllabusObjectiveId(syllabusObjectiveId);
+                syllabusObjective.setSyllabus(syllabus);
+                syllabusObjective.setLearningObjective(learningObjective1);
+                syllabusObjectiveRepository.save(syllabusObjective);
+
             }catch (Exception ex){
                 throw new IllegalArgumentException ("The file is not a valid excel file");
             }
