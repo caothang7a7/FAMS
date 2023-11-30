@@ -626,7 +626,61 @@ public class SyllabusServiceImpl implements SyllabusService {
         }
         return duplicate;
     }
-
+    public Syllabus duplicateSyllabusByTopicName(String topicName) throws CloneNotSupportedException {
+        Syllabus syllabus = new Syllabus();
+        syllabus = syllabusRepository.findSyllabusByTopicName(topicName);
+        Syllabus duplicate = (Syllabus) syllabus.clone();
+        duplicate.setTopicName(duplicate.getTopicName()+" (copied)");
+        String newTopicCode = "";
+        String preTopicCode = "";
+        int min = 1;
+        int max = 4;
+        Random random = new Random();
+        int number = random.nextInt((max - min) + 1) + min;
+        switch (number) {
+            case 1:
+                preTopicCode = "A";
+                break;
+            case 2:
+                preTopicCode = "S";
+                break;
+            case 3:
+                preTopicCode = "K";
+                break;
+            case 4:
+                preTopicCode = "H";
+                break;
+        }
+        SyllabusUtil utils = new SyllabusUtil(syllabusRepository);
+        newTopicCode = utils.generateTopicCode(preTopicCode);
+        duplicate.setTopicCode(newTopicCode);
+        Date currentDate = new Date();
+        try{
+            syllabusRepository.customSaveSyllabus(duplicate.getTopicCode(),
+                    duplicate.getTopicName(),
+                    duplicate.getTechnicalGroup(),
+                    duplicate.getVersion(),
+                    duplicate.getTrainingAudience(),
+                    duplicate.getTopicOutline(),
+                    duplicate.getTrainingMaterial(),
+                    duplicate.getTrainingPrincipal(),
+                    duplicate.getPriority(),
+                    String.valueOf(duplicate.getSyllabusStatus()),
+                    duplicate.getCreatedBy(),
+                    currentDate,
+                    duplicate.getUser().getUserId(),
+                    duplicate.getAssignment(),
+                    duplicate.getFinalTest(),
+                    duplicate.getFinalTheory(),
+                    duplicate.getFinalPractice(),
+                    duplicate.getGpa(),
+                    duplicate.getQuiz(),
+                    String.valueOf(duplicate.getLevel()));
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return duplicate;
+    }
     @Override
     public SyllabusOutlineScreenResponse showtrainingContentbyDayinOutlineScreen(int day, String unitCode) {
         SyllabusOutlineScreenResponse dto = new SyllabusOutlineScreenResponse();
@@ -933,51 +987,59 @@ public class SyllabusServiceImpl implements SyllabusService {
     }
 
     @Override
-    public Syllabus importSyllabusFromExcel(MultipartFile file) throws IOException {
+    public Syllabus importSyllabusFromExcel(Authentication authentication,MultipartFile file, int mode, int scan) throws IOException {
+        User owner = null;
+        if (authentication != null) {
+            owner = (User) authentication.getPrincipal();
+        }
         Syllabus syllabus = new Syllabus();
         if(util.isValidExcelFile(file)){
             try{
                 syllabus = util.getDataFromExcel(file.getInputStream());
+                Syllabus syllabus1 = syllabusRepository.findSyllabusByTopicName(syllabus.getTopicName());
+                if(mode==1 && syllabus1!=null){
+                    duplicateSyllabusByTopicName(syllabus.getTopicName());
+                }else {
+                    syllabusRepository.customSaveSyllabus(syllabus.getTopicCode(),
+                            syllabus.getTopicName(),
+                            syllabus.getTechnicalGroup(),
+                            syllabus.getVersion(),
+                            syllabus.getTrainingAudience(),
+                            syllabus.getTopicOutline(),
+                            syllabus.getTrainingMaterial(),
+                            syllabus.getTrainingPrincipal(),
+                            syllabus.getPriority(),
+                            String.valueOf(syllabus.getSyllabusStatus()),
+                            syllabus.getCreatedBy(), syllabus.getCreatedDate(),
+                            owner.getUserId(),
+                            syllabus.getAssignment(),
+                            syllabus.getFinalTest(),
+                            syllabus.getFinalTheory(),
+                            syllabus.getFinalPractice(),
+                            syllabus.getGpa(),
+                            syllabus.getQuiz(),
+                            String.valueOf(syllabus.getLevel()));
 
-                syllabusRepository.customSaveSyllabus(syllabus.getTopicCode(),
-                        syllabus.getTopicName(),
-                        syllabus.getTechnicalGroup(),
-                        syllabus.getVersion(),
-                        syllabus.getTrainingAudience(),
-                        syllabus.getTopicOutline(),
-                        syllabus.getTrainingMaterial(),
-                        syllabus.getTrainingPrincipal(),
-                        syllabus.getPriority(),
-                        String.valueOf(syllabus.getSyllabusStatus()),
-                        syllabus.getCreatedBy(), syllabus.getCreatedDate(),
-                        2L,
-                        syllabus.getAssignment(),
-                        syllabus.getFinalTest(),
-                        syllabus.getFinalTheory(),
-                        syllabus.getFinalPractice(),
-                        syllabus.getGpa(),
-                        syllabus.getQuiz(),
-                        String.valueOf(syllabus.getLevel()));
+                    LearningObjective learningObjective1 = new LearningObjective();
+                    learningObjective1.setObjectiveCode(syllabus.getTopicCode());
+                    learningObjective1.setDescription(syllabus.getTrainingPrincipal());
+                    learningObjective1.setObjectiveName(syllabus.getTopicName());
+                    learningObjective1.setType(Type.Knowledge);
 
-                LearningObjective learningObjective1 = new LearningObjective();
-                learningObjective1.setObjectiveCode(syllabus.getTopicCode());
-                learningObjective1.setDescription(syllabus.getTrainingPrincipal());
-                learningObjective1.setObjectiveName(syllabus.getTopicName());
-                learningObjective1.setType(Type.Knowledge);
+                    learningObjectiveRepository.save(learningObjective1);
 
-                learningObjectiveRepository.save(learningObjective1);
+                    // Tạo SyllabusObjectiveId cho quan hệ
+                    SyllabusObjectiveId syllabusObjectiveId = new SyllabusObjectiveId();
+                    syllabusObjectiveId.setTopicCode(syllabus.getTopicCode());
+                    syllabusObjectiveId.setObjectiveCode(learningObjective1.getObjectiveCode());
 
-                // Tạo SyllabusObjectiveId cho quan hệ
-                SyllabusObjectiveId syllabusObjectiveId = new SyllabusObjectiveId();
-                syllabusObjectiveId.setTopicCode(syllabus.getTopicCode());
-                syllabusObjectiveId.setObjectiveCode(learningObjective1.getObjectiveCode());
-
-                // Tạo một SyllabusObjective và thiết lập mối quan hệ
-                SyllabusObjective syllabusObjective = new SyllabusObjective();
-                syllabusObjective.setSyllabusObjectiveId(syllabusObjectiveId);
-                syllabusObjective.setSyllabus(syllabus);
-                syllabusObjective.setLearningObjective(learningObjective1);
-                syllabusObjectiveRepository.save(syllabusObjective);
+                    // Tạo một SyllabusObjective và thiết lập mối quan hệ
+                    SyllabusObjective syllabusObjective = new SyllabusObjective();
+                    syllabusObjective.setSyllabusObjectiveId(syllabusObjectiveId);
+                    syllabusObjective.setSyllabus(syllabus);
+                    syllabusObjective.setLearningObjective(learningObjective1);
+                    syllabusObjectiveRepository.save(syllabusObjective);
+                }
 
             }catch (Exception ex){
                 throw new IllegalArgumentException ("The file is not a valid excel file");

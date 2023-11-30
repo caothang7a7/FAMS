@@ -75,8 +75,8 @@ public class SyllabusController {
         return new ResponseEntity<Syllabus>(syllabusService.exportSyllabusToExcelFile(response, topicCode), HttpStatus.OK);
     }
     @PostMapping("/importExcel")
-    public ResponseEntity<Syllabus> importSyllabusExcel(@RequestParam("file")MultipartFile file) throws IOException {
-        return new ResponseEntity<>(syllabusService.importSyllabusFromExcel(file), HttpStatus.OK);
+    public ResponseEntity<Syllabus> importSyllabusExcel(@RequestParam() int mode,@RequestParam() int scan,Authentication authentication,@RequestParam("file")MultipartFile file) throws IOException {
+        return new ResponseEntity<>(syllabusService.importSyllabusFromExcel(authentication, file, mode, scan), HttpStatus.OK);
     }
 
     @GetMapping("/exportCSV/{topicCode}")
