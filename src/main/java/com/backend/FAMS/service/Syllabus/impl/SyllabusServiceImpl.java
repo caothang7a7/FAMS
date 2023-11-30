@@ -1,5 +1,8 @@
 package com.backend.FAMS.service.Syllabus.impl;
 
+import com.backend.FAMS.entity.Syllabus.syllabus_enum.SyllabusStatus;
+import com.backend.FAMS.entity.user.User;
+import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
 
 
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateOtherScreen;
@@ -7,9 +10,7 @@ import com.backend.FAMS.dto.Syllabus.request.SyllabusOutlineScreen;
 import com.backend.FAMS.dto.Syllabus.request.TrainingUnitDTOCreate;
 import com.backend.FAMS.dto.Syllabus.response.*;
 
-
 import com.backend.FAMS.dto.Syllabus.request.SyllabusDTOCreateGeneralRequest;
-
 import com.backend.FAMS.dto.trainingContent.TrainingContentDTOCreateOutlineScreen;
 import com.backend.FAMS.entity.Syllabus.Syllabus;
 import com.backend.FAMS.entity.Syllabus.SyllabusObjective;
@@ -22,7 +23,7 @@ import com.backend.FAMS.entity.training_content.trainingContent_enum.DeliveryTyp
 import com.backend.FAMS.entity.training_content.trainingContent_enum.TrainingFormat;
 import com.backend.FAMS.entity.training_program.TrainingProgramSyllabus;
 import com.backend.FAMS.entity.training_unit.TrainingUnit;
-import com.backend.FAMS.entity.user.User;
+
 import com.backend.FAMS.exception.NotFoundException;
 import com.backend.FAMS.mapper.LearningObjectiveMapper;
 import com.backend.FAMS.mapper.Syllabus.SyllabusMapper;
@@ -335,8 +336,11 @@ public class SyllabusServiceImpl implements SyllabusService {
         return new PageImpl<>(pageContent, pageable, dtoList.size());
     }
 
-    public Syllabus createSyllabusOtherScreen(SyllabusDTOCreateOtherScreen dto, String topicCode) {
-
+    public Syllabus createSyllabusOtherScreen(Authentication authentication, SyllabusDTOCreateOtherScreen dto, String topicCode) {
+        User user = null;
+        if(authentication != null){
+            user = (User) authentication.getPrincipal();
+        }
         Syllabus syllabus = new Syllabus();
         syllabus = syllabusRepository.findSyllabusByTopicCodeContainsIgnoreCase(topicCode);
 
@@ -348,8 +352,12 @@ public class SyllabusServiceImpl implements SyllabusService {
         syllabus.setFinalTheory(dto.getFinalTheory());
         syllabus.setFinalPractice(dto.getFinalPractice());
         syllabus.setGpa(dto.getGpa());
+        syllabus.setCreatedBy(user.getName());
+        Date date = new Date();
+        syllabus.setCreatedDate(date);
         Date modifield = new Date();
         syllabus.setModifiedDate(modifield);
+        syllabus.setSyllabusStatus(SyllabusStatus.ACTIVE);
 
         Syllabus updateSyllabus = syllabusRepository.save(syllabus);
 
@@ -407,7 +415,7 @@ public class SyllabusServiceImpl implements SyllabusService {
             topicCode = utils.generateTopicCode(preTopicCode);
             syllabus.setTopicCode(topicCode);
             syllabusRepository.customSaveSyllabus(topicCode, syllabusDTOCreateGeneralRequest.getTopicName(), syllabusDTOCreateGeneralRequest.getTechnicalGroup(), syllabusDTOCreateGeneralRequest.getVersion(), syllabusDTOCreateGeneralRequest.getTrainingAudience(), "outline",
-                    "learning material", "principles", "priority", "INACTIVE", "Quách Gia", date, syllabusDTOCreateGeneralRequest.getUserID(), 0, 0, 0, 0, 0, 0, String.valueOf(syllabusDTOCreateGeneralRequest.getLevel()));
+                    "learning material", "principles", "priority", "INACTIVE", owner.getName(), date, syllabusDTOCreateGeneralRequest.getUserID(), 0, 0, 0, 0, 0, 0, String.valueOf(syllabusDTOCreateGeneralRequest.getLevel()));
             LearningObjective learningObjective1 = learningObjectiveMapper.toEntity(syllabusDTOCreateGeneralRequest);
             learningObjective1.setObjectiveCode(topicCode);
             learningObjective1.setDescription(syllabusDTOCreateGeneralRequest.getDescription());
@@ -431,7 +439,7 @@ public class SyllabusServiceImpl implements SyllabusService {
             syllabus.setTopicCode(topicCode);
             // THÊM HÀM UPDATE VÀ KO CHO CHẠY HÀM INSERT Ở DƯỚI
             syllabusRepository.customUpdateSyllabus(topicCode, syllabusDTOCreateGeneralRequest.getTopicName(), syllabusDTOCreateGeneralRequest.getTechnicalGroup(), syllabusDTOCreateGeneralRequest.getVersion(), syllabusDTOCreateGeneralRequest.getTrainingAudience(), "outline",
-                    existingTopicName.getTrainingMaterial(), existingTopicName.getTrainingPrincipal(), existingTopicName.getPriority(), existingTopicName.getSyllabusStatus().toString(), existingTopicName.getCreatedBy(), date, syllabusDTOCreateGeneralRequest.getUserID(), existingTopicName.getAssignment(), existingTopicName.getFinalTheory(), existingTopicName.getFinalPractice(), existingTopicName.getGpa(), existingTopicName.getQuiz(), syllabusDTOCreateGeneralRequest.getLevel());
+                    existingTopicName.getTrainingMaterial(), existingTopicName.getTrainingPrincipal(), existingTopicName.getPriority(), existingTopicName.getSyllabusStatus().toString(), owner.getName(), date, owner.getUserId(), existingTopicName.getAssignment(), existingTopicName.getFinalTheory(), existingTopicName.getFinalPractice(), existingTopicName.getGpa(), existingTopicName.getQuiz(), syllabusDTOCreateGeneralRequest.getLevel());
             LearningObjective learningObjective1 = learningObjectiveMapper.toEntity(syllabusDTOCreateGeneralRequest);
             learningObjective1.setObjectiveCode(topicCode);
             learningObjective1.setDescription(syllabusDTOCreateGeneralRequest.getDescription());
@@ -476,8 +484,8 @@ public class SyllabusServiceImpl implements SyllabusService {
         }
 
 //        TrainingProgram trainingProgram1 = trainingProgramRepository.findFirstBySyllabus_TopicCode(syllabus.getTopicCode()).getTrainingProgram();
-        User user = userRepository.findById(Long.valueOf(String.valueOf(syllabus.getUser().getUserId()))).orElseThrow();
-
+//        User user = userRepository.findById(Long.valueOf(String.valueOf(syllabus.getUser().getUserId()))).orElseThrow();
+        User user1 = userRepository.findById(syllabus.getUser().getUserId()).orElseThrow();
         syllabusDTO.setTopicName(syllabus.getTopicName());
         syllabusDTO.setSyllabusStatus(syllabus.getSyllabusStatus());
         syllabusDTO.setTopicCode(syllabus.getTopicCode());
@@ -485,7 +493,7 @@ public class SyllabusServiceImpl implements SyllabusService {
 //        syllabusDTO.setTrainingProgramDuration(trainingProgram1.getDuration());
         syllabusDTO.setModifiedDate(syllabus.getModifiedDate());
         syllabusDTO.setModifiedBy(syllabus.getModifiedBy());
-        syllabusDTO.setUserLevel(String.valueOf(user.getUserPermission().getRole()));
+        syllabusDTO.setUserLevel(String.valueOf(user1.getUserPermission().getRole()));
         syllabusDTO.setTrainingAudience(syllabus.getTrainingAudience());
 //        syllabusDTO.setOutputStandard(trainingProgram1.getTrainingProgramCode());
         syllabusDTO.setTechnicalGroup(syllabus.getTechnicalGroup());
@@ -493,12 +501,6 @@ public class SyllabusServiceImpl implements SyllabusService {
         return syllabusDTO;
     }
 
-    @Override
-    public SyllabusDTOShowOtherScreen showSyllabusOtherScreen(String topicName) {
-        Syllabus syllabus = syllabusRepository.findSyllabusByTopicName(topicName);
-        SyllabusDTOShowOtherScreen dtoShowOtherScreen = syllabusMapper.mapToDTO(syllabus);
-        return dtoShowOtherScreen;
-    }
 
     @Override
     public SyllabusOutlineScreenResponse showSyllabusOutlineScreen(String topicCode) {
@@ -568,6 +570,7 @@ public class SyllabusServiceImpl implements SyllabusService {
         return dto;
     }
 
+    @Override
     public Syllabus duplicateSyllabusByTopicCode(String topicCode) throws CloneNotSupportedException {
         Syllabus syllabus = new Syllabus();
         syllabus = syllabusRepository.findSyllabusByTopicCode(topicCode);
@@ -940,6 +943,7 @@ public class SyllabusServiceImpl implements SyllabusService {
         if(util.isValidExcelFile(file)){
             try{
                 syllabus = util.getDataFromExcel(file.getInputStream());
+
                 syllabusRepository.customSaveSyllabus(syllabus.getTopicCode(),
                         syllabus.getTopicName(),
                         syllabus.getTechnicalGroup(),
@@ -959,6 +963,27 @@ public class SyllabusServiceImpl implements SyllabusService {
                         syllabus.getGpa(),
                         syllabus.getQuiz(),
                         String.valueOf(syllabus.getLevel()));
+
+                LearningObjective learningObjective1 = new LearningObjective();
+                learningObjective1.setObjectiveCode(syllabus.getTopicCode());
+                learningObjective1.setDescription(syllabus.getTrainingPrincipal());
+                learningObjective1.setObjectiveName(syllabus.getTopicName());
+                learningObjective1.setType(Type.Knowledge);
+
+                learningObjectiveRepository.save(learningObjective1);
+
+                // Tạo SyllabusObjectiveId cho quan hệ
+                SyllabusObjectiveId syllabusObjectiveId = new SyllabusObjectiveId();
+                syllabusObjectiveId.setTopicCode(syllabus.getTopicCode());
+                syllabusObjectiveId.setObjectiveCode(learningObjective1.getObjectiveCode());
+
+                // Tạo một SyllabusObjective và thiết lập mối quan hệ
+                SyllabusObjective syllabusObjective = new SyllabusObjective();
+                syllabusObjective.setSyllabusObjectiveId(syllabusObjectiveId);
+                syllabusObjective.setSyllabus(syllabus);
+                syllabusObjective.setLearningObjective(learningObjective1);
+                syllabusObjectiveRepository.save(syllabusObjective);
+
             }catch (Exception ex){
                 throw new IllegalArgumentException ("The file is not a valid excel file");
             }
