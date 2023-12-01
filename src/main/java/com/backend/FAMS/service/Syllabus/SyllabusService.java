@@ -34,7 +34,7 @@ public interface SyllabusService {
     SyllabusOutlineScreenResponse showOutlineScreen(String topicCode);
     Syllabus exportSyllabusToExcelFile(HttpServletResponse response, String topicCode) throws IOException;
     Syllabus exportSyllabusToCSVFile(HttpServletResponse response, String topicCode) throws Exception;
-    Syllabus importSyllabusFromExcel(Authentication authentication,MultipartFile file, int mode, int scan) throws IOException;
+    Syllabus importSyllabusFromExcel(Authentication authentication,MultipartFile file, int mode) throws IOException;
     SyllabusDTOOtherScreen showSyllabusOtherScreenByTopicCode(String topicCode);
     TrainingUnit createTrainingUnitScreen(int dayNumber, TrainingUnitDTOCreate trainingUnitDTOCreate,String topicCode,String unitCode);
     TrainingContent createTrainingContentScreen(String topicCode, int dayNumber, String unitName, TrainingContentDTOCreateOutlineScreen dto);

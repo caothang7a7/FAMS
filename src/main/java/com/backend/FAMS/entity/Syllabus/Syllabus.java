@@ -61,6 +61,7 @@ public class Syllabus implements Cloneable {
     @Column(name = "created_by", nullable = true)
     private String createdBy;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "created_date", nullable = true)
     private Date createdDate;
 

@@ -28,7 +28,7 @@ public class LearningObjective {
     @Enumerated(EnumType.STRING)
     private Type type;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, length = 10000)
     private String description;
 
     // --- relationship----
