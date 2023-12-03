@@ -13,7 +13,12 @@ VALUES ('A01', 'Demonstrate a positive', 'Attitude', 'The learner will demonstra
        ('K04', 'Java collections', 'Knowledge', 'The learner will understand Java collections, including lists, sets, and maps.'),
        ('H03', 'Contribute to open source projects.', 'Habit', 'The learner will contribute to open source projects.'),
        ('K05', 'Java database access', 'Knowledge', 'The learner will understand Java database access, including JDBC and ORM.'),
-       ('S05', 'Use threads and concurrency', 'Skill', 'The learner will be able to use threads and concurrency in Java.');
+       ('S05', 'Use threads and concurrency', 'Skill', 'The learner will be able to use threads and concurrency in Java.'),
+       ('S012', 'Use threads and concurrency', 'Skill', 'The learner will be able to use threads and concurrency in Java.'),
+       ('S013', 'Use threads and concurrency', 'Skill', 'The learner will be able to use threads and concurrency in Java.'),
+       ('S08', 'Use threads and concurrency', 'Skill', 'The learner will be able to use threads and concurrency in Java.'),
+       ('S07', 'Use threads and concurrency', 'Skill', 'The learner will be able to use threads and concurrency in Java.'),
+('S011', 'Use threads and concurrency', 'Skill', 'The learner will be able to use threads and concurrency in Java.');
 
 
 INSERT INTO tbl_user (modified_version, name, email, phone, dob, gender,permission_id, status, created_by, created_date, modified_by, modified_date,password)
@@ -192,7 +197,7 @@ To set the tone, I''d start with an energetic welcome, encouraging everyone to p
 
 🌐 Icebreaker activities:
 To foster a sense of camaraderie and break the ice, I might begin with a fun icebreaker activity that promotes teamwork and collaboration. This could involve a game like "Two Truths and a Lie" or a collaborative puzzle-solving exercise.','priority','ACTIVE','David Jones','2023-10-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40,'BEGINNER'),
-       ('S04', 'Testing By Selenium 1','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', '🤓 Welcome to our school! As the training principal, my 🎯 top priority is to create a positive and inclusive learning environment for all students and staff. Here''s an example of how I would approach a training session:
+       ('S04', 'NUnit Testing','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', '🤓 Welcome to our school! As the training principal, my 🎯 top priority is to create a positive and inclusive learning environment for all students and staff. Here''s an example of how I would approach a training session:
 
 🗓️ Before the session:
 I would carefully plan the training, ensuring it aligns with the school''s goals and addresses the specific needs of our staff. I''d send out invitations along with a 😊 friendly reminder to build excitement.
@@ -202,7 +207,7 @@ To set the tone, I''d start with an energetic welcome, encouraging everyone to p
 
 🌐 Icebreaker activities:
 To foster a sense of camaraderie and break the ice, I might begin with a fun icebreaker activity that promotes teamwork and collaboration. This could involve a game like "Two Truths and a Lie" or a collaborative puzzle-solving exercise.','priority','ACTIVE','David Jones','2023-10-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'ALL_LEVEL'),
-       ('S05', 'Testing By Selenium 2','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', '🤓 Welcome to our school! As the training principal, my 🎯 top priority is to create a positive and inclusive learning environment for all students and staff. Here''s an example of how I would approach a training session:
+       ('S05', 'Testify by Go','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', '🤓 Welcome to our school! As the training principal, my 🎯 top priority is to create a positive and inclusive learning environment for all students and staff. Here''s an example of how I would approach a training session:
 
 🗓️ Before the session:
 I would carefully plan the training, ensuring it aligns with the school''s goals and addresses the specific needs of our staff. I''d send out invitations along with a 😊 friendly reminder to build excitement.
@@ -212,7 +217,7 @@ To set the tone, I''d start with an energetic welcome, encouraging everyone to p
 
 🌐 Icebreaker activities:
 To foster a sense of camaraderie and break the ice, I might begin with a fun icebreaker activity that promotes teamwork and collaboration. This could involve a game like "Two Truths and a Lie" or a collaborative puzzle-solving exercise.','priority','ACTIVE','David Jones','2023-3-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'BEGINNER'),
-       ('S06', 'Testing By Selenium 3','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', '🤓 Welcome to our school! As the training principal, my 🎯 top priority is to create a positive and inclusive learning environment for all students and staff. Here''s an example of how I would approach a training session:
+       ('S06', '.NET MSTest','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', '🤓 Welcome to our school! As the training principal, my 🎯 top priority is to create a positive and inclusive learning environment for all students and staff. Here''s an example of how I would approach a training session:
 
 🗓️ Before the session:
 I would carefully plan the training, ensuring it aligns with the school''s goals and addresses the specific needs of our staff. I''d send out invitations along with a 😊 friendly reminder to build excitement.
@@ -222,7 +227,7 @@ To set the tone, I''d start with an energetic welcome, encouraging everyone to p
 
 🌐 Icebreaker activities:
 To foster a sense of camaraderie and break the ice, I might begin with a fun icebreaker activity that promotes teamwork and collaboration. This could involve a game like "Two Truths and a Lie" or a collaborative puzzle-solving exercise.','priority','ACTIVE','David Jones','2023-3-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40,'ALL_LEVEL'),
-       ('S07', 'Testing By Selenium 4','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', '🤓 Welcome to our school! As the training principal, my 🎯 top priority is to create a positive and inclusive learning environment for all students and staff. Here''s an example of how I would approach a training session:
+       ('S07', 'Cypress automation','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', '🤓 Welcome to our school! As the training principal, my 🎯 top priority is to create a positive and inclusive learning environment for all students and staff. Here''s an example of how I would approach a training session:
 
 🗓️ Before the session:
 I would carefully plan the training, ensuring it aligns with the school''s goals and addresses the specific needs of our staff. I''d send out invitations along with a 😊 friendly reminder to build excitement.
@@ -232,7 +237,7 @@ To set the tone, I''d start with an energetic welcome, encouraging everyone to p
 
 🌐 Icebreaker activities:
 To foster a sense of camaraderie and break the ice, I might begin with a fun icebreaker activity that promotes teamwork and collaboration. This could involve a game like "Two Truths and a Lie" or a collaborative puzzle-solving exercise.','priority','ACTIVE','David Jones','2023-3-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'ADVANCED'),
-       ('S08', 'Testing By Selenium 5','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', '🤓 Welcome to our school! As the training principal, my 🎯 top priority is to create a positive and inclusive learning environment for all students and staff. Here''s an example of how I would approach a training session:
+       ('S08', 'PHP Unit','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', '🤓 Welcome to our school! As the training principal, my 🎯 top priority is to create a positive and inclusive learning environment for all students and staff. Here''s an example of how I would approach a training session:
 
 🗓️ Before the session:
 I would carefully plan the training, ensuring it aligns with the school''s goals and addresses the specific needs of our staff. I''d send out invitations along with a 😊 friendly reminder to build excitement.
@@ -242,7 +247,7 @@ To set the tone, I''d start with an energetic welcome, encouraging everyone to p
 
 🌐 Icebreaker activities:
 To foster a sense of camaraderie and break the ice, I might begin with a fun icebreaker activity that promotes teamwork and collaboration. This could involve a game like "Two Truths and a Lie" or a collaborative puzzle-solving exercise.','priority','ACTIVE','David Jones','2023-3-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'ALL_LEVEL'),
-       ('S09', 'Testing By Selenium 6','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', '🤓 Welcome to our school! As the training principal, my 🎯 top priority is to create a positive and inclusive learning environment for all students and staff. Here''s an example of how I would approach a training session:
+       ('S09', 'Advanced PHP Unit 2','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', '🤓 Welcome to our school! As the training principal, my 🎯 top priority is to create a positive and inclusive learning environment for all students and staff. Here''s an example of how I would approach a training session:
 
 🗓️ Before the session:
 I would carefully plan the training, ensuring it aligns with the school''s goals and addresses the specific needs of our staff. I''d send out invitations along with a 😊 friendly reminder to build excitement.
@@ -252,7 +257,7 @@ To set the tone, I''d start with an energetic welcome, encouraging everyone to p
 
 🌐 Icebreaker activities:
 To foster a sense of camaraderie and break the ice, I might begin with a fun icebreaker activity that promotes teamwork and collaboration. This could involve a game like "Two Truths and a Lie" or a collaborative puzzle-solving exercise.','priority','ACTIVE','David Jones','2023-5-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'BEGINNER'),
-       ('S10', 'Testing By Selenium 7','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', '🤓 Welcome to our school! As the training principal, my 🎯 top priority is to create a positive and inclusive learning environment for all students and staff. Here''s an example of how I would approach a training session:
+       ('S10', 'Testing By Selenium 2','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', '🤓 Welcome to our school! As the training principal, my 🎯 top priority is to create a positive and inclusive learning environment for all students and staff. Here''s an example of how I would approach a training session:
 
 🗓️ Before the session:
 I would carefully plan the training, ensuring it aligns with the school''s goals and addresses the specific needs of our staff. I''d send out invitations along with a 😊 friendly reminder to build excitement.
@@ -262,7 +267,7 @@ To set the tone, I''d start with an energetic welcome, encouraging everyone to p
 
 🌐 Icebreaker activities:
 To foster a sense of camaraderie and break the ice, I might begin with a fun icebreaker activity that promotes teamwork and collaboration. This could involve a game like "Two Truths and a Lie" or a collaborative puzzle-solving exercise.','priority','ACTIVE','David Jones','2023-5-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'ALL_LEVEL'),
-       ('S011', 'Testing By Selenium 8','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', '🤓 Welcome to our school! As the training principal, my 🎯 top priority is to create a positive and inclusive learning environment for all students and staff. Here''s an example of how I would approach a training session:
+       ('S011', 'Testing By Selenium 3','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', '🤓 Welcome to our school! As the training principal, my 🎯 top priority is to create a positive and inclusive learning environment for all students and staff. Here''s an example of how I would approach a training session:
 
 🗓️ Before the session:
 I would carefully plan the training, ensuring it aligns with the school''s goals and addresses the specific needs of our staff. I''d send out invitations along with a 😊 friendly reminder to build excitement.
@@ -272,7 +277,7 @@ To set the tone, I''d start with an energetic welcome, encouraging everyone to p
 
 🌐 Icebreaker activities:
 To foster a sense of camaraderie and break the ice, I might begin with a fun icebreaker activity that promotes teamwork and collaboration. This could involve a game like "Two Truths and a Lie" or a collaborative puzzle-solving exercise.','priority','ACTIVE','David Jones','2023-5-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'BEGINNER'),
-       ('S012', 'Testing By Selenium 9','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', '🤓 Welcome to our school! As the training principal, my 🎯 top priority is to create a positive and inclusive learning environment for all students and staff. Here''s an example of how I would approach a training session:
+       ('S012', 'Testing By Selenium 4','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', '🤓 Welcome to our school! As the training principal, my 🎯 top priority is to create a positive and inclusive learning environment for all students and staff. Here''s an example of how I would approach a training session:
 
 🗓️ Before the session:
 I would carefully plan the training, ensuring it aligns with the school''s goals and addresses the specific needs of our staff. I''d send out invitations along with a 😊 friendly reminder to build excitement.
@@ -282,7 +287,7 @@ To set the tone, I''d start with an energetic welcome, encouraging everyone to p
 
 🌐 Icebreaker activities:
 To foster a sense of camaraderie and break the ice, I might begin with a fun icebreaker activity that promotes teamwork and collaboration. This could involve a game like "Two Truths and a Lie" or a collaborative puzzle-solving exercise.','priority','ACTIVE','David Jones','2023-5-29', NULL,NULL,8, 10, 20, 30 ,20 ,20 , 40, 'ALL_LEVEL'),
-       ('S013', 'Testing By Selenium 10','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', '🤓 Welcome to our school! As the training principal, my 🎯 top priority is to create a positive and inclusive learning environment for all students and staff. Here''s an example of how I would approach a training session:
+       ('S013', 'Testing By Selenium 5','Trainer PC nêd to have following software: /nMicrosoftSQL/n Microsoft Visual Studio Code/n JDK 11 ','1.0', 11, 'outline', 'learning material', '🤓 Welcome to our school! As the training principal, my 🎯 top priority is to create a positive and inclusive learning environment for all students and staff. Here''s an example of how I would approach a training session:
 
 🗓️ Before the session:
 I would carefully plan the training, ensuring it aligns with the school''s goals and addresses the specific needs of our staff. I''d send out invitations along with a 😊 friendly reminder to build excitement.
@@ -309,12 +314,12 @@ VALUES ( 'JLB','Java Basic_01','HCM23_JLB01', 31, 'OPENING', 'Ho Chi Minh',1, '2
        ( 'FJW','Fullstack JavaWeb Develop_02','HCM23_FJW02', 31, 'PLANNING', 'Ho Chi Minh', 1, '2023-10-1','2023-11-1','Cypher','2023-9-29', NULL, NULL);
 
 INSERT INTO tbl_training_unit(unit_code, unit_name, day_number, topic_code)
-VALUES ('A01', 'Java basic', 1, 'A01'),
-       ('A02', 'Java basic 2', 2, 'A01'),
-       ('S01', 'C# Language Basic 1', 3, 'A02'),
-       ('S02', 'C# Language Basic 2', 4, 'A02'),
-       ('K01', 'Python Language Basic 1', 5, 'S01'),
-       ('H01', 'Python Language Basic 2', 6, 'S01'),
+VALUES ('TU-01', 'Java basic', 1, 'A01'),
+       ('TU-02', 'Java basic 2', 2, 'A01'),
+       ('TU-03', 'C# Language Basic 1', 3, 'A02'),
+       ('TU-04', 'C# Language Basic 2', 4, 'A02'),
+       ('TU-05', 'Python Language Basic 1', 5, 'S01'),
+       ('TU-06', 'Python Language Basic 2', 6, 'S01'),
        ('TU-07', 'Python Language Basic 3', 7, 'S01'),
        ('TU-08', 'Python Language Basic 4', 8, 'S01'),
        ('TU-09', 'C# language Programing', 9, 'S02'),
@@ -323,22 +328,32 @@ VALUES ('A01', 'Java basic', 1, 'A01'),
        ('TU-12', 'DevOps Foundation', 9, 'K01'),
        ('TU-13', 'Azure DevOps Foundation', 9, 'H01'),
        ('TU-14', 'Azure DevOps Foundation', 9, 'H01'),
-       ('TU-15', 'Java Language Basic', 9, 'A01');
+       ('TU-15', 'Java Language Basic', 9, 'A01'),
+       ('TU-17', 'Testing By Selenium 4', 9, 'S012'),
+       ('TU-18', 'Testing By Selenium 3', 3, 'S011'),
+       ('TU-19', 'PHP Unit', 3, 'S08'),
+       ('TU-20', 'Cypress automation', 3, 'S07'),
+        ('TU-16', 'Testing By Selenium 5', 9, 'S013');
 
 INSERT INTO tbl_training_content (content, learning_objective_code,type, duration, note,training_content_id,unit_code,trainingformat,deliverytype)
-VALUES ('Java Language Basic 1','A01','Assignment',7,'This training content will introduce learners to advanced concepts of Java programming.',1,'A01','ONLINE','Assignment_Lab'),
-       ('Java Language Basic 2','A01','Quiz',10,'This training content will introduce learners to advanced concepts of Java programming.',2,'A01','ONLINE','Assignment_Lab'),
-       ('C# Language Basic 1','A02','Assignment',14,'This training content will introduce learners to advanced concepts of Java programming.',3,'A02','ONLINE','Assignment_Lab'),
-       ('C# Language Basic 2','A02','Assignment',7,'This training content will introduce learners to advanced concepts of Java programming.',4,'A02','ONLINE','Concept_Lecture'),
-       ('Python Language Basic 1','S01','Guides',7,'This training content will introduce learners to advanced concepts of Java programming.',5,'S01','ONLINE','Concept_Lecture'),
-       ('Python Language Basic 2','S01','Assignment',10,'This training content will introduce learners to advanced concepts of Java programming.',6,'S01','ONLINE','Assignment_Lab'),
-       ('Python Language Basic 3','S01','Quiz',14,'This training content will introduce learners to advanced concepts of Java programming.',7,'S02','ONLINE','Assignment_Lab'),
-       ('C# language Programing 1','K01','Assignment',10,'This training content will introduce learners to advanced concepts of Java programming.',8,'K01','ONLINE','Assignment_Lab'),
-       ('DevOps Foundation','H01','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',9,'H01','ONLINE','Assignment_Lab'),
+VALUES ('Java Language Basic 1','A01','Assignment',7,'This training content will introduce learners to advanced concepts of Java programming.',1,'TU-01','ONLINE','Assignment_Lab'),
+       ('Java Language Basic 2','A01','Quiz',10,'This training content will introduce learners to advanced concepts of Java programming.',2,'TU-01','ONLINE','Assignment_Lab'),
+       ('C# Language Basic 1','A02','Assignment',14,'This training content will introduce learners to advanced concepts of Java programming.',3,'TU-02','ONLINE','Assignment_Lab'),
+       ('C# Language Basic 2','A02','Assignment',7,'This training content will introduce learners to advanced concepts of Java programming.',4,'TU-02','ONLINE','Concept_Lecture'),
+       ('Python Language Basic 1','S01','Guides',7,'This training content will introduce learners to advanced concepts of Java programming.',5,'TU-03','ONLINE','Concept_Lecture'),
+       ('Python Language Basic 2','S01','Assignment',10,'This training content will introduce learners to advanced concepts of Java programming.',6,'TU-03','ONLINE','Assignment_Lab'),
+       ('Python Language Basic 3','S01','Quiz',14,'This training content will introduce learners to advanced concepts of Java programming.',7,'TU-04','ONLINE','Assignment_Lab'),
+       ('C# language Programing 1','K01','Assignment',10,'This training content will introduce learners to advanced concepts of Java programming.',8,'TU-05','ONLINE','Assignment_Lab'),
        ('Azure DevOps Foundation','S04','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',10,'TU-07','ONLINE','Assignment_Lab'),
        ('Azure DevOps Foundation','H03','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',11,'TU-08','ONLINE','Assignment_Lab'),
        ('Azure DevOps Foundation','K05','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',12,'TU-09','ONLINE','Assignment_Lab'),
-       ('Azure DevOps Foundation','S05','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',13,'TU-12','ONLINE','Assignment_Lab');
+       ('Azure DevOps Foundation','S05','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',13,'TU-12','ONLINE','Assignment_Lab'),
+       ('Testing By Selenium 4','S012','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',15,'TU-16','ONLINE','Assignment_Lab'),
+       ('Testing By Selenium 3','S011','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',16,'TU-16','ONLINE','Assignment_Lab'),
+       ('PHP Unit','S08','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',17,'TU-19','ONLINE','Assignment_Lab'),
+       ('Cypress automation','S07','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',18,'TU-20','ONLINE','Assignment_Lab'),
+       ('Testing By Selenium 5','S013','Guides',10,'This training content will introduce learners to advanced concepts of Java programming.',14,'TU-16','ONLINE','Assignment_Lab');
+
 
 
 INSERT INTO tbl_class_user(user_id, class_id,user_type)
