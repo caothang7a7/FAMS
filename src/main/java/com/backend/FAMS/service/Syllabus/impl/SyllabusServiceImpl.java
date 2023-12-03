@@ -374,6 +374,7 @@ public class SyllabusServiceImpl implements SyllabusService {
         }
         Syllabus syllabus = syllabusMapper.toEntity(syllabusDTOCreateGeneralRequest);
         Syllabus existingTopicName = syllabusRepository.findByTopicName(syllabusDTOCreateGeneralRequest.getTopicName());
+        Syllabus existingTopicCode = syllabusRepository.findSyllabusByTopicCode(syllabusDTOCreateGeneralRequest.getTopicCode());
 
         syllabus.setTopicName(syllabusDTOCreateGeneralRequest.getTopicName());
         syllabus.setTrainingAudience(syllabusDTOCreateGeneralRequest.getTrainingAudience());
@@ -438,10 +439,11 @@ public class SyllabusServiceImpl implements SyllabusService {
             syllabusObjective.setLearningObjective(learningObjective1);
             syllabusObjectiveRepository.save(syllabusObjective);
         } else if (topicCode != null){
+            try {
             syllabus.setTopicCode(topicCode);
             // THÊM HÀM UPDATE VÀ KO CHO CHẠY HÀM INSERT Ở DƯỚI
             syllabusRepository.customUpdateSyllabus(topicCode, syllabusDTOCreateGeneralRequest.getTopicName(), syllabusDTOCreateGeneralRequest.getTechnicalGroup(), syllabusDTOCreateGeneralRequest.getVersion(), syllabusDTOCreateGeneralRequest.getTrainingAudience(), "outline",
-                    existingTopicName.getTrainingMaterial(), existingTopicName.getTrainingPrincipal(), existingTopicName.getPriority(), existingTopicName.getSyllabusStatus().toString(), owner.getName(), date, owner.getUserId(), existingTopicName.getAssignment(), existingTopicName.getFinalTheory(), existingTopicName.getFinalPractice(), existingTopicName.getGpa(), existingTopicName.getQuiz(), syllabusDTOCreateGeneralRequest.getLevel());
+                    existingTopicCode.getTrainingMaterial(), existingTopicCode.getTrainingPrincipal(), existingTopicCode.getPriority(), existingTopicCode.getSyllabusStatus().toString(), owner.getName(), date, owner.getUserId(), existingTopicCode.getAssignment(), existingTopicCode.getFinalTheory(), existingTopicCode.getFinalPractice(), existingTopicCode.getGpa(), existingTopicCode.getQuiz(), syllabusDTOCreateGeneralRequest.getLevel());
             LearningObjective learningObjective1 = learningObjectiveMapper.toEntity(syllabusDTOCreateGeneralRequest);
             learningObjective1.setObjectiveCode(topicCode);
             learningObjective1.setDescription(syllabusDTOCreateGeneralRequest.getDescription());
@@ -461,6 +463,9 @@ public class SyllabusServiceImpl implements SyllabusService {
             syllabusObjective.setSyllabus(syllabus);
             syllabusObjective.setLearningObjective(learningObjective1);
             syllabusObjectiveRepository.save(syllabusObjective);
+            } catch(Exception ex){
+                ex.printStackTrace();
+            }
         } else if(existingTopicName != null) {
             bindingResult.rejectValue("topicName", "duplicate.topicName", "Topic name already exists.");
         }
