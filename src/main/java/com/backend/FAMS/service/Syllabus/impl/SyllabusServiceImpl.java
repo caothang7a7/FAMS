@@ -623,6 +623,25 @@ public class SyllabusServiceImpl implements SyllabusService {
                     duplicate.getGpa(),
                     duplicate.getQuiz(),
                     String.valueOf(duplicate.getLevel()));
+            LearningObjective learningObjective1 = new LearningObjective();
+            learningObjective1.setObjectiveCode(duplicate.getTopicCode());
+            learningObjective1.setDescription(duplicate.getTrainingPrincipal());
+            learningObjective1.setObjectiveName(duplicate.getTopicName());
+            learningObjective1.setType(Type.Knowledge);
+
+            learningObjectiveRepository.save(learningObjective1);
+
+            // Tạo SyllabusObjectiveId cho quan hệ
+            SyllabusObjectiveId syllabusObjectiveId = new SyllabusObjectiveId();
+            syllabusObjectiveId.setTopicCode(duplicate.getTopicCode());
+            syllabusObjectiveId.setObjectiveCode(learningObjective1.getObjectiveCode());
+
+            // Tạo một SyllabusObjective và thiết lập mối quan hệ
+            SyllabusObjective syllabusObjective = new SyllabusObjective();
+            syllabusObjective.setSyllabusObjectiveId(syllabusObjectiveId);
+            syllabusObjective.setSyllabus(duplicate);
+            syllabusObjective.setLearningObjective(learningObjective1);
+            syllabusObjectiveRepository.save(syllabusObjective);
         }catch (Exception ex){
             ex.printStackTrace();
         }
