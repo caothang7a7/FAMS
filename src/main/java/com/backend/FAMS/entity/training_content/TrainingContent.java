@@ -42,13 +42,13 @@ public class TrainingContent {
     // --- relationship----
 
     // n-1 to learning_objective
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "learning_objective_code", nullable = false)
     @JsonIgnore
     private LearningObjective learningObjective;
 
     // n-1 to training_unit
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "unit_code",nullable = false)
     @JsonIgnore
     private TrainingUnit trainingUnit;
