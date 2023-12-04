@@ -280,9 +280,9 @@ public class SyllabusController {
     public ResponseEntity<?> createTrainingUnit(@PathVariable("dayNumber") int dayNumber, @RequestBody TrainingUnitDTOCreate dto,@PathVariable("topicCode") String topicCode,@PathVariable("unitCode") String unitCode){
         return new ResponseEntity<>(syllabusService.createTrainingUnitScreen(dayNumber, dto,topicCode,unitCode), HttpStatus.OK);
     }
-    @PostMapping("/OutlineScreen/editTrainingContent/{unitCode}")
-    public ResponseEntity<?> editTrainingContentScreen(@RequestBody TrainingContentDTOCreateOutlineScreen dto,@PathVariable("unitCode") String unitCode){
-        return new ResponseEntity<>(syllabusService.editTrainingContentScreen(unitCode,dto), HttpStatus.OK);
+    @PostMapping("/OutlineScreen/editTrainingContent/{topicCode}/{unitCode}")
+    public ResponseEntity<?> editTrainingContentScreen(@RequestBody TrainingContentDTOCreateOutlineScreen dto,@PathVariable("unitCode") String unitCode,@PathVariable("topicCode") String topicCode){
+        return new ResponseEntity<>(syllabusService.editTrainingContentScreen(topicCode,unitCode,dto), HttpStatus.OK);
     }
     @GetMapping("/OutlineScreen/deleteTrainingContent/{unitCode}")
     public ResponseEntity<?> deleteTrainingContentScreen(@PathVariable("unitCode") String unitCode){

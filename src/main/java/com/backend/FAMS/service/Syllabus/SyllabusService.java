@@ -52,7 +52,7 @@ public interface SyllabusService {
     List<Type> getTypeofLearningObject();
     SyllabusDTOOutline showSyllabusOutlineByTopicCode(String topicCode);
 
-    TrainingContent editTrainingContentScreen(String unitCode, TrainingContentDTOCreateOutlineScreen dto);
+    TrainingContent editTrainingContentScreen(String topicCode, String unitCode, TrainingContentDTOCreateOutlineScreen dto);
     void deleteTrainingContentScreen(String unitCode);
     void deleteTrainingUnitScreen(String unitCode);
 }

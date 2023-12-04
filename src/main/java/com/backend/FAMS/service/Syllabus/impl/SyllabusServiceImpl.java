@@ -861,24 +861,19 @@ public class SyllabusServiceImpl implements SyllabusService {
     }
 
     @Override
-    public TrainingContent editTrainingContentScreen(String unitCode, TrainingContentDTOCreateOutlineScreen dto) {
+    public TrainingContent editTrainingContentScreen(String topicCode, String unitCode, TrainingContentDTOCreateOutlineScreen dto) {
         TrainingContent existingContent = trainingContentRepository.findById(unitCode).orElseThrow();
 
-//        LearningObjective learningObjective = syllabusObjectiveRepository.findLearningObjectivebySyllabusTopicCode(topicCode);
+        LearningObjective learningObjective = syllabusObjectiveRepository.findLearningObjectivebySyllabusTopicCode(topicCode);
+        learningObjective.setType(dto.getType());
+        learningObjectiveRepository.save(learningObjective);
+
         existingContent.setContent(dto.getContent());
-        List<TrainingContent> trainingContent1 = trainingContentRepository.findAll();
-        TrainingContentUtil util = new TrainingContentUtil(trainingContentRepository);
-        long id = util.generateid(trainingContent1);
-        existingContent.setTrainingContentId(id);
-        existingContent.setTrainingUnit(trainingUnitRepository.findById(unitCode).orElseThrow());
-//        learningObjective.setType(dto.getType());
-//        learningObjectiveRepository.save(learningObjective);
-//        trainingContent.setLearningObjective(learningObjectiveRepository.findById(learningObjectCode).orElseThrow());
         existingContent.setDuration(dto.getDuration());
         existingContent.setDeliveryType(dto.getDeliveryType());
         existingContent.setTrainingFormat(dto.getTrainingFormat());
 
-//        existingContent.setLearningObjective(syllabusObjectiveRepository.findBySyllabusTopicCodeAndLearningObjectiveType(topicCode, learningObjective.getType()));
+        existingContent.setLearningObjective(syllabusObjectiveRepository.findBySyllabusTopicCodeAndLearningObjectiveType(topicCode, learningObjective.getType()));
         trainingContentRepository.save(existingContent);
         return existingContent;
     }
