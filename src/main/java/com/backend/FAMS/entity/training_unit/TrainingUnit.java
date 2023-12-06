@@ -29,7 +29,7 @@ public class TrainingUnit {
     // --- relationship----
 
     // n-1 to syllabus
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "topic_code", nullable = false)
     @JsonIgnore
     private Syllabus syllabus;

@@ -14,7 +14,7 @@ import lombok.*;
 @AllArgsConstructor
 public class SyllabusObjective {
     @EmbeddedId
-    private com.backend.FAMS.entity.syllabus.SyllabusObjectiveId syllabusObjectiveId;
+    private com.backend.FAMS.entity.Syllabus.SyllabusObjectiveId syllabusObjectiveId;
 
     // --- relationship----
 
