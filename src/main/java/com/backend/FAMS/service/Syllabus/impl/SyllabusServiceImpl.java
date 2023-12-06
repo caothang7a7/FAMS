@@ -42,11 +42,13 @@ import com.backend.FAMS.service.refreshtoken_service.RefreshTokenService;
 import com.backend.FAMS.util.Syllabus.SyllabusUtil;
 import com.backend.FAMS.util.TrainingContent.TrainingContentUtil;
 import com.backend.FAMS.util.TrainingUnit.TrainingUnitUtil;
+import jakarta.persistence.EntityManager;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.hibernate.internal.SessionImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -54,6 +56,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 import org.supercsv.io.CsvBeanWriter;
@@ -861,6 +864,41 @@ public class SyllabusServiceImpl implements SyllabusService {
             ex.getMessage();
         }
         return dtoOutline;
+    }
+
+
+    @Override
+    @Transactional
+    public boolean deleteSyllabus(String topicCode) {
+        boolean result = true;
+        Optional<Syllabus> syllabusOptional = syllabusRepository.findById(topicCode);
+        if (syllabusOptional.isPresent()) {
+            try{
+                List<SyllabusObjective> syllabusObjective = syllabusObjectiveRepository.findSyllabusObjectiveBySyllabus_TopicCode(topicCode);
+//                for(SyllabusObjective s: syllabusObjective){
+                syllabusObjectiveRepository.deleteAll(syllabusObjective);
+                    syllabusObjectiveRepository.deleteSyllabusObjectiveByTopicCode(topicCode);
+//                }
+                List<TrainingContent> syllabusOptional2 = trainingContentRepository.findTrainingContentByLearningObjective_ObjectiveCode(topicCode);
+
+                for(TrainingContent s: syllabusOptional2){
+                    trainingContentRepository.deleteTrainingContentByLearningObjective_ObjectiveCode(topicCode);
+                }
+                learningObjectiveRepository.deleteLearningObjectiveByCode(topicCode);
+
+
+                Optional<TrainingUnit> syllabusOptional3 = trainingUnitRepository.findById(topicCode);
+                syllabusOptional3.ifPresent(syllabus -> trainingUnitRepository.delete(syllabus));
+
+                 syllabusRepository.deleteSyllabusByTopicCode(topicCode);
+                result = true;
+            }catch (Exception ex){
+                ex.printStackTrace();
+            }
+        } else {
+            result =  false;
+        }
+        return result;
     }
 
     @Override

@@ -111,4 +111,8 @@ public interface SyllabusRepository extends JpaRepository<Syllabus, String> {
     Page<Syllabus> findSyllabusByTopicNameContaining(@Param("topicName1") String keyword1, @Param("topicName2") String keyword2,
                                                      @Param("topicName3") String keyword3, @Param("topicName4") String keyword4,
                                                      @Param("createDate") Date date, Pageable pageable);
+    @Modifying
+    @Query("DELETE FROM Syllabus s WHERE s.topicCode = :topicCode")
+    void deleteSyllabusByTopicCode(@Param("topicCode") String topicCode);
+
 }

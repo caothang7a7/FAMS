@@ -74,6 +74,16 @@ public class SyllabusController {
         response.setHeader(headerKey, headerValue);
         return new ResponseEntity<Syllabus>(syllabusService.exportSyllabusToExcelFile(response, topicCode), HttpStatus.OK);
     }
+    @DeleteMapping("/deleteSyllabus")
+    public ResponseEntity<?> deleteSyllabus(HttpServletResponse response, @RequestParam() String topicCode) throws  Exception{
+        boolean deletionResult = syllabusService.deleteSyllabus(topicCode);
+
+        if (deletionResult) {
+            return new ResponseEntity<>("Syllabus deleted successfully", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Syllabus not found or could not be deleted", HttpStatus.NOT_FOUND);
+        }
+    }
     @PostMapping("/importExcel")
     public ResponseEntity<Syllabus> importSyllabusExcel(@RequestParam() int mode,Authentication authentication,@RequestParam("file")MultipartFile file) throws IOException {
         return new ResponseEntity<>(syllabusService.importSyllabusFromExcel(authentication, file, mode), HttpStatus.OK);

@@ -51,4 +51,5 @@ public interface SyllabusService {
     List<DeliveryType> getDeliverType();
     List<Type> getTypeofLearningObject();
     SyllabusDTOOutline showSyllabusOutlineByTopicCode(String topicCode);
+    boolean deleteSyllabus(String topicCode);
 }

@@ -21,14 +21,14 @@ public class SyllabusObjective {
     // n-1 to syllabus
     @ManyToOne
     @MapsId("topicCode")
-    @JoinColumn(name = "topic_code", insertable = false, updatable = false)
+    @JoinColumn(name = "topic_code", insertable = true, updatable = true)
     @JsonIgnore
     private Syllabus syllabus;
 
     // n-1 to learning_objective
     @ManyToOne
     @MapsId("objectiveCode")
-    @JoinColumn(name = "objective_code", insertable = false, updatable = false)
+    @JoinColumn(name = "objective_code", insertable = true, updatable = true)
     @JsonIgnore
     private LearningObjective learningObjective;
 }
