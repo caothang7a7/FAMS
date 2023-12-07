@@ -117,14 +117,15 @@ public class SyllabusServiceImpl implements SyllabusService {
             String formattedDate = dateFormat.format(syllabus.getCreatedDate());
             dto.setCreatedDate(formattedDate);
             Set<TrainingUnit> trainingUnits = trainingUnitRepository.findBySyllabusTopicCode(syllabus.getTopicCode());
+            int duration = 0;
             for(TrainingUnit tu: trainingUnits){
                 Set<TrainingContent> trainingContentList = trainingContentRepository.findByTrainingUnit_UnitCode(tu.getUnitCode());
-                int duration = 0;
                 for (TrainingContent trainingContent : trainingContentList) {
                     duration += trainingContent.getDuration();
                     dto.setDuration(duration);
                 }
             }
+            dto.setDuration(duration);
             Set<TrainingProgramSyllabus> trainingProgramSyllabi = trainingProgramSyllabusRepository.findAllBySyllabus_TopicCode(syllabus.getTopicCode());
 
             String[][] arr = new String[trainingProgramSyllabi.size()][];
@@ -177,12 +178,16 @@ public class SyllabusServiceImpl implements SyllabusService {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             String formattedDate = dateFormat.format(syllabus.getCreatedDate());
             dto.setCreatedDate(formattedDate);
-            Set<TrainingContent> trainingContentList = trainingContentRepository.findByTrainingUnit_UnitCode(syllabus.getTopicCode());
+            Set<TrainingUnit> trainingUnits = trainingUnitRepository.findBySyllabusTopicCode(syllabus.getTopicCode());
             int duration = 0;
-            for (TrainingContent trainingContent : trainingContentList) {
-                duration += trainingContent.getDuration();
-                dto.setDuration(duration);
+            for(TrainingUnit tu: trainingUnits){
+                Set<TrainingContent> trainingContentList = trainingContentRepository.findByTrainingUnit_UnitCode(tu.getUnitCode());
+                for (TrainingContent trainingContent : trainingContentList) {
+                    duration += trainingContent.getDuration();
+                    dto.setDuration(duration);
+                }
             }
+            dto.setDuration(duration);
             Set<TrainingProgramSyllabus> trainingProgramSyllabi = trainingProgramSyllabusRepository.findAllBySyllabus_TopicCode(syllabus.getTopicCode());
 
             String[][] arr = new String[trainingProgramSyllabi.size()][];
@@ -279,12 +284,16 @@ public class SyllabusServiceImpl implements SyllabusService {
                 // Formatting the date to a string without the time
                 String formattedDate = dateFormat.format(createdDated);
                 dto.setCreatedDate(formattedDate);
-                Set<TrainingContent> trainingContentList = trainingContentRepository.findByTrainingUnit_UnitCode(syllabus.getTopicCode());
+                Set<TrainingUnit> trainingUnits = trainingUnitRepository.findBySyllabusTopicCode(syllabus.getTopicCode());
                 int duration = 0;
-                for (TrainingContent trainingContent : trainingContentList) {
-                    duration += trainingContent.getDuration();
-                    dto.setDuration(duration);
+                for(TrainingUnit tu: trainingUnits){
+                    Set<TrainingContent> trainingContentList = trainingContentRepository.findByTrainingUnit_UnitCode(tu.getUnitCode());
+                    for (TrainingContent trainingContent : trainingContentList) {
+                        duration += trainingContent.getDuration();
+                        dto.setDuration(duration);
+                    }
                 }
+                dto.setDuration(duration);
                 Set<TrainingProgramSyllabus> trainingProgramSyllabi = trainingProgramSyllabusRepository.findAllBySyllabus_TopicCode(syllabus.getTopicCode());
 
                 String[][] arr = new String[trainingProgramSyllabi.size()][];
@@ -310,12 +319,16 @@ public class SyllabusServiceImpl implements SyllabusService {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                 String formattedDate = dateFormat.format(syllabus.getCreatedDate());
                 dto.setCreatedDate(formattedDate);
-                Set<TrainingContent> trainingContentList = trainingContentRepository.findByTrainingUnit_UnitCode(syllabus.getTopicCode());
+                Set<TrainingUnit> trainingUnits = trainingUnitRepository.findBySyllabusTopicCode(syllabus.getTopicCode());
                 int duration = 0;
-                for (TrainingContent trainingContent : trainingContentList) {
-                    duration += trainingContent.getDuration();
-                    dto.setDuration(duration);
+                for(TrainingUnit tu: trainingUnits){
+                    Set<TrainingContent> trainingContentList = trainingContentRepository.findByTrainingUnit_UnitCode(tu.getUnitCode());
+                    for (TrainingContent trainingContent : trainingContentList) {
+                        duration += trainingContent.getDuration();
+                        dto.setDuration(duration);
+                    }
                 }
+                dto.setDuration(duration);
                 Set<TrainingProgramSyllabus> trainingProgramSyllabi = trainingProgramSyllabusRepository.findAllBySyllabus_TopicCode(syllabus.getTopicCode());
 
                 String[][] arr = new String[trainingProgramSyllabi.size()][];
