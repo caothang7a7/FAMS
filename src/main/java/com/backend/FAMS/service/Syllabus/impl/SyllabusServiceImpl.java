@@ -116,11 +116,14 @@ public class SyllabusServiceImpl implements SyllabusService {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             String formattedDate = dateFormat.format(syllabus.getCreatedDate());
             dto.setCreatedDate(formattedDate);
-            Set<TrainingContent> trainingContentList = trainingContentRepository.findByTrainingUnit_UnitCode(syllabus.getTopicCode());
-            int duration = 0;
-            for (TrainingContent trainingContent : trainingContentList) {
-                duration += trainingContent.getDuration();
-                dto.setDuration(duration);
+            Set<TrainingUnit> trainingUnits = trainingUnitRepository.findBySyllabusTopicCode(syllabus.getTopicCode());
+            for(TrainingUnit tu: trainingUnits){
+                Set<TrainingContent> trainingContentList = trainingContentRepository.findByTrainingUnit_UnitCode(tu.getUnitCode());
+                int duration = 0;
+                for (TrainingContent trainingContent : trainingContentList) {
+                    duration += trainingContent.getDuration();
+                    dto.setDuration(duration);
+                }
             }
             Set<TrainingProgramSyllabus> trainingProgramSyllabi = trainingProgramSyllabusRepository.findAllBySyllabus_TopicCode(syllabus.getTopicCode());
 
@@ -876,23 +879,24 @@ public class SyllabusServiceImpl implements SyllabusService {
         Optional<Syllabus> syllabusOptional = syllabusRepository.findById(topicCode);
         if (syllabusOptional.isPresent()) {
             try{
+                Set<TrainingUnit> trainingUnits = trainingUnitRepository.findBySyllabusTopicCode(topicCode);
+               for (TrainingUnit t: trainingUnits){
+                   List<TrainingContent> existingContents = trainingContentRepository.findTrainingContentByTrainingUnit_UnitCode(t.getUnitCode());
+                   if(existingContents != null){
+                       trainingContentRepository.deleteAll(existingContents);
+                   }
+                   TrainingUnit existingUnit = trainingUnitRepository.findById(t.getUnitCode()).orElseThrow();
+                   trainingUnitRepository.delete(existingUnit);
+               }
+
                 List<SyllabusObjective> syllabusObjective = syllabusObjectiveRepository.findSyllabusObjectiveBySyllabus_TopicCode(topicCode);
-//                for(SyllabusObjective s: syllabusObjective){
-                syllabusObjectiveRepository.deleteAll(syllabusObjective);
-                    syllabusObjectiveRepository.deleteSyllabusObjectiveByTopicCode(topicCode);
-//                }
-                List<TrainingContent> syllabusOptional2 = trainingContentRepository.findTrainingContentByLearningObjective_ObjectiveCode(topicCode);
-
-                for(TrainingContent s: syllabusOptional2){
-                    trainingContentRepository.deleteTrainingContentByLearningObjective_ObjectiveCode(topicCode);
+                    syllabusObjectiveRepository.deleteAll(syllabusObjective);
+                for(SyllabusObjective s: syllabusObjective){
+                    learningObjectiveRepository.deleteById(s.getSyllabusObjectiveId().getObjectiveCode());
                 }
-                learningObjectiveRepository.deleteLearningObjectiveByCode(topicCode);
-
-
-                Optional<TrainingUnit> syllabusOptional3 = trainingUnitRepository.findById(topicCode);
-                syllabusOptional3.ifPresent(syllabus -> trainingUnitRepository.delete(syllabus));
-
-                 syllabusRepository.deleteSyllabusByTopicCode(topicCode);
+                Set<TrainingProgramSyllabus> trainingProgramSyllabi = trainingProgramSyllabusRepository.findAllBySyllabus_TopicCode(topicCode);
+                trainingProgramSyllabusRepository.deleteAll(trainingProgramSyllabi);
+                 syllabusRepository.deleteById(topicCode);
                 result = true;
             }catch (Exception ex){
                 ex.printStackTrace();

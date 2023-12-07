@@ -1,5 +1,6 @@
 package com.backend.FAMS.repository.training_content_repo;
 
+import com.backend.FAMS.entity.Syllabus.SyllabusObjective;
 import com.backend.FAMS.entity.training_content.TrainingContent;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -15,11 +16,8 @@ import java.util.Set;
 public interface TrainingContentRepository extends JpaRepository<TrainingContent, String> {
     Set<TrainingContent> findByTrainingUnit_UnitCodeAndTrainingUnitDayNumberOrderByTrainingContentIdAsc(String unitCode,int day);
     TrainingContent findByTrainingUnitUnitCode(String unitCode);
-    Set<TrainingContent>  findByTrainingUnit_UnitCode (String unitCode);
+    Set<TrainingContent> findByTrainingUnit_UnitCode(String unitCode);
     List<TrainingContent> findTrainingContentByLearningObjective_ObjectiveCode(String topicCode);
-
-    @Modifying
-    @Query("DELETE FROM TrainingContent tc WHERE tc.learningObjective.objectiveCode = :objectiveCode")
-    void deleteTrainingContentByLearningObjective_ObjectiveCode(@Param("objectiveCode") String objectiveCode);
+    List<TrainingContent> findTrainingContentByTrainingUnit_UnitCode(String unitCode);
 
 }

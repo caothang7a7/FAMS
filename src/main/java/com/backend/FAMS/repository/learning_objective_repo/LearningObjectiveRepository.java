@@ -10,8 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LearningObjectiveRepository extends JpaRepository<LearningObjective, String> {
     LearningObjective findByObjectiveCode(String topicCode);
-    @Modifying
-    @Query("DELETE FROM LearningObjective lo WHERE lo.objectiveCode = :objectiveCode")
-    void deleteLearningObjectiveByCode(@Param("objectiveCode") String objectiveCode);
 
 }

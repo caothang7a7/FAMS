@@ -32,7 +32,7 @@ public interface SyllabusObjectiveRepository extends JpaRepository<SyllabusObjec
 
     @Transactional
     @Modifying
-    @Query("DELETE FROM SyllabusObjective so WHERE so.syllabus.topicCode = :topicCode")
-    void deleteSyllabusObjectiveByTopicCode(@Param("topicCode") String topicCode);
+    @Query("DELETE FROM SyllabusObjective WHERE syllabus.topicCode = :topicCode")
+    int deleteSyllabusObjectiveByTopicCode(@Param("topicCode") String topicCode);
 
 }
